@@ -35,7 +35,7 @@ public class Experience {
     private String leavingReason;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "candidateId")
+    @JoinColumn(name = "candidate_id")
     private Candidate candidate;
 
 }

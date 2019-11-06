@@ -4,10 +4,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Data;
 
@@ -23,6 +28,7 @@ public class CandidateScreening {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long CandidateScreeningId;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "interview_date")
     private Date InterviewDate;
 
@@ -38,5 +44,12 @@ public class CandidateScreening {
     @Column(name = "screening_status")
     private String ScreeningStatus;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "candidate_id")
+    private Candidate candidate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "job_id")
+    private Job job;
 
 }

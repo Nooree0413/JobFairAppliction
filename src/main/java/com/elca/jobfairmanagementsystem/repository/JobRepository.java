@@ -1,8 +1,11 @@
 package com.elca.jobfairmanagementsystem.repository;
 
+import org.springframework.stereotype.Repository;
+
 /**
  *
  * @author ghr
  */
-public class JobRepository {
+@Repository
+public interface JobRepository {
 }

@@ -1,4 +1,6 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
-public class QualificationServiceImpl {
+import com.elca.jobfairmanagementsystem.service.QualificationService;
+
+public class QualificationServiceImpl implements QualificationService {
 }

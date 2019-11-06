@@ -1,4 +1,4 @@
 package com.elca.jobfairmanagementsystem.entity;
 
-public class Employee {
+public class Employee {xxxxxxx
 }

@@ -39,6 +39,6 @@ public class Candidate {
     @Column
     private String address;
     @Column
-    private String nationality;
+    private String Nationality;
 
 }

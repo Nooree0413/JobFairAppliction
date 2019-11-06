@@ -16,9 +16,10 @@ public class Experience {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="experience_id")
     private Long experienceId;
 
-    @Column
+    @Column(name ="company_name")
     private String companyName;
 
     @Column
@@ -27,7 +28,7 @@ public class Experience {
     @Column
     private String duration;
 
-    @Column
+    @Column(name = "leaving_reason")
     private String leavingReason;
 
 }

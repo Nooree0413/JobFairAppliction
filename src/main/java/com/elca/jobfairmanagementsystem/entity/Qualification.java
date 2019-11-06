@@ -18,6 +18,7 @@ public class Qualification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="qualification_id")
     private Long qualificationId;
 
     @Column
@@ -29,11 +30,11 @@ public class Qualification {
     @Column
     private String institution;
 
-    @Column
+    @Column(name ="date_from")
     @Temporal(TemporalType.DATE)
     private Date dateFrom;
 
-    @Column
+    @Column(name ="date_to")
     @Temporal(TemporalType.DATE)
     private Date dateTo;
 

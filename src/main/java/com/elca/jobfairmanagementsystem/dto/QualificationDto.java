@@ -1,11 +1,9 @@
 package com.elca.jobfairmanagementsystem.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 public class QualificationDto {
 
     private Long qualificationId;

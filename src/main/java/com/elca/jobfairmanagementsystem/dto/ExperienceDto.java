@@ -1,10 +1,8 @@
 package com.elca.jobfairmanagementsystem.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ExperienceDto {
 
     private Long experienceId;

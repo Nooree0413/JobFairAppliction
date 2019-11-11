@@ -9,5 +9,6 @@ public interface ExperienceMapper {
 
     Experience ExperienceDtoToEntity(ExperienceDto experienceDto);
 
-    ExperienceDto EntityToExperienceDto(Experience experience); }
+    ExperienceDto ExperienceEntityToDto(Experience experience);
+}
 

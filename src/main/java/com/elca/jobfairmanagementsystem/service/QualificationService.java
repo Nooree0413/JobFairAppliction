@@ -1,10 +1,17 @@
 package com.elca.jobfairmanagementsystem.service;
 
 import com.elca.jobfairmanagementsystem.dto.QualificationDto;
+import com.elca.jobfairmanagementsystem.entity.Qualification;
 import java.util.List;
 
 public interface QualificationService {
 
-    List<QualificationDto> findAllQualifications();
+    List<QualificationDto> searchAllQualifications();
+
+    Qualification saveQualification(QualificationDto qualificationDto);
+
+    void deleteQualification(Long qualificationId);
+
+    void updateQualification(QualificationDto qualificationDto);
 
 }

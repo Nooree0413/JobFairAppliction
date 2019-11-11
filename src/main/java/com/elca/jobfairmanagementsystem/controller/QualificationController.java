@@ -23,7 +23,7 @@ public class QualificationController {
 
     @GetMapping("/all")
     public ResponseEntity<List<QualificationDto>> getAllQualifications(){
-        return new ResponseEntity<>(qualificationService.findAllQualifications(), HttpStatus.FOUND);
+        return new ResponseEntity<>(qualificationService.searchAllQualifications(), HttpStatus.FOUND);
     }
 
 }

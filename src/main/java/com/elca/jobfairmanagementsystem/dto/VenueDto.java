@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Data
 public class VenueDto {
 
@@ -20,4 +22,5 @@ public class VenueDto {
     private boolean status;
 
     private Set<JobDto> jobs = new HashSet<>();
+
 }

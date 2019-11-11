@@ -19,15 +19,20 @@ public class ExperienceDto {
 
     private Candidate candidate;
 
+    @JsonProperty
+    private Long getCandidateId(){
+
+        if (candidate == null) {
+            return null;
+        }
+
+        return candidate.getCandidateId();
+    }
+
     @JsonProperty("candidateId")
     private void setCandidateId(Long candidateId){
         candidate = new Candidate();
         candidate.setCandidateId(candidateId);
     }
 
-    @JsonProperty
-    private Long getCandidateId(){
-        candidate = new Candidate();
-        return candidate.getCandidateId();
-    }
  }

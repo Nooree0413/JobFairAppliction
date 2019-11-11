@@ -2,6 +2,7 @@ package com.elca.jobfairmanagementsystem.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class Venue {
     private String venueName;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private DateTimeFormat startDate;
 
     @Column(name = "end_date")
     private Date endDate;

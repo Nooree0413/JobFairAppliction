@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -20,4 +21,5 @@ public class VenueDto {
     private boolean status;
 
     private Set<JobDto> jobs = new HashSet<>();
+
 }

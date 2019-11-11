@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -19,4 +20,5 @@ public class JobDto {
     private String qualificationNeeded;
 
     private Set<VenueDto> venues = new HashSet<>();
+
 }

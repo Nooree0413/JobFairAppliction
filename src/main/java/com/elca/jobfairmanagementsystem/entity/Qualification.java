@@ -5,11 +5,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- *
- * @author koo
- */
-
 @Getter
 @Setter
 @Entity
@@ -38,4 +33,7 @@ public class Qualification {
     @Temporal(TemporalType.DATE)
     private Date dateTo;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "candidate_id")
+    private Candidate candidate;
 }

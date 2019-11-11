@@ -1,17 +1,16 @@
 package com.elca.jobfairmanagementsystem.dto;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author ghr
  */
 @Data
+@NoArgsConstructor
 public class CandidateScreeningDto {
     private Long CandidateScreeningId;
     private Data InterviewDate;
@@ -19,4 +18,6 @@ public class CandidateScreeningDto {
     private String InterviewerName;
     private String InterviewerFeedback;
     private String ScreeningStatus;
+    private Long jobId;
+    private Long candidateDto;
 }

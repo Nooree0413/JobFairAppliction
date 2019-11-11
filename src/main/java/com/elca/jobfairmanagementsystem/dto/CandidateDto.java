@@ -1,6 +1,10 @@
 package com.elca.jobfairmanagementsystem.dto;
 
+import com.elca.jobfairmanagementsystem.entity.Skill;
 import lombok.Data;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -15,6 +19,7 @@ public class CandidateDto {
     private int mobileNo;
     private int phoneNo;
     private String address;
-    private String Nationality;
+    private String nationality;
 
+    private Set<SkillDto> skills = new HashSet<>();
 }

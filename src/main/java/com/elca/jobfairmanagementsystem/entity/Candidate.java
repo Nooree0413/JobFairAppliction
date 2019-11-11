@@ -1,11 +1,12 @@
 package com.elca.jobfairmanagementsystem.entity;
 
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -22,24 +23,29 @@ public class Candidate {
     @Column(name = "candidate_id")
     private Long candidateId;
 
-    @Column
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column
+    @Column(name = "last_name")
     private String lastName;
 
-    @Size(max = 50)
-    @Email
+    @Column(name = "email")
     private String email;
 
-    @Column
+    @Column(name = "mobile_no")
     private int mobileNo;
 
-    @Column
+
+    @Column(name = "phone_no")
     private int phoneNo;
-    @Column
+
+    @Column(name = "address")
     private String address;
-    @Column
+
+    @Column(name = "nationality")
     private String Nationality;
+
+    @ManyToMany(mappedBy = "candidates")
+    private Set<Skill> skills = new HashSet<>();
 
 }

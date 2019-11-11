@@ -4,10 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 
-/**
- *
- * @author koo
- */
 @Getter
 @Setter
 @Entity
@@ -31,4 +27,7 @@ public class Experience {
     @Column(name = "leaving_reason")
     private String leavingReason;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "candidate_id")
+    private Candidate candidate;
 }

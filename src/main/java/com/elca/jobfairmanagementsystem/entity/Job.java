@@ -1,13 +1,19 @@
 package com.elca.jobfairmanagementsystem.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 
-@Getter
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ *
+ * @author ghr
+ */
 @Setter
+@Getter
 @Entity
 @Table(name = "job")
 public class Job {
@@ -23,8 +29,11 @@ public class Job {
     private String description;
 
     @Column(name = "minimum_experience")
-    private String  minimumExperience;
+    private String minimumExperience;
 
-    @Column(name = "qualification_needed")
-    private String qualificationNeeded;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "venue_job",
+            joinColumns = { @JoinColumn(name = "job_id") },
+            inverseJoinColumns = { @JoinColumn(name = "venue_id") })
+    private Set<Venue> venues = new HashSet<>();
 }

@@ -19,5 +19,5 @@ public class VenueDto {
 
     private boolean status;
 
-    private Set<JobDto> venues = new HashSet<>();
+    private Set<JobDto> jobs = new HashSet<>();
 }

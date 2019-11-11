@@ -6,15 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
  * @author bfk
  */
 
 @Data
 public class SkillDto {
     private int skillId;
-    private String  skillDescription;
-    private  String skillName;
-
+    private String skillDescription;
+    private String skillName;
     private Set<CandidateDto> candidates = new HashSet<>();
 }

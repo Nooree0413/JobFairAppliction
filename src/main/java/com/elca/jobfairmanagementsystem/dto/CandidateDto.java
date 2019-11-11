@@ -15,6 +15,6 @@ public class CandidateDto {
     private int mobileNo;
     private int phoneNo;
     private String address;
-    private String Nationality;
+    private String nationality;
 
 }

@@ -9,5 +9,5 @@ public interface QualificationMapper {
 
     Qualification qualificationDtoToEntity(QualificationDto qualificationDto);
 
-    QualificationDto entityToQualificationDto(Qualification qualification);
+    QualificationDto qualificationEntityToDto(Qualification qualification);
 }

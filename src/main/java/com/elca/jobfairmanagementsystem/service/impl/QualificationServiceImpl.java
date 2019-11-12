@@ -22,18 +22,31 @@ public class QualificationServiceImpl implements QualificationService {
     }
 
     @Override
-    public List<QualificationDto> findAllQualifications() {
+    public List<QualificationDto> searchAllQualifications() {
 
         List<Qualification> qualifications = qualificationRepo.findAll();
 
-        if (qualifications.size() != 0){
+        if (qualifications.size() != 0) {
 
             return qualifications.stream()
-                                 .map(qualificationMapper::entityToQualificationDto)
-                                 .collect(Collectors.toList());
-        }
-
-        else
+                    .map(qualificationMapper::qualificationEntityToDto)
+                    .collect(Collectors.toList());
+        } else
             return null;
+    }
+
+    @Override
+    public Qualification saveQualification(QualificationDto qualificationDto) {
+        return null;
+    }
+
+    @Override
+    public void deleteQualification(Long qualificationId) {
+
+    }
+
+    @Override
+    public void updateQualification(QualificationDto qualificationDto) {
+
     }
 }

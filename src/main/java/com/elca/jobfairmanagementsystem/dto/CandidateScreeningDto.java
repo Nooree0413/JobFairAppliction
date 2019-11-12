@@ -19,5 +19,5 @@ public class CandidateScreeningDto {
     private String InterviewerFeedback;
     private String ScreeningStatus;
     private Long jobId;
-    private Long candidateDto;
+    private Long candidateId;
 }

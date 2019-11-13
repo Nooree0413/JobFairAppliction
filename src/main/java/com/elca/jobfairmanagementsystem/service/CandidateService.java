@@ -14,6 +14,6 @@ public interface CandidateService {
     List<CandidateDto> searchAllCandidate();
     void saveCandidate(CandidateDto candidateDto);
     void deleteCandidate(Long candidateId);
-    void updateCandidate(Long candidateId);
+    void updateCandidate(CandidateDto candidateDto);
     CandidateDto searchCandidateById (Long candidateId);
 }

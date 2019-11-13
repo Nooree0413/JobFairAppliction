@@ -50,14 +50,14 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public void updateCandidate(Long candidateId) {
-
-    }
-
-    @Override
     public CandidateDto searchCandidateById(Long candidateId) {
         Optional<Candidate> findOneCandidate = candidateRepository.findById(candidateId);
         var candidate = findOneCandidate.orElse(null);
         return candidateMapper.candidateEntityToCandidateDto(candidate);
+    }
+    @Override
+    public void updateCandidate(CandidateDto candidateDto) {
+        CandidateDto candidate = searchCandidateById(candidateDto.getCandidateId());
+        saveCandidate(candidate);
     }
 }

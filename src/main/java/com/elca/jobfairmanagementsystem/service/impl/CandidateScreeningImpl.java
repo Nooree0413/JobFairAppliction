@@ -19,4 +19,19 @@ public class CandidateScreeningImpl implements CandidateScreeningService {
     public List<CandidateScreeningDto> findAllCandidateScreening() {
         return null;
     }
+
+    @Override
+    public void deleteCandidateScreening(CandidateScreeningDto candidateScreeningDto) {
+
+    }
+
+    @Override
+    public void updateCandidateScreening(CandidateScreeningDto candidateScreeningDto) {
+
+    }
+
+    @Override
+    public CandidateScreeningDto findByCandidateScreeningId(Long candidateScreeningId) {
+        return null;
+    }
 }

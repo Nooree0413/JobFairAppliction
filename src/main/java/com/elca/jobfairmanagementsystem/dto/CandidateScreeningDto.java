@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  *
  * @author ghr
@@ -13,11 +15,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CandidateScreeningDto {
     private Long CandidateScreeningId;
-    private Data InterviewDate;
+    private Date InterviewDate;
     private String PositionJob;
     private String InterviewerName;
     private String InterviewerFeedback;
     private String ScreeningStatus;
-    private Long jobId;
+    private Long venueJobId;
     private Long candidateId;
 }

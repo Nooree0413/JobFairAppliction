@@ -4,12 +4,16 @@ import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
 import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import com.elca.jobfairmanagementsystem.mapper.VenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.VenueJobRepository;
-import com.elca.jobfairmanagementsystem.repository.VenueRepository;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Service
+@Transactional
 public class VenueJobServiceImpl implements VenueJobService {
 
     private final VenueJobRepository venueJobRepository;
@@ -22,28 +26,39 @@ public class VenueJobServiceImpl implements VenueJobService {
 
     @Override
     public void saveVenueJob(VenueJobDto venueJobDto) {
-//        var saveVenueJobData = venueJobMapper.venueJobDtoToEntity(venueJobDto);
-
+        var saveVenueJobData = venueJobMapper.venueJobDtoToEntity(venueJobDto);
+        venueJobRepository.save(saveVenueJobData);
     }
 
     @Override
     public VenueJobDto searchVenueJobById(Long venueJobId) {
-//        List<Long> getVenueJobById = venueJobRepository.findAll();
-        return null;
+        Optional<VenueJob> getVenueJobById = venueJobRepository.findById(venueJobId);
+        var venueJob = getVenueJobById.orElse(null);
+        if(venueJob != null){
+            return venueJobMapper.venueJobEntityToDto(venueJob);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public List<VenueJobDto> searchAllVenueJobs() {
-        return null;
+        List<VenueJob> getVenueJobList = venueJobRepository.findAll();
+        return getVenueJobList.stream()
+                .map(venueJobMapper::venueJobEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void updateVenueJob(VenueJobDto venueJobDto) {
-
+        var getVenueJobId = searchVenueJobById(venueJobDto.getVenueJobId());
+        getVenueJobId.setJobId(venueJobDto.getJobId());
+        getVenueJobId.setVenueId(venueJobDto.getVenueId());
+        venueJobRepository.save(venueJobMapper.venueJobDtoToEntity(getVenueJobId));
     }
 
     @Override
     public void deleteVenueJob(Long venueJobId) {
-
+        venueJobRepository.deleteById(venueJobId);
     }
 }

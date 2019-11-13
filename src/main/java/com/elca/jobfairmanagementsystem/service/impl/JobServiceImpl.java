@@ -5,11 +5,15 @@ import com.elca.jobfairmanagementsystem.entity.Job;
 import com.elca.jobfairmanagementsystem.mapper.JobMapper;
 import com.elca.jobfairmanagementsystem.repository.JobRepository;
 import com.elca.jobfairmanagementsystem.service.JobService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
+@Transactional
 public class JobServiceImpl implements JobService {
 
     private final JobRepository jobRepository;

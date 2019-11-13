@@ -8,22 +8,21 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class ErrorHandler {
 
-    private Error buildError(Exception ex, int status){
+    private Error buildError(Exception ex, int status) {
 
         return new Error(ex.getMessage(), ex.getClass().getCanonicalName(), status);
     }
 
 
-    ResponseEntity<Error> unHandledException(Exception ex, WebRequest request){
+    ResponseEntity<Error> unHandledException(Exception ex, WebRequest request) {
         int status = 500;
-        Error error = buildError(ex,status);
+        Error error = buildError(ex, status);
         return ResponseEntity.status(status).body(error);
     }
 
 
-
     @ExceptionHandler(QualificationNotFoundException.class)
-    ResponseEntity<Error> qualificationNotFoundException(Exception ex, WebRequest request){
+    ResponseEntity<Error> qualificationNotFoundException(Exception ex, WebRequest request) {
 
         int status = 404;
         Error error = buildError(ex, status);
@@ -31,16 +30,12 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler(ExperienceNotFoundException.class)
-    ResponseEntity<Error> experienceNotFoundException(Exception ex, WebRequest request){
+    ResponseEntity<Error> experienceNotFoundException(Exception ex, WebRequest request) {
 
         int status = 404;
         Error error = buildError(ex, status);
         return ResponseEntity.status(status).body(error);
     }
-
-
-
-
 
 
 }

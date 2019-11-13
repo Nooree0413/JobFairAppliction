@@ -30,4 +30,7 @@ public class Job {
 
     @Column(name = "minimum_experience")
     private String minimumExperience;
+
+    @Column(name = "qualification_needed")
+    private String qualificationNeeded;
 }

@@ -19,6 +19,4 @@ public class JobDto {
 
     private String qualificationNeeded;
 
-    private Set<VenueDto> venues = new HashSet<>();
-
 }

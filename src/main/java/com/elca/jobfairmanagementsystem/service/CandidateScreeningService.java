@@ -10,4 +10,7 @@ import com.elca.jobfairmanagementsystem.dto.CandidateScreeningDto;
  */
 public interface CandidateScreeningService {
     List<CandidateScreeningDto> findAllCandidateScreening ();
+    void deleteCandidateScreening(CandidateScreeningDto candidateScreeningDto);
+    void updateCandidateScreening(CandidateScreeningDto candidateScreeningDto);
+    CandidateScreeningDto findByCandidateScreeningId(Long candidateScreeningId);
 }

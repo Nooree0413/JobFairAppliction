@@ -1,6 +1,7 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.ExperienceDto;
+import com.elca.jobfairmanagementsystem.dto.QualificationDto;
 import com.elca.jobfairmanagementsystem.exception.ExperienceNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.NoContentException;
 import com.elca.jobfairmanagementsystem.service.ExperienceService;
@@ -26,6 +27,11 @@ public class ExperienceController {
         return new ResponseEntity<>(experienceService.searchAllExperience(), HttpStatus.FOUND);
     }
 
+    @GetMapping("/details/{experienceId}")
+    public ResponseEntity<ExperienceDto> searchExperienceById(@PathVariable Long experienceId) throws ExperienceNotFoundException{
+        return new ResponseEntity<>(experienceService.findByExperienceId(experienceId),HttpStatus.FOUND);
+    }
+
     @PostMapping("/addExperience")
     public ResponseEntity<Void> saveExperience(@RequestBody ExperienceDto experienceDto){
         experienceService.saveExperience(experienceDto);
@@ -39,7 +45,11 @@ public class ExperienceController {
     }
 
     @DeleteMapping("/remove/{experienceId}")
-    public ResponseEntity<Void> deleteExperience(@PathVariable Integer experienceId){
+    public ResponseEntity<Void> deleteExperience(@PathVariable Long experienceId){
+        experienceService.deleteExperience(experienceId);
         return new ResponseEntity<>(null,HttpStatus.ACCEPTED);
     }
+
+
+
 }

@@ -23,7 +23,8 @@ public class Venue {
     private String venueName;
 
     @Column(name = "start_date")
-    private DateTimeFormat startDate;
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
 
     @Column(name = "end_date")
     private Date endDate;

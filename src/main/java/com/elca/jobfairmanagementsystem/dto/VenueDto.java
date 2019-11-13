@@ -21,7 +21,4 @@ public class VenueDto {
     private Date endDate;
 
     private boolean status;
-
-    private Set<JobDto> jobs = new HashSet<>();
-
 }

@@ -3,12 +3,15 @@ package com.elca.jobfairmanagementsystem.mapper;
 import com.elca.jobfairmanagementsystem.dto.ExperienceDto;
 import com.elca.jobfairmanagementsystem.entity.Experience;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ExperienceMapper {
 
-    Experience ExperienceDtoToEntity(ExperienceDto experienceDto);
+    @Mapping(target = "candidate.candidateId", source = "experienceDto.candidateId")
+    Experience experienceDtoToEntity(ExperienceDto experienceDto);
 
-    ExperienceDto ExperienceEntityToDto(Experience experience);
+    @Mapping(target = "candidateId", source = "experience.candidate.candidateId")
+    ExperienceDto experienceEntityToDto(Experience experience);
 }
 

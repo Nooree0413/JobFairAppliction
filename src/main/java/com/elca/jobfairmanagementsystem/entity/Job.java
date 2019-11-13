@@ -30,10 +30,4 @@ public class Job {
 
     @Column(name = "minimum_experience")
     private String minimumExperience;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "venue_job",
-            joinColumns = { @JoinColumn(name = "job_id") },
-            inverseJoinColumns = { @JoinColumn(name = "venue_id") })
-    private Set<Venue> venues = new HashSet<>();
 }

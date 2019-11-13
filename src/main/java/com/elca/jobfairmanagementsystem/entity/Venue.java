@@ -23,14 +23,11 @@ public class Venue {
     private String venueName;
 
     @Column(name = "start_date")
-    private DateTimeFormat startDate;
+    private Date startDate;
 
     @Column(name = "end_date")
     private Date endDate;
 
     @Column
     private boolean status;
-
-    @ManyToMany(mappedBy = "venues")
-    private Set<Job> jobs = new HashSet<>();
 }

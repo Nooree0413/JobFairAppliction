@@ -11,4 +11,6 @@ import com.elca.jobfairmanagementsystem.entity.Skill;
  */
 @Repository
 public interface SkillRepository extends JpaRepository<Skill ,Long > {
+
+
 }

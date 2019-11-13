@@ -1,8 +1,11 @@
 package com.elca.jobfairmanagementsystem.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.elca.jobfairmanagementsystem.dto.SkillDto;
+import com.elca.jobfairmanagementsystem.mapper.SkillMapper;
+import com.elca.jobfairmanagementsystem.service.SkillService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -13,4 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/skill/")
 public class SkillController {
+    private final SkillService skillService;
+    private final SkillMapper skillMapper;
+
+    public SkillController(SkillService skillService, SkillMapper skillMapper){
+        this.skillMapper=skillMapper;
+        this.skillService=skillService;
+    }
+    @PostMapping()
+    public ResponseEntity saveSkill(@RequestBody SkillDto skillDto){
+        skillService.saveSkill(skillDto);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+//    @PutMapping(".update/{id}")
+//    public ResponseEntity updateSkill
 }

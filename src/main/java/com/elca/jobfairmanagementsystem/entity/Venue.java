@@ -23,6 +23,7 @@ public class Venue {
     private String venueName;
 
     @Column(name = "start_date")
+    @Temporal(TemporalType.DATE)
     private Date startDate;
 
     @Column(name = "end_date")
@@ -30,4 +31,7 @@ public class Venue {
 
     @Column
     private boolean status;
+
+    @ManyToMany(mappedBy = "venues")
+    private Set<Job> jobs = new HashSet<>();
 }

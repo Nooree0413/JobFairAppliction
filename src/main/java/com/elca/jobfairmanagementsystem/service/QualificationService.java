@@ -8,10 +8,13 @@ public interface QualificationService {
 
     List<QualificationDto> searchAllQualifications();
 
-    Qualification saveQualification(QualificationDto qualificationDto);
+    QualificationDto findByQualificationId(Long qualificationId);
+
+    void saveQualification(QualificationDto qualificationDto);
 
     void deleteQualification(Long qualificationId);
 
     void updateQualification(QualificationDto qualificationDto);
+
 
 }

@@ -1,7 +1,5 @@
 package com.elca.jobfairmanagementsystem.dto;
 
-import com.elca.jobfairmanagementsystem.entity.Candidate;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
@@ -16,5 +14,5 @@ public class ExperienceDto {
 
     private String leavingReason;
 
-    private Candidate candidate;
+    private Long candidateId;
  }

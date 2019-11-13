@@ -6,11 +6,14 @@ import com.elca.jobfairmanagementsystem.mapper.QualificationMapper;
 import com.elca.jobfairmanagementsystem.repository.QualificationRepository;
 import com.elca.jobfairmanagementsystem.service.QualificationService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class QualificationServiceImpl implements QualificationService {
 
     private final QualificationRepository qualificationRepo;
@@ -35,13 +38,18 @@ public class QualificationServiceImpl implements QualificationService {
             return null;
     }
 
+
     @Override
-    public Qualification saveQualification(QualificationDto qualificationDto) {
-        return null;
+    public void saveQualification(QualificationDto qualificationDto) {
+
+        Qualification qualification = qualificationMapper.qualificationDtoToEntity(qualificationDto);
+        qualificationRepo.save(qualification);
     }
 
     @Override
     public void deleteQualification(Long qualificationId) {
+
+        qualificationRepo.deleteById(qualificationId);
 
     }
 
@@ -49,4 +57,17 @@ public class QualificationServiceImpl implements QualificationService {
     public void updateQualification(QualificationDto qualificationDto) {
 
     }
+
+
+    @Override
+    public QualificationDto findByQualificationId(Long qualificationId) {
+
+        Optional<Qualification> optionalQualification = qualificationRepo.findById(qualificationId);
+
+        var qualification = optionalQualification.orElse(null);
+
+        return qualificationMapper.qualificationEntityToDto(qualification);
+    }
+
+
 }

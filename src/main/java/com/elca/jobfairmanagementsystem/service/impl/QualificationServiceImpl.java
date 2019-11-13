@@ -26,11 +26,8 @@ public class QualificationServiceImpl implements QualificationService {
 
     @Override
     public List<QualificationDto> searchAllQualifications() {
-
         List<Qualification> qualifications = qualificationRepo.findAll();
-
         if (qualifications.size() != 0) {
-
             return qualifications.stream()
                     .map(qualificationMapper::qualificationEntityToDto)
                     .collect(Collectors.toList());
@@ -38,36 +35,25 @@ public class QualificationServiceImpl implements QualificationService {
             return null;
     }
 
-
     @Override
     public void saveQualification(QualificationDto qualificationDto) {
-
         Qualification qualification = qualificationMapper.qualificationDtoToEntity(qualificationDto);
         qualificationRepo.save(qualification);
     }
 
     @Override
     public void deleteQualification(Long qualificationId) {
-
         qualificationRepo.deleteById(qualificationId);
-
     }
 
     @Override
     public void updateQualification(QualificationDto qualificationDto) {
-
     }
-
 
     @Override
     public QualificationDto findByQualificationId(Long qualificationId) {
-
         Optional<Qualification> optionalQualification = qualificationRepo.findById(qualificationId);
-
         var qualification = optionalQualification.orElse(null);
-
         return qualificationMapper.qualificationEntityToDto(qualification);
     }
-
-
 }

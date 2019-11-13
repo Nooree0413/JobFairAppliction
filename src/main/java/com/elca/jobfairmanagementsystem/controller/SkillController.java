@@ -22,7 +22,7 @@ public class SkillController {
     public SkillController(SkillService skillService){
         this.skillService=skillService;
     }
-    @PostMapping("/addSkill")
+    @PostMapping("addSkill")
     public ResponseEntity saveSkill(@RequestBody SkillDto skillDto){
         skillService.saveSkill(skillDto);
         return new ResponseEntity(HttpStatus.CREATED);

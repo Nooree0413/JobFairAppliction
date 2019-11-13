@@ -32,6 +32,4 @@ public class Venue {
     @Column
     private boolean status;
 
-    @ManyToMany(mappedBy = "venues")
-    private Set<Job> jobs = new HashSet<>();
 }

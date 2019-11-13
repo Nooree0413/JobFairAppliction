@@ -17,9 +17,9 @@ public class VenueJob {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venue_id")
-    private Venue venueId;
+    private Venue venue;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")
-    private Job jobId;
+    private Job job;
 }

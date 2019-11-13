@@ -25,4 +25,10 @@ public class VenueJobController {
         return new ResponseEntity<>(venueService.searchAllVenue(), HttpStatus.FOUND);
     }
 
+    @PostMapping
+    public ResponseEntity<Void> saveVenue(@RequestBody VenueDto venueDto){
+        venueService.saveVenue(venueDto);
+        return new ResponseEntity<>(null , HttpStatus.CREATED);
+    }
+
 }

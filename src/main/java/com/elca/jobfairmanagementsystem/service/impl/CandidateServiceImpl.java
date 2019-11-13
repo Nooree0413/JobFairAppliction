@@ -55,9 +55,21 @@ public class CandidateServiceImpl implements CandidateService {
         var candidate = findOneCandidate.orElse(null);
         return candidateMapper.candidateEntityToCandidateDto(candidate);
     }
+
     @Override
     public void updateCandidate(CandidateDto candidateDto) {
         CandidateDto candidate = searchCandidateById(candidateDto.getCandidateId());
-        saveCandidate(candidate);
+        if (candidate != null) {
+            candidate.setAddress(candidateDto.getAddress());
+            candidate.setFirstName(candidateDto.getFirstName());
+            candidate.setLastName(candidateDto.getLastName());
+            candidate.setEmail(candidateDto.getEmail());
+            candidate.setMobileNo(candidateDto.getMobileNo());
+            candidate.setNationality(candidateDto.getNationality());
+            candidate.setSkills(candidateDto.getSkills());
+            candidate.setPhoneNo(candidateDto.getPhoneNo());
+            saveCandidate(candidate);
+        } else {
+        }
     }
 }

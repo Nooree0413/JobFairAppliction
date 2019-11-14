@@ -20,5 +20,4 @@ public class CandidateDto {
     private int phoneNo;
     private String address;
     private String nationality;
-    private Set<SkillDto> skills = new HashSet<>();
 }

@@ -52,8 +52,8 @@ public class VenueJobServiceImpl implements VenueJobService {
     @Override
     public void updateVenueJob(VenueJobDto venueJobDto) {
         var getVenueJobId = searchVenueJobById(venueJobDto.getVenueJobId());
-        getVenueJobId.setJobId(venueJobDto.getJobId());
-        getVenueJobId.setVenueId(venueJobDto.getVenueId());
+        getVenueJobId.setJob(venueJobDto.getJob());
+        getVenueJobId.setVenue(venueJobDto.getVenue());
         venueJobRepository.save(venueJobMapper.venueJobDtoToEntity(getVenueJobId));
     }
 

@@ -66,7 +66,6 @@ public class CandidateServiceImpl implements CandidateService {
             candidate.setEmail(candidateDto.getEmail());
             candidate.setMobileNo(candidateDto.getMobileNo());
             candidate.setNationality(candidateDto.getNationality());
-            candidate.setSkills(candidateDto.getSkills());
             candidate.setPhoneNo(candidateDto.getPhoneNo());
             saveCandidate(candidate);
         } else {

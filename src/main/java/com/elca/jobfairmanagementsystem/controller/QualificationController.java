@@ -4,10 +4,8 @@ import com.elca.jobfairmanagementsystem.dto.QualificationDto;
 import com.elca.jobfairmanagementsystem.service.QualificationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -26,4 +24,26 @@ public class QualificationController {
         return new ResponseEntity<>(qualificationService.searchAllQualifications(), HttpStatus.FOUND);
     }
 
+    @GetMapping("/{qualificationId}")
+    public ResponseEntity<QualificationDto>getQualificationById(@PathVariable Long qualificationId){
+        return new ResponseEntity<>(qualificationService.findByQualificationId(qualificationId), HttpStatus.FOUND);
+    }
+
+    @PostMapping
+    public ResponseEntity saveQualification(@RequestBody QualificationDto qualificationDto){
+        qualificationService.saveQualification(qualificationDto);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{qualificationId}")
+    public ResponseEntity updateQualification(@RequestBody QualificationDto qualificationDto){
+        qualificationService.updateQualification(qualificationDto);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{qualificationId}")
+    public ResponseEntity deleteQualification(@PathVariable Long qualificationId){
+        qualificationService.deleteQualification(qualificationId);
+        return new ResponseEntity(HttpStatus.ACCEPTED);
+    }
 }

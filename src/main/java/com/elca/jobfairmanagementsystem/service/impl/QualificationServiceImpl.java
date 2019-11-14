@@ -48,6 +48,14 @@ public class QualificationServiceImpl implements QualificationService {
 
     @Override
     public void updateQualification(QualificationDto qualificationDto) {
+        var updateQualification = findByQualificationId(qualificationDto.getQualificationId());
+        updateQualification.setCandidateId(qualificationDto.getCandidateId());
+        updateQualification.setTitle(qualificationDto.getTitle());
+        updateQualification.setResult(qualificationDto.getResult());
+        updateQualification.setInstitution(qualificationDto.getInstitution());
+        updateQualification.setDateTo(qualificationDto.getDateTo());
+        updateQualification.setDateFrom(qualificationDto.getDateFrom());
+        qualificationRepo.save(qualificationMapper.qualificationDtoToEntity(updateQualification));
     }
 
     @Override

@@ -15,32 +15,39 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/skill/")
+@RequestMapping("/skill")
 public class SkillController {
-    private final SkillService skillService;
 
+    private final SkillService skillService;
     public SkillController(SkillService skillService){
         this.skillService=skillService;
     }
-    @PostMapping("addSkill")
+
+    @PostMapping
     public ResponseEntity saveSkill(@RequestBody SkillDto skillDto){
         skillService.saveSkill(skillDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @PutMapping("update/{skillId}")
+    @PutMapping("/{skillId}")
     public ResponseEntity updateSkill(@RequestBody SkillDto skillDto){
         skillService.updateSkill(skillDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("getSkill/{skillId}")
+    @GetMapping("/{skillId}")
     public ResponseEntity<SkillDto> getSkillById(@PathVariable Long skillId){
         return new ResponseEntity<>(skillService.findSkillById(skillId),HttpStatus.FOUND);
     }
 
-    @GetMapping("allSkills")
+    @GetMapping("/all")
     public ResponseEntity<List<SkillDto>> getAllSkills(){
         return new ResponseEntity<>(skillService.searchAllSkills(),HttpStatus.FOUND);
+    }
+
+    @DeleteMapping("/{skillId}")
+    public ResponseEntity deleteSkill(@PathVariable Long skillId){
+        skillService.deleteSkill(skillId);
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }

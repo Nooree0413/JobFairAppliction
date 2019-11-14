@@ -14,5 +14,4 @@ public class SkillDto {
     private int skillId;
     private String skillDescription;
     private String skillName;
-    private Set<CandidateDto> candidates = new HashSet<>();
 }

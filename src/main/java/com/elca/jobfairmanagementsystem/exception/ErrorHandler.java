@@ -37,5 +37,13 @@ public class ErrorHandler {
         return ResponseEntity.status(status).body(error);
     }
 
+//    @ExceptionHandler(NoContentException.class)
+//    ResponseEntity<Error> NoContentNotFoundException(Exception ex, WebRequest request) {
+//
+//        int status = 404;
+//        Error error = buildError(ex, status);
+//        return ResponseEntity.status(status).body(error);
+//    }
+
 
 }

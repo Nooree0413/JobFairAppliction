@@ -22,7 +22,7 @@ import com.elca.jobfairmanagementsystem.service.CandidateService;
  */
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/candidate/")
+@RequestMapping("/candidate")
 public class CandidateController {
     private final CandidateService candidateService;
 
@@ -31,26 +31,26 @@ public class CandidateController {
     }
 
     //get all candidate
-    @GetMapping("all")
+    @GetMapping("/all")
     public ResponseEntity<List<CandidateDto>> getAllCandidates() {
         return new ResponseEntity<>(candidateService.searchAllCandidate(), HttpStatus.FOUND);
     }
 
     //add new candidate
-    @PostMapping("add")
+    @PostMapping("/add")
     public ResponseEntity saveNewCandidate(@RequestBody CandidateDto candidateDto) {
         candidateService.saveCandidate(candidateDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     //update candidate
-    @PutMapping("update/{candidateId}")
+    @PutMapping("/update/{candidateId}")
     public ResponseEntity updateCandidate(@RequestBody CandidateDto candidateDto) {
         candidateService.updateCandidate(candidateDto);
         return new ResponseEntity(HttpStatus.OK);
     }
     //find candidate by id
-    @GetMapping("getOneCandidate/{candidateId}")
+    @GetMapping("/getOneCandidate/{candidateId}")
     public ResponseEntity<CandidateDto> getOneCandidate(@PathVariable Long candidateId){
         return  new ResponseEntity<>(candidateService.searchCandidateById(candidateId),HttpStatus.FOUND);
     }

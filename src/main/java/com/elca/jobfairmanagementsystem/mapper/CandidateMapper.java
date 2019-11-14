@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateDto;
 import com.elca.jobfairmanagementsystem.entity.Candidate;
+import org.mapstruct.Mapping;
 
 /**
  * @author ghr
@@ -11,7 +12,5 @@ import com.elca.jobfairmanagementsystem.entity.Candidate;
 @Mapper(componentModel = "spring")
 public interface CandidateMapper {
     CandidateDto candidateEntityToCandidateDto(Candidate candidateEntity);
-
     Candidate candidateDtoToCandidateEntity(CandidateDto candidateDto);
-
 }

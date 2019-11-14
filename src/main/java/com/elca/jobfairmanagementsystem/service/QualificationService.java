@@ -16,5 +16,4 @@ public interface QualificationService {
 
     void updateQualification(QualificationDto qualificationDto);
 
-
 }

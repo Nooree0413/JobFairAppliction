@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/candidate-screening/")
+@RequestMapping("/candidate-screening")
 public class CandidateScreeningController {
     private final CandidateScreeningService candidateScreeningService;
 
@@ -20,23 +20,23 @@ public class CandidateScreeningController {
         this.candidateScreeningService = candidateScreeningService;
     }
 
-    @GetMapping("get-all")
+    @GetMapping("/get-all")
     public ResponseEntity<List<CandidateScreeningDto>> getAllCandidateScreenings() {
         return new ResponseEntity<>(candidateScreeningService.findAllCandidateScreening(), HttpStatus.FOUND);
     }
 
-    @GetMapping("{candidateScreeningId}")
+    @GetMapping("/{candidateScreeningId}")
     public ResponseEntity<CandidateScreeningDto> getCandidateScreeningById(@PathVariable Long candidateScreeningId) {
         return new ResponseEntity<>(candidateScreeningService.findByCandidateScreeningId(candidateScreeningId), HttpStatus.FOUND);
     }
 
-    @PostMapping("add")
+    @PostMapping("/add")
     public ResponseEntity saveNewCandidateScreening(@RequestBody CandidateScreeningDto candidateScreeningDto) {
         candidateScreeningService.saveCandidateScreening(candidateScreeningDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @PutMapping("update/{candidateScreeningId}")
+    @PutMapping("/update/{candidateScreeningId}")
     public ResponseEntity updateCandidateScreening(@RequestBody CandidateScreeningDto candidateScreeningDto) {
         candidateScreeningService.updateCandidateScreening(candidateScreeningDto);
         return new ResponseEntity(HttpStatus.OK);

@@ -1,9 +1,7 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.ExperienceDto;
-import com.elca.jobfairmanagementsystem.dto.QualificationDto;
 import com.elca.jobfairmanagementsystem.exception.ExperienceNotFoundException;
-import com.elca.jobfairmanagementsystem.exception.NoContentException;
 import com.elca.jobfairmanagementsystem.service.ExperienceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +21,7 @@ public class ExperienceController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<ExperienceDto>> getAllQualifications() throws NoContentException {
+    public ResponseEntity<List<ExperienceDto>> getAllExperiences() throws ExperienceNotFoundException {
         return new ResponseEntity<>(experienceService.searchAllExperience(), HttpStatus.FOUND);
     }
 
@@ -49,7 +47,4 @@ public class ExperienceController {
         experienceService.deleteExperience(experienceId);
         return new ResponseEntity<>(null,HttpStatus.ACCEPTED);
     }
-
-
-
 }

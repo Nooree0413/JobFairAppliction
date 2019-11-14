@@ -13,13 +13,11 @@ public class ErrorHandler {
         return new Error(ex.getMessage(), ex.getClass().getCanonicalName(), status);
     }
 
-
     ResponseEntity<Error> unHandledException(Exception ex, WebRequest request) {
         int status = 500;
         Error error = buildError(ex, status);
         return ResponseEntity.status(status).body(error);
     }
-
 
     @ExceptionHandler(QualificationNotFoundException.class)
     ResponseEntity<Error> qualificationNotFoundException(Exception ex, WebRequest request) {
@@ -36,14 +34,4 @@ public class ErrorHandler {
         Error error = buildError(ex, status);
         return ResponseEntity.status(status).body(error);
     }
-
-//    @ExceptionHandler(NoContentException.class)
-//    ResponseEntity<Error> NoContentNotFoundException(Exception ex, WebRequest request) {
-//
-//        int status = 404;
-//        Error error = buildError(ex, status);
-//        return ResponseEntity.status(status).body(error);
-//    }
-
-
 }

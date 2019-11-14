@@ -4,7 +4,6 @@ import com.elca.jobfairmanagementsystem.dto.ExperienceDto;
 import com.elca.jobfairmanagementsystem.entity.Experience;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.ExperienceNotFoundException;
-import com.elca.jobfairmanagementsystem.exception.NoContentException;
 import com.elca.jobfairmanagementsystem.mapper.ExperienceMapper;
 import com.elca.jobfairmanagementsystem.repository.ExperienceRepository;
 import com.elca.jobfairmanagementsystem.service.ExperienceService;
@@ -28,7 +27,7 @@ public class ExperienceServiceImpl implements ExperienceService {
     }
 
     @Override
-    public List<ExperienceDto> searchAllExperience() throws NoContentException {
+    public List<ExperienceDto> searchAllExperience() throws ExperienceNotFoundException {
 
         List<Experience> experiences = experienceRepo.findAll();
 
@@ -39,7 +38,7 @@ public class ExperienceServiceImpl implements ExperienceService {
                     .collect(Collectors.toList());
         } else
 
-            throw new NoContentException(ErrorMessages.NO_EXPERIENCE_AVAILABLE.toString());
+            throw new ExperienceNotFoundException(ErrorMessages.NO_EXPERIENCE_AVAILABLE.toString());
     }
 
 

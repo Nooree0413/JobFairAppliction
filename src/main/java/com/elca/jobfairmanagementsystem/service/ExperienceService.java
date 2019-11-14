@@ -2,13 +2,12 @@ package com.elca.jobfairmanagementsystem.service;
 
 import com.elca.jobfairmanagementsystem.dto.ExperienceDto;
 import com.elca.jobfairmanagementsystem.exception.ExperienceNotFoundException;
-import com.elca.jobfairmanagementsystem.exception.NoContentException;
 
 import java.util.List;
 
 public interface ExperienceService {
 
-    List<ExperienceDto> searchAllExperience() throws NoContentException;
+    List<ExperienceDto> searchAllExperience() throws ExperienceNotFoundException;
 
     ExperienceDto findByExperienceId(Long experienceId) throws ExperienceNotFoundException;
 

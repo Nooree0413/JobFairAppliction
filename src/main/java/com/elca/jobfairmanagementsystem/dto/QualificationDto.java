@@ -11,13 +11,11 @@ public class QualificationDto {
 
     private String title;
 
-    private String result;
+    private String division;
 
     private String institution;
 
-    private Date dateFrom;
-
-    private Date dateTo;
+    private Date graduationDate;
 
     private Long candidateId;
 

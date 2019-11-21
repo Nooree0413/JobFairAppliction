@@ -52,7 +52,6 @@ public class CandidateScreeningImpl implements CandidateScreeningService {
     @Override
     public void updateCandidateScreening(CandidateScreeningDto candidateScreeningDto) {
         var candidate = findByCandidateScreeningId(candidateScreeningDto.getCandidateScreeningId());
-        candidate.setVenueJobId(candidateScreeningDto.getVenueJobId());
         candidate.setCandidateId(candidateScreeningDto.getCandidateId());
         candidate.setInterviewDate(candidateScreeningDto.getInterviewDate());
         candidate.setInterviewerName(candidateScreeningDto.getInterviewerName());

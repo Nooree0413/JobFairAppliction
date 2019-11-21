@@ -16,10 +16,8 @@ import java.util.Date;
 public class CandidateScreeningDto {
     private Long CandidateScreeningId;
     private Date InterviewDate;
-    private String PositionJob;
     private String InterviewerName;
     private String InterviewerFeedback;
     private String ScreeningStatus;
-    private Long venueJobId;
     private Long candidateId;
 }

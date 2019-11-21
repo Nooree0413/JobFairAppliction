@@ -61,7 +61,6 @@ public class SkillServiceImpl implements SkillService {
     public void updateSkill(SkillDto skillDto) {
         var updateSkill = findSkillById(skillDto.getSkillId());
         updateSkill.setSkillName(skillDto.getSkillName());
-        updateSkill.setSkillDescription(skillDto.getSkillDescription());
         skillRepository.save(skillMapper.skillDtoToEntity(updateSkill));
     }
 }

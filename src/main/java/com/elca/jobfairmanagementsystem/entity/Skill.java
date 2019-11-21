@@ -22,16 +22,6 @@ public class Skill {
     @Column(name = "skill_id")
     private Long skillId;
 
-    @Column(name = "skill_description")
-    private String  skillDescription;
-
     @Column(name = "skill_name")
     private  String skillName;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "candidate_skill",
-            joinColumns = { @JoinColumn(name = "skill_id") },
-            inverseJoinColumns = { @JoinColumn(name = "candidate_id") })
-    private Set<Candidate> candidates = new HashSet<>();
-
 }

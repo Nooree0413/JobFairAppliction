@@ -19,7 +19,7 @@ public class Venue {
     @Column(name = "venue_id")
     private Long venueId;
 
-    @Column(name = "venue_name")
+    @Column(name = "name")
     private String venueName;
 
     @Column(name = "start_date")
@@ -30,6 +30,9 @@ public class Venue {
     private Date endDate;
 
     @Column
-    private boolean status;
+    private String address;
+
+    @Column
+    private boolean active;
 
 }

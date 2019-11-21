@@ -32,9 +32,6 @@ public class CandidateScreening {
     @Column(name = "interview_date")
     private Date interviewDate;
 
-    @Column(name = "position_job")
-    private String positionJob;
-
     @Column(name = "interviewer_name")
     private String interviewerName;
 
@@ -47,9 +44,5 @@ public class CandidateScreening {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidate_id")
     private Candidate candidate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "venue_job_id")
-    private VenueJob venueJob;
 
 }

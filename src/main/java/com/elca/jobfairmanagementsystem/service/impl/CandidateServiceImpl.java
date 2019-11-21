@@ -41,7 +41,6 @@ public class CandidateServiceImpl implements CandidateService {
     public void saveCandidate(CandidateDto candidateDto) {
         Candidate newCandidate = candidateMapper.candidateDtoToCandidateEntity(candidateDto);
         candidateRepository.save(newCandidate);
-
     }
 
     @Override
@@ -64,9 +63,7 @@ public class CandidateServiceImpl implements CandidateService {
             candidate.setFirstName(candidateDto.getFirstName());
             candidate.setLastName(candidateDto.getLastName());
             candidate.setEmail(candidateDto.getEmail());
-            candidate.setMobileNo(candidateDto.getMobileNo());
             candidate.setNationality(candidateDto.getNationality());
-            candidate.setPhoneNo(candidateDto.getPhoneNo());
             saveCandidate(candidate);
         } else {
         }

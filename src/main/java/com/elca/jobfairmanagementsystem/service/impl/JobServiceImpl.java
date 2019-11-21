@@ -50,7 +50,6 @@ public class JobServiceImpl implements JobService {
     @Override
     public void updateJob(JobDto jobDto) {
         var getJobById = searchJobById(jobDto.getJobId());
-        getJobById.setJobTitle(jobDto.getJobTitle());
         getJobById.setDescription(jobDto.getDescription());
         getJobById.setMinimumExperience(jobDto.getMinimumExperience());
         getJobById.setQualificationNeeded(jobDto.getQualificationNeeded());

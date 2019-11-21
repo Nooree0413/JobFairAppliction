@@ -5,9 +5,6 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  *
  * @author ghr
@@ -22,8 +19,14 @@ public class Job {
     @Column(name = "job_id")
     private Long jobId;
 
-    @Column(name = "job_title")
-    private String jobTitle;
+    @Column
+    private String title;
+
+    @Column
+    private String level;
+
+    @Column
+    private String category;
 
     @Column
     private String description;

@@ -12,7 +12,5 @@ public class ExperienceDto {
 
     private String duration;
 
-    private String leavingReason;
-
     private Long candidateId;
  }

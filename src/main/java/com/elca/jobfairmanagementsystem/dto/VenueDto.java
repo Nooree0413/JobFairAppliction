@@ -20,5 +20,7 @@ public class VenueDto {
 
     private Date endDate;
 
-    private boolean status;
+    private String address;
+
+    private boolean active;
 }

@@ -12,10 +12,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CandidateScreeningMapper {
     @Mapping(target = "candidate.candidateId", source = "candidateScreeningDto.candidateId")
-    @Mapping(target = "venueJob.venueJobId", source = "candidateScreeningDto.venueJobId")
     CandidateScreening candidateScreeningDtoToEntity (CandidateScreeningDto candidateScreeningDto);
 
     @Mapping(target = "candidateId", source = "candidateScreening.candidate.candidateId")
-    @Mapping(target = "venueJobId", source = "candidateScreening.venueJob.venueJobId")
     CandidateScreeningDto candidateScreeningEntityToDto (CandidateScreening candidateScreening);
 }

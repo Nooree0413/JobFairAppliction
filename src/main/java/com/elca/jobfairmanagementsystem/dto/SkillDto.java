@@ -12,6 +12,5 @@ import java.util.Set;
 @Data
 public class SkillDto {
     private int skillId;
-    private String skillDescription;
     private String skillName;
 }

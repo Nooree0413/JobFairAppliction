@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "qualification")
+@Table(name = "candidate_qualification")
 public class Qualification {
 
     @Id
@@ -16,22 +16,18 @@ public class Qualification {
     @Column(name ="qualification_id")
     private Long qualificationId;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
     @Column
-    private String result;
+    private String division;
 
     @Column
     private String institution;
 
-    @Column(name ="date_from")
+    @Column(name ="graduation_date")
     @Temporal(TemporalType.DATE)
-    private Date dateFrom;
-
-    @Column(name ="date_to")
-    @Temporal(TemporalType.DATE)
-    private Date dateTo;
+    private Date graduationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidate_id")

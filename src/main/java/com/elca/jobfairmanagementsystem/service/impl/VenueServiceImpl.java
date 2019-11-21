@@ -53,7 +53,7 @@ public class VenueServiceImpl implements VenueService {
         getVenueById.setVenueName(venueDto.getVenueName());
         getVenueById.setStartDate(venueDto.getStartDate());
         getVenueById.setEndDate(venueDto.getEndDate());
-        getVenueById.setStatus(venueDto.isStatus());
+        getVenueById.setActive(venueDto.isActive());
         venueRepository.save(venueMapper.venueDtoToEntity(getVenueById));
     }
 

@@ -1,17 +1,17 @@
 package com.elca.jobfairmanagementsystem.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 public class JobDto {
 
     private Long jobId;
 
-    private String jobTitle;
+    private String title;
+
+    private String level;
+
+    private String category;
 
     private String description;
 

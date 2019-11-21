@@ -66,7 +66,6 @@ public class ExperienceServiceImpl implements ExperienceService {
             experience.setCompanyName(experienceDto.getCompanyName());
             experience.setDuration(experienceDto.getDuration());
             experience.setPosition(experienceDto.getPosition());
-            experience.setLeavingReason(experienceDto.getLeavingReason());
             experienceRepo.save(experienceMapper.experienceDtoToEntity(experience));
         } else
 

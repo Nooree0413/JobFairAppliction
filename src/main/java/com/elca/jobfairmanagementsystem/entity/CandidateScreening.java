@@ -26,6 +26,7 @@ import lombok.Data;
 public class CandidateScreening {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "candidate_screening_id")
     private Long candidateScreeningId;
 
     @Temporal(TemporalType.DATE)

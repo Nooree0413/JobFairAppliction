@@ -20,7 +20,7 @@ public class CandidateScreeningController {
         this.candidateScreeningService = candidateScreeningService;
     }
 
-    @GetMapping("/get-all")
+    @GetMapping("/all")
     public ResponseEntity<List<CandidateScreeningDto>> getAllCandidateScreenings() {
         return new ResponseEntity<>(candidateScreeningService.findAllCandidateScreening(), HttpStatus.FOUND);
     }
@@ -30,13 +30,13 @@ public class CandidateScreeningController {
         return new ResponseEntity<>(candidateScreeningService.findByCandidateScreeningId(candidateScreeningId), HttpStatus.FOUND);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity saveNewCandidateScreening(@RequestBody CandidateScreeningDto candidateScreeningDto) {
         candidateScreeningService.saveCandidateScreening(candidateScreeningDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{candidateScreeningId}")
+    @PutMapping("/{candidateScreeningId}")
     public ResponseEntity updateCandidateScreening(@RequestBody CandidateScreeningDto candidateScreeningDto) {
         candidateScreeningService.updateCandidateScreening(candidateScreeningDto);
         return new ResponseEntity(HttpStatus.OK);

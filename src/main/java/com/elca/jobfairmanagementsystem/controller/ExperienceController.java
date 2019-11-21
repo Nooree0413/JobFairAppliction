@@ -25,24 +25,24 @@ public class ExperienceController {
         return new ResponseEntity<>(experienceService.searchAllExperience(), HttpStatus.FOUND);
     }
 
-    @GetMapping("/details/{experienceId}")
+    @GetMapping("/{experienceId}")
     public ResponseEntity<ExperienceDto> searchExperienceById(@PathVariable Long experienceId) throws ExperienceNotFoundException{
         return new ResponseEntity<>(experienceService.findByExperienceId(experienceId),HttpStatus.FOUND);
     }
 
-    @PostMapping("/addExperience")
+    @PostMapping
     public ResponseEntity<Void> saveExperience(@RequestBody ExperienceDto experienceDto){
         experienceService.saveExperience(experienceDto);
         return new ResponseEntity<>(null , HttpStatus.CREATED);
     }
 
-    @PutMapping("/edit/{experienceId}")
+    @PutMapping("/{experienceId}")
     public ResponseEntity<Void> updateExperience(@RequestBody ExperienceDto experienceDto) throws ExperienceNotFoundException {
         experienceService.updateExperience(experienceDto);
         return new ResponseEntity<>(null,HttpStatus.OK);
     }
 
-    @DeleteMapping("/remove/{experienceId}")
+    @DeleteMapping("/{experienceId}")
     public ResponseEntity<Void> deleteExperience(@PathVariable Long experienceId){
         experienceService.deleteExperience(experienceId);
         return new ResponseEntity<>(null,HttpStatus.ACCEPTED);

@@ -37,20 +37,20 @@ public class CandidateController {
     }
 
     //add new candidate
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity saveNewCandidate(@RequestBody CandidateDto candidateDto) {
         candidateService.saveCandidate(candidateDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     //update candidate
-    @PutMapping("/update/{candidateId}")
+    @PutMapping("/{candidateId}")
     public ResponseEntity updateCandidate(@RequestBody CandidateDto candidateDto) {
         candidateService.updateCandidate(candidateDto);
         return new ResponseEntity(HttpStatus.OK);
     }
     //find candidate by id
-    @GetMapping("/getOneCandidate/{candidateId}")
+    @GetMapping("/{candidateId}")
     public ResponseEntity<CandidateDto> getOneCandidate(@PathVariable Long candidateId){
         return  new ResponseEntity<>(candidateService.searchCandidateById(candidateId),HttpStatus.FOUND);
     }

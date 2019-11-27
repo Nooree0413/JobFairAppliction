@@ -2,6 +2,8 @@ package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.QualificationDto;
 import com.elca.jobfairmanagementsystem.entity.Qualification;
+import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
+import com.elca.jobfairmanagementsystem.exception.QualificationNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.QualificationMapper;
 import com.elca.jobfairmanagementsystem.repository.QualificationRepository;
 import com.elca.jobfairmanagementsystem.service.QualificationService;
@@ -25,14 +27,14 @@ public class QualificationServiceImpl implements QualificationService {
     }
 
     @Override
-    public List<QualificationDto> searchAllQualifications() {
+    public List<QualificationDto> findAllQualifications() throws QualificationNotFoundException {
         List<Qualification> qualifications = qualificationRepo.findAll();
         if (qualifications.size() != 0) {
             return qualifications.stream()
                     .map(qualificationMapper::qualificationEntityToDto)
                     .collect(Collectors.toList());
         } else
-            return null;
+            throw new QualificationNotFoundException(ErrorMessages.NO_QUALIFICATION_AVAILABLE.toString());
     }
 
     @Override
@@ -42,23 +44,32 @@ public class QualificationServiceImpl implements QualificationService {
     }
 
     @Override
-    public void deleteQualification(Long qualificationId) {
-        qualificationRepo.deleteById(qualificationId);
+    public void deleteQualification(Long qualificationId) throws QualificationNotFoundException{
+        var qualification = findByQualificationId(qualificationId);
+        if(qualification != null){
+            qualificationRepo.deleteById(qualificationId);
+        } else {
+            throw new QualificationNotFoundException(ErrorMessages.QUALIFICATION_NOT_FOUND.toString());
+        }
     }
 
     @Override
-    public void updateQualification(QualificationDto qualificationDto) {
+    public void updateQualification(QualificationDto qualificationDto) throws QualificationNotFoundException {
         var updateQualification = findByQualificationId(qualificationDto.getQualificationId());
-        updateQualification.setCandidateId(qualificationDto.getCandidateId());
-        updateQualification.setTitle(qualificationDto.getTitle());
-        updateQualification.setInstitution(qualificationDto.getInstitution());
-        qualificationRepo.save(qualificationMapper.qualificationDtoToEntity(updateQualification));
+        if (updateQualification != null) {
+            updateQualification.setCandidateId(qualificationDto.getCandidateId());
+            updateQualification.setTitle(qualificationDto.getTitle());
+            updateQualification.setInstitution(qualificationDto.getInstitution());
+            qualificationRepo.save(qualificationMapper.qualificationDtoToEntity(updateQualification));
+        } else {
+            throw new QualificationNotFoundException(ErrorMessages.NO_QUALIFICATION_AVAILABLE.toString());
+        }
     }
 
     @Override
-    public QualificationDto findByQualificationId(Long qualificationId) {
+    public QualificationDto findByQualificationId(Long qualificationId) throws QualificationNotFoundException{
         Optional<Qualification> optionalQualification = qualificationRepo.findById(qualificationId);
-        var qualification = optionalQualification.orElse(null);
+        var qualification = optionalQualification.orElseThrow(()-> new QualificationNotFoundException(ErrorMessages.QUALIFICATION_NOT_FOUND.toString()));
         return qualificationMapper.qualificationEntityToDto(qualification);
     }
 }

@@ -1,13 +1,18 @@
 package com.elca.jobfairmanagementsystem.service;
 
 import com.elca.jobfairmanagementsystem.dto.JobDto;
+import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
 
 import java.util.List;
 
 public interface JobService {
     void saveJob(JobDto jobDto);
-    JobDto searchJobById (Long jobId);
-    List<JobDto> searchAllJobs();
-    void updateJob(JobDto jobDto);
-    void deleteJob(Long jobId);
+
+    JobDto findJobById(Long jobId) throws JobNotFoundException;
+
+    List<JobDto> findAllJobs() throws JobNotFoundException;
+
+    void updateJob(JobDto jobDto) throws JobNotFoundException;
+
+    void deleteJob(Long jobId) throws JobNotFoundException;
 }

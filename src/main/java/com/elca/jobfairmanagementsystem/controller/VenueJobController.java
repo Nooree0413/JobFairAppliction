@@ -1,6 +1,7 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
+import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +21,13 @@ public class VenueJobController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<VenueJobDto>> getAllVenueJobs() {
-        return new ResponseEntity<>(venueJobService.searchAllVenueJobs(), HttpStatus.FOUND);
+    public ResponseEntity<List<VenueJobDto>> getAllVenueJobs() throws VenueJobNotFoundException {
+        return new ResponseEntity<>(venueJobService.findAllVenueJobs(), HttpStatus.FOUND);
     }
 
     @GetMapping("/{venueJobId}")
-    public ResponseEntity<VenueJobDto> getVenueJobById(@PathVariable Long venueJobId){
-        return new ResponseEntity<>(venueJobService.searchVenueJobById(venueJobId),HttpStatus.FOUND);
+    public ResponseEntity<VenueJobDto> getVenueJobById(@PathVariable Long venueJobId) throws VenueJobNotFoundException{
+        return new ResponseEntity<>(venueJobService.findVenueJobById(venueJobId),HttpStatus.FOUND);
     }
 
     @PostMapping
@@ -36,13 +37,13 @@ public class VenueJobController {
     }
 
     @PutMapping("/{venueJobId}")
-    public ResponseEntity updateVenueJob(@RequestBody VenueJobDto venueJobDto){
+    public ResponseEntity updateVenueJob(@RequestBody VenueJobDto venueJobDto) throws VenueJobNotFoundException{
         venueJobService.updateVenueJob(venueJobDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/{venueJobId}")
-    public ResponseEntity deleteVenueJob(@PathVariable Long venueJobId){
+    public ResponseEntity deleteVenueJob(@PathVariable Long venueJobId) throws VenueJobNotFoundException{
         venueJobService.deleteVenueJob(venueJobId);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }

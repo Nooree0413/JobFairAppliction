@@ -1,6 +1,7 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.SkillDto;
+import com.elca.jobfairmanagementsystem.exception.SkillNotFoundException;
 import com.elca.jobfairmanagementsystem.service.SkillService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,23 +31,23 @@ public class SkillController {
     }
 
     @PutMapping("/{skillId}")
-    public ResponseEntity updateSkill(@RequestBody SkillDto skillDto){
+    public ResponseEntity updateSkill(@RequestBody SkillDto skillDto) throws SkillNotFoundException {
         skillService.updateSkill(skillDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/{skillId}")
-    public ResponseEntity<SkillDto> getSkillById(@PathVariable Long skillId){
+    public ResponseEntity<SkillDto> getSkillById(@PathVariable Long skillId) throws SkillNotFoundException{
         return new ResponseEntity<>(skillService.findSkillById(skillId),HttpStatus.FOUND);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<SkillDto>> getAllSkills(){
-        return new ResponseEntity<>(skillService.searchAllSkills(),HttpStatus.FOUND);
+    public ResponseEntity<List<SkillDto>> getAllSkills() throws SkillNotFoundException{
+        return new ResponseEntity<>(skillService.findAllSkills(),HttpStatus.FOUND);
     }
 
     @DeleteMapping("/{skillId}")
-    public ResponseEntity deleteSkill(@PathVariable Long skillId){
+    public ResponseEntity deleteSkill(@PathVariable Long skillId) throws SkillNotFoundException{
         skillService.deleteSkill(skillId);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }

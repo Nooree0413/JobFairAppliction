@@ -1,6 +1,7 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.QualificationDto;
+import com.elca.jobfairmanagementsystem.exception.QualificationNotFoundException;
 import com.elca.jobfairmanagementsystem.service.QualificationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,12 @@ public class QualificationController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<QualificationDto>> getAllQualifications(){
-        return new ResponseEntity<>(qualificationService.searchAllQualifications(), HttpStatus.FOUND);
+    public ResponseEntity<List<QualificationDto>> getAllQualifications() throws QualificationNotFoundException {
+        return new ResponseEntity<>(qualificationService.findAllQualifications(), HttpStatus.FOUND);
     }
 
     @GetMapping("/{qualificationId}")
-    public ResponseEntity<QualificationDto>getQualificationById(@PathVariable Long qualificationId){
+    public ResponseEntity<QualificationDto>getQualificationById(@PathVariable Long qualificationId) throws QualificationNotFoundException{
         return new ResponseEntity<>(qualificationService.findByQualificationId(qualificationId), HttpStatus.FOUND);
     }
 
@@ -36,13 +37,13 @@ public class QualificationController {
     }
 
     @PutMapping("/{qualificationId}")
-    public ResponseEntity updateQualification(@RequestBody QualificationDto qualificationDto){
+    public ResponseEntity updateQualification(@RequestBody QualificationDto qualificationDto) throws QualificationNotFoundException{
         qualificationService.updateQualification(qualificationDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/{qualificationId}")
-    public ResponseEntity deleteQualification(@PathVariable Long qualificationId){
+    public ResponseEntity deleteQualification(@PathVariable Long qualificationId) throws QualificationNotFoundException{
         qualificationService.deleteQualification(qualificationId);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }

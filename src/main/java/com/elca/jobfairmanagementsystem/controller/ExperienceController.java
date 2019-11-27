@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 10000)
-@RequestMapping("/experiences")
+@RequestMapping("/experience")
 public class ExperienceController {
 
     private final ExperienceService experienceService;
@@ -22,29 +22,29 @@ public class ExperienceController {
 
     @GetMapping("/all")
     public ResponseEntity<List<ExperienceDto>> getAllExperiences() throws ExperienceNotFoundException {
-        return new ResponseEntity<>(experienceService.searchAllExperience(), HttpStatus.FOUND);
+        return new ResponseEntity<>(experienceService.findAllExperience(), HttpStatus.FOUND);
     }
 
     @GetMapping("/{experienceId}")
-    public ResponseEntity<ExperienceDto> searchExperienceById(@PathVariable Long experienceId) throws ExperienceNotFoundException{
-        return new ResponseEntity<>(experienceService.findByExperienceId(experienceId),HttpStatus.FOUND);
+    public ResponseEntity<ExperienceDto> searchExperienceById(@PathVariable Long experienceId) throws ExperienceNotFoundException {
+        return new ResponseEntity<>(experienceService.findByExperienceId(experienceId), HttpStatus.FOUND);
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveExperience(@RequestBody ExperienceDto experienceDto){
+    public ResponseEntity saveExperience(@RequestBody ExperienceDto experienceDto) {
         experienceService.saveExperience(experienceDto);
-        return new ResponseEntity<>(null , HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{experienceId}")
-    public ResponseEntity<Void> updateExperience(@RequestBody ExperienceDto experienceDto) throws ExperienceNotFoundException {
+    public ResponseEntity updateExperience(@RequestBody ExperienceDto experienceDto) throws ExperienceNotFoundException {
         experienceService.updateExperience(experienceDto);
-        return new ResponseEntity<>(null,HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{experienceId}")
-    public ResponseEntity<Void> deleteExperience(@PathVariable Long experienceId){
+    public ResponseEntity deleteExperience(@PathVariable Long experienceId) throws ExperienceNotFoundException {
         experienceService.deleteExperience(experienceId);
-        return new ResponseEntity<>(null,HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

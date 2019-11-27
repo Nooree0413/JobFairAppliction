@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.elca.jobfairmanagementsystem.entity.CandidateScreening;
+import com.elca.jobfairmanagementsystem.exception.CandidateScreeningNotFoundException;
+import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.mapper.CandidateScreeningMapper;
 import com.elca.jobfairmanagementsystem.repository.CandidateScreeningRepository;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,6 @@ import com.elca.jobfairmanagementsystem.dto.CandidateScreeningDto;
 import com.elca.jobfairmanagementsystem.service.CandidateScreeningService;
 
 /**
- *
  * @author ghr
  */
 @Service
@@ -24,17 +25,21 @@ public class CandidateScreeningImpl implements CandidateScreeningService {
     private final CandidateScreeningMapper candidateScreeningMapper;
     private final CandidateScreeningRepository candidateScreeningRepository;
 
-    public CandidateScreeningImpl(CandidateScreeningRepository candidateScreeningRepository,CandidateScreeningMapper candidateScreeningMapper){
+    public CandidateScreeningImpl(CandidateScreeningRepository candidateScreeningRepository, CandidateScreeningMapper candidateScreeningMapper) {
         this.candidateScreeningMapper = candidateScreeningMapper;
         this.candidateScreeningRepository = candidateScreeningRepository;
     }
 
     @Override
-    public List<CandidateScreeningDto> findAllCandidateScreening() {
+    public List<CandidateScreeningDto> findAllCandidateScreening() throws CandidateScreeningNotFoundException {
         List<CandidateScreening> listOfCandidateScreening = candidateScreeningRepository.findAll();
-        return listOfCandidateScreening.stream()
-                .map(candidateScreening -> candidateScreeningMapper.candidateScreeningEntityToDto(candidateScreening))
-                .collect(Collectors.toList());
+        if (listOfCandidateScreening.size() != 0) {
+            return listOfCandidateScreening.stream()
+                    .map(candidateScreeningMapper::candidateScreeningEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new CandidateScreeningNotFoundException(ErrorMessages.NO_CANDIDATE_SCREENING_AVAILABLE.toString());
+        }
     }
 
     @Override
@@ -44,26 +49,34 @@ public class CandidateScreeningImpl implements CandidateScreeningService {
     }
 
     @Override
-    public void deleteCandidateScreening(Long candidateScreeningId) {
-        candidateScreeningRepository.deleteById(candidateScreeningId);
+    public void deleteCandidateScreening(Long candidateScreeningId) throws CandidateScreeningNotFoundException {
+        var candidateScreening = findByCandidateScreeningId(candidateScreeningId);
+        if (candidateScreening != null) {
+            candidateScreeningRepository.deleteById(candidateScreeningId);
+        } else {
+            throw new CandidateScreeningNotFoundException(ErrorMessages.CANDIDATE_SCREENING_NOT_FOUND.toString());
+        }
     }
 
-
     @Override
-    public void updateCandidateScreening(CandidateScreeningDto candidateScreeningDto) {
+    public void updateCandidateScreening(CandidateScreeningDto candidateScreeningDto) throws CandidateScreeningNotFoundException {
         var candidate = findByCandidateScreeningId(candidateScreeningDto.getCandidateScreeningId());
-        candidate.setCandidateId(candidateScreeningDto.getCandidateId());
-        candidate.setInterviewDate(candidateScreeningDto.getInterviewDate());
-        candidate.setInterviewerName(candidateScreeningDto.getInterviewerName());
-        candidate.setInterviewerFeedback(candidateScreeningDto.getInterviewerFeedback());
-        candidate.setScreeningStatus(candidateScreeningDto.getScreeningStatus());
-        candidateScreeningRepository.save(candidateScreeningMapper.candidateScreeningDtoToEntity(candidate));
+        if (candidate != null) {
+            candidate.setCandidateId(candidateScreeningDto.getCandidateId());
+            candidate.setInterviewDate(candidateScreeningDto.getInterviewDate());
+            candidate.setInterviewerName(candidateScreeningDto.getInterviewerName());
+            candidate.setInterviewerFeedback(candidateScreeningDto.getInterviewerFeedback());
+            candidate.setScreeningStatus(candidateScreeningDto.getScreeningStatus());
+            candidateScreeningRepository.save(candidateScreeningMapper.candidateScreeningDtoToEntity(candidate));
+        } else {
+            throw new CandidateScreeningNotFoundException(ErrorMessages.CANDIDATE_SCREENING_NOT_FOUND.toString());
+        }
     }
 
     @Override
-    public CandidateScreeningDto findByCandidateScreeningId(Long candidateScreeningId) {
+    public CandidateScreeningDto findByCandidateScreeningId(Long candidateScreeningId) throws CandidateScreeningNotFoundException {
         Optional<CandidateScreening> findCandidateScreening = candidateScreeningRepository.findById(candidateScreeningId);
-        var candidate = findCandidateScreening.orElse(null);
+        var candidate = findCandidateScreening.orElseThrow(() -> new CandidateScreeningNotFoundException(ErrorMessages.CANDIDATE_SCREENING_NOT_FOUND.toString()));
         return candidateScreeningMapper.candidateScreeningEntityToDto(candidate);
     }
 }

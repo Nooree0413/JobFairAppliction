@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface ExperienceService {
 
-    List<ExperienceDto> searchAllExperience() throws ExperienceNotFoundException;
+    List<ExperienceDto> findAllExperience() throws ExperienceNotFoundException;
 
     ExperienceDto findByExperienceId(Long experienceId) throws ExperienceNotFoundException;
 
     void saveExperience(ExperienceDto experienceDto);
 
-    void deleteExperience(Long experienceId);
+    void deleteExperience(Long experienceId) throws  ExperienceNotFoundException;
 
     void updateExperience(ExperienceDto experienceDto) throws ExperienceNotFoundException;
 

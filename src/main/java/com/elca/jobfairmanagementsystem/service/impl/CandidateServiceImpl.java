@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
+import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +16,6 @@ import com.elca.jobfairmanagementsystem.repository.CandidateRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateService;
 
 /**
- *
  * @author ghr
  */
 @Service
@@ -29,12 +30,15 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<CandidateDto> searchAllCandidate() {
+    public List<CandidateDto> findAllCandidate() throws CandidateNotFoundException {
         List<Candidate> listOfCandidate = candidateRepository.findAll();
-
-        return listOfCandidate.stream()
-                .map(candidate -> candidateMapper.candidateEntityToCandidateDto(candidate))
-                .collect(Collectors.toList());
+        if (listOfCandidate.size() != 0) {
+            return listOfCandidate.stream()
+                    .map(candidateMapper::candidateEntityToCandidateDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new CandidateNotFoundException(ErrorMessages.NO_CANDIDATE_AVAILABLE.toString());
+        }
     }
 
     @Override
@@ -44,20 +48,25 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public void deleteCandidate(Long candidateId) {
-        candidateRepository.deleteById(candidateId);
+    public void deleteCandidate(Long candidateId) throws CandidateNotFoundException {
+        var candidate = findCandidateById(candidateId);
+        if (candidate != null) {
+            candidateRepository.deleteById(candidateId);
+        } else {
+            throw new CandidateNotFoundException(ErrorMessages.CANDIDATE_NOT_FOUND.toString());
+        }
     }
 
     @Override
-    public CandidateDto searchCandidateById(Long candidateId) {
+    public CandidateDto findCandidateById(Long candidateId) throws CandidateNotFoundException {
         Optional<Candidate> findOneCandidate = candidateRepository.findById(candidateId);
-        var candidate = findOneCandidate.orElse(null);
+        var candidate = findOneCandidate.orElseThrow(() -> new CandidateNotFoundException(ErrorMessages.CANDIDATE_NOT_FOUND.toString()));
         return candidateMapper.candidateEntityToCandidateDto(candidate);
     }
 
     @Override
-    public void updateCandidate(CandidateDto candidateDto) {
-        CandidateDto candidate = searchCandidateById(candidateDto.getCandidateId());
+    public void updateCandidate(CandidateDto candidateDto) throws CandidateNotFoundException {
+        CandidateDto candidate = findCandidateById(candidateDto.getCandidateId());
         if (candidate != null) {
             candidate.setAddress(candidateDto.getAddress());
             candidate.setFirstName(candidateDto.getFirstName());
@@ -66,6 +75,7 @@ public class CandidateServiceImpl implements CandidateService {
             candidate.setNationality(candidateDto.getNationality());
             saveCandidate(candidate);
         } else {
+            throw new CandidateNotFoundException(ErrorMessages.CANDIDATE_NOT_FOUND.toString());
         }
     }
 }

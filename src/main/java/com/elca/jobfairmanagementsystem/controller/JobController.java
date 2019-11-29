@@ -21,12 +21,12 @@ public class JobController {
 
     @GetMapping("/all")
     public ResponseEntity<List<JobDto>> getAllJobs() throws JobNotFoundException {
-        return new ResponseEntity<>(jobService.findAllJobs(), HttpStatus.FOUND);
+        return new ResponseEntity<>(jobService.findAllJobs(), HttpStatus.OK);
     }
 
     @GetMapping("/{jobId}")
     public ResponseEntity<JobDto> getJobById(@PathVariable Long jobId) throws JobNotFoundException{
-        return new ResponseEntity<>(jobService.findJobById(jobId),HttpStatus.FOUND);
+        return new ResponseEntity<>(jobService.findJobById(jobId),HttpStatus.OK);
     }
 
     @PostMapping
@@ -44,6 +44,6 @@ public class JobController {
     @DeleteMapping("/{jobId}")
     public ResponseEntity deleteJob(@PathVariable Long jobId) throws JobNotFoundException{
         jobService.deleteJob(jobId);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

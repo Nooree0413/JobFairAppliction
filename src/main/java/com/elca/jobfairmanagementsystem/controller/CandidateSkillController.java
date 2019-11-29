@@ -21,12 +21,12 @@ public class CandidateSkillController {
 
     @GetMapping("/all")
     public ResponseEntity<List<CandidateSkillDto>> getAllCandidateSkills() throws CandidateSkillNotFoundException {
-        return new ResponseEntity<>(candidateSkillService.findAllCandidateSkills(), HttpStatus.FOUND);
+        return new ResponseEntity<>(candidateSkillService.findAllCandidateSkills(), HttpStatus.OK);
     }
 
     @GetMapping("/{candidateSkillId}")
     public ResponseEntity<CandidateSkillDto> getCandidateSkillById(@PathVariable Long candidateSkillId) throws CandidateSkillNotFoundException{
-        return new ResponseEntity<>(candidateSkillService.findCandidateSkillById(candidateSkillId), HttpStatus.FOUND);
+        return new ResponseEntity<>(candidateSkillService.findCandidateSkillById(candidateSkillId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -44,6 +44,6 @@ public class CandidateSkillController {
     @DeleteMapping("/{candidateSkillId}")
     public ResponseEntity deleteCandidateSkill(@PathVariable Long candidateSkillId) throws CandidateSkillNotFoundException{
         candidateSkillService.deleteCandidateSkill(candidateSkillId);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

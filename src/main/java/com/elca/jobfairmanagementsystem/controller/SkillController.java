@@ -38,17 +38,17 @@ public class SkillController {
 
     @GetMapping("/{skillId}")
     public ResponseEntity<SkillDto> getSkillById(@PathVariable Long skillId) throws SkillNotFoundException{
-        return new ResponseEntity<>(skillService.findSkillById(skillId),HttpStatus.FOUND);
+        return new ResponseEntity<>(skillService.findSkillById(skillId),HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<SkillDto>> getAllSkills() throws SkillNotFoundException{
-        return new ResponseEntity<>(skillService.findAllSkills(),HttpStatus.FOUND);
+        return new ResponseEntity<>(skillService.findAllSkills(),HttpStatus.OK);
     }
 
     @DeleteMapping("/{skillId}")
     public ResponseEntity deleteSkill(@PathVariable Long skillId) throws SkillNotFoundException{
         skillService.deleteSkill(skillId);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

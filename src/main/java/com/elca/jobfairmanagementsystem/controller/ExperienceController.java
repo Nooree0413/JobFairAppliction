@@ -22,12 +22,12 @@ public class ExperienceController {
 
     @GetMapping("/all")
     public ResponseEntity<List<ExperienceDto>> getAllExperiences() throws ExperienceNotFoundException {
-        return new ResponseEntity<>(experienceService.findAllExperience(), HttpStatus.FOUND);
+        return new ResponseEntity<>(experienceService.findAllExperience(), HttpStatus.OK);
     }
 
     @GetMapping("/{experienceId}")
     public ResponseEntity<ExperienceDto> searchExperienceById(@PathVariable Long experienceId) throws ExperienceNotFoundException {
-        return new ResponseEntity<>(experienceService.findByExperienceId(experienceId), HttpStatus.FOUND);
+        return new ResponseEntity<>(experienceService.findByExperienceId(experienceId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -45,6 +45,6 @@ public class ExperienceController {
     @DeleteMapping("/{experienceId}")
     public ResponseEntity deleteExperience(@PathVariable Long experienceId) throws ExperienceNotFoundException {
         experienceService.deleteExperience(experienceId);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -21,12 +21,12 @@ public class CandidateScreeningController {
 
     @GetMapping("/all")
     public ResponseEntity<List<CandidateScreeningDto>> getAllCandidateScreenings() throws CandidateScreeningNotFoundException {
-        return new ResponseEntity<>(candidateScreeningService.findAllCandidateScreening(), HttpStatus.FOUND);
+        return new ResponseEntity<>(candidateScreeningService.findAllCandidateScreening(), HttpStatus.OK);
     }
 
     @GetMapping("/{candidateScreeningId}")
     public ResponseEntity<CandidateScreeningDto> getCandidateScreeningById(@PathVariable Long candidateScreeningId) throws CandidateScreeningNotFoundException {
-        return new ResponseEntity<>(candidateScreeningService.findByCandidateScreeningId(candidateScreeningId), HttpStatus.FOUND);
+        return new ResponseEntity<>(candidateScreeningService.findByCandidateScreeningId(candidateScreeningId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -44,6 +44,6 @@ public class CandidateScreeningController {
     @DeleteMapping("/{candidateScreeningId}")
     public ResponseEntity deleteExperience(@PathVariable Long candidateScreeningId) throws CandidateScreeningNotFoundException {
         candidateScreeningService.deleteCandidateScreening(candidateScreeningId);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -22,12 +22,12 @@ public class QualificationController {
 
     @GetMapping("/all")
     public ResponseEntity<List<QualificationDto>> getAllQualifications() throws QualificationNotFoundException {
-        return new ResponseEntity<>(qualificationService.findAllQualifications(), HttpStatus.FOUND);
+        return new ResponseEntity<>(qualificationService.findAllQualifications(), HttpStatus.OK);
     }
 
     @GetMapping("/{qualificationId}")
     public ResponseEntity<QualificationDto>getQualificationById(@PathVariable Long qualificationId) throws QualificationNotFoundException{
-        return new ResponseEntity<>(qualificationService.findByQualificationId(qualificationId), HttpStatus.FOUND);
+        return new ResponseEntity<>(qualificationService.findByQualificationId(qualificationId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -45,6 +45,6 @@ public class QualificationController {
     @DeleteMapping("/{qualificationId}")
     public ResponseEntity deleteQualification(@PathVariable Long qualificationId) throws QualificationNotFoundException{
         qualificationService.deleteQualification(qualificationId);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

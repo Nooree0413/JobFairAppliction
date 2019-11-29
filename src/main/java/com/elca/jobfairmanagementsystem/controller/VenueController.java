@@ -22,12 +22,12 @@ public class VenueController {
 
     @GetMapping("/all")
     public ResponseEntity<List<VenueDto>> getAllVenues() throws VenueNotFoundException {
-        return new ResponseEntity<>(venueService.findAllVenue(), HttpStatus.FOUND);
+        return new ResponseEntity<>(venueService.findAllVenue(), HttpStatus.OK);
     }
 
     @GetMapping("/{venueId}")
     public ResponseEntity<VenueDto> getVenueById(@PathVariable Long venueId) throws VenueNotFoundException{
-        return new ResponseEntity<>(venueService.findVenueById(venueId),HttpStatus.FOUND);
+        return new ResponseEntity<>(venueService.findVenueById(venueId),HttpStatus.OK);
     }
 
     @PostMapping
@@ -45,6 +45,6 @@ public class VenueController {
     @DeleteMapping("/{venueId}")
     public ResponseEntity deleteVenue(@PathVariable Long venueId) throws VenueNotFoundException{
         venueService.deleteVenue(venueId);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

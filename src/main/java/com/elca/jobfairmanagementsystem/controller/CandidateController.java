@@ -26,7 +26,7 @@ public class CandidateController {
     //get all candidate
     @GetMapping("/all")
     public ResponseEntity<List<CandidateDto>> getAllCandidates() throws CandidateNotFoundException {
-        return new ResponseEntity<>(candidateService.findAllCandidate(), HttpStatus.FOUND);
+        return new ResponseEntity<>(candidateService.findAllCandidate(), HttpStatus.OK);
     }
 
     @PostMapping
@@ -43,12 +43,12 @@ public class CandidateController {
 
     @GetMapping("/{candidateId}")
     public ResponseEntity<CandidateDto> getOneCandidate(@PathVariable Long candidateId) throws CandidateNotFoundException {
-        return new ResponseEntity<>(candidateService.findCandidateById(candidateId), HttpStatus.FOUND);
+        return new ResponseEntity<>(candidateService.findCandidateById(candidateId), HttpStatus.OK);
     }
 
     @DeleteMapping("/{candidateId}")
     public ResponseEntity deleteCandidate(@PathVariable Long candidateId) throws CandidateNotFoundException {
         candidateService.deleteCandidate(candidateId);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

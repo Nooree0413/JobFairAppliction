@@ -9,10 +9,10 @@ import org.mapstruct.Mapping;
 public interface VenueJobMapper {
 
     @Mapping(target = "venue.venueId",source = "venueJobDto.venueId")
-    @Mapping(target = "job.jobId",source = "venueJobDto.jobId")
+    @Mapping(target = "job.jobId",source = "venueJobDto.job.jobId")
     VenueJob venueJobDtoToEntity (VenueJobDto venueJobDto);
 
     @Mapping(target = "venueId",source = "venueJob.venue.venueId")
-    @Mapping(target = "jobId",source = "venueJob.job.jobId")
+    @Mapping(target = "job.jobId",source = "venueJob.job.jobId")
     VenueJobDto venueJobEntityToDto (VenueJob venueJob);
 }

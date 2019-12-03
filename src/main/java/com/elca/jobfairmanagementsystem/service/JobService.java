@@ -15,4 +15,6 @@ public interface JobService {
     void updateJob(JobDto jobDto) throws JobNotFoundException;
 
     void deleteJob(Long jobId) throws JobNotFoundException;
+
+    List<JobDto> findJobByCategory(String category) throws JobNotFoundException;
 }

@@ -4,7 +4,6 @@ import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
 import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
-import com.elca.jobfairmanagementsystem.exception.VenueNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.VenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.VenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
@@ -56,7 +55,7 @@ public class VenueJobServiceImpl implements VenueJobService {
     public void updateVenueJob(VenueJobDto venueJobDto) throws VenueJobNotFoundException {
         var getVenueJobId = findVenueJobById(venueJobDto.getVenueJobId());
         if (getVenueJobId != null) {
-            getVenueJobId.setJobId(venueJobDto.getJobId());
+            getVenueJobId.setJob(venueJobDto.getJob());
             getVenueJobId.setVenueId(venueJobDto.getVenueId());
             venueJobRepository.save(venueJobMapper.venueJobDtoToEntity(getVenueJobId));
         } else {
@@ -71,6 +70,18 @@ public class VenueJobServiceImpl implements VenueJobService {
             venueJobRepository.deleteById(venueJobId);
         } else {
             throw new VenueJobNotFoundException(ErrorMessages.VENUE_JOB_NOT_FOUND.toString());
+        }
+    }
+
+    @Override
+    public List<VenueJobDto> findByVenueId(long venueId) throws VenueJobNotFoundException {
+        List<VenueJob> findJobsByVenue = venueJobRepository.findByVenue(venueId);
+        if (findJobsByVenue.size() != 0) {
+            return findJobsByVenue.stream()
+                    .map(venueJobMapper::venueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new VenueJobNotFoundException(ErrorMessages.NO_VENUE_JOB_AVAILABLE.toString());
         }
     }
 }

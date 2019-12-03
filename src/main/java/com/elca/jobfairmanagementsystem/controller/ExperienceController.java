@@ -47,4 +47,9 @@ public class ExperienceController {
         experienceService.deleteExperience(experienceId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/candidate/{candidateId}")
+    public ResponseEntity<List<ExperienceDto>> getAllExperienceByCandidateId(@PathVariable Long candidateId) throws ExperienceNotFoundException {
+        return new ResponseEntity<>(experienceService.findByCandidateId(candidateId), HttpStatus.OK);
+    }
 }

@@ -7,5 +7,5 @@ import lombok.Data;
 public class VenueJobDto {
     private Long venueJobId;
     private Long venueId;
-    private Long jobId;
+    private JobDto job;
 }

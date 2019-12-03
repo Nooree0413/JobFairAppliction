@@ -32,8 +32,9 @@ public class ExperienceServiceImpl implements ExperienceService {
             return experiences.stream()
                     .map(experienceMapper::experienceEntityToDto)
                     .collect(Collectors.toList());
-        } else
+        } else {
             throw new ExperienceNotFoundException(ErrorMessages.NO_EXPERIENCE_AVAILABLE.toString());
+        }
     }
 
     @Override
@@ -63,6 +64,18 @@ public class ExperienceServiceImpl implements ExperienceService {
             experienceRepo.save(experienceMapper.experienceDtoToEntity(experience));
         } else
             throw new ExperienceNotFoundException(ErrorMessages.EXPERIENCE_NOT_FOUND.toString());
+    }
+
+    @Override
+    public List<ExperienceDto> findByCandidateId(long candidateId) throws ExperienceNotFoundException {
+        List<Experience> experiences = experienceRepo.findByCandidateId(candidateId);
+        if (experiences.size() != 0) {
+            return experiences.stream()
+                    .map(experienceMapper::experienceEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new ExperienceNotFoundException(ErrorMessages.NO_EXPERIENCE_AVAILABLE.toString());
+        }
     }
 
     @Override

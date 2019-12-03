@@ -16,4 +16,6 @@ public interface VenueJobService {
     void updateVenueJob(VenueJobDto venueJobDto) throws VenueJobNotFoundException;
 
     void deleteVenueJob(Long venueJobId) throws VenueJobNotFoundException;
+
+    List<VenueJobDto> findByVenueId(long venueId) throws VenueJobNotFoundException;
 }

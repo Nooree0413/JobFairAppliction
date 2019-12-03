@@ -47,4 +47,9 @@ public class VenueController {
         venueService.deleteVenue(venueId);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("/active/{active}")
+    public ResponseEntity<List<VenueDto>> getAllVenueByActive(@PathVariable boolean active) throws VenueNotFoundException {
+        return new ResponseEntity<>(venueService.findVenueByActive(active), HttpStatus.OK);
+    }
 }

@@ -33,8 +33,9 @@ public class QualificationServiceImpl implements QualificationService {
             return qualifications.stream()
                     .map(qualificationMapper::qualificationEntityToDto)
                     .collect(Collectors.toList());
-        } else
+        } else {
             throw new QualificationNotFoundException(ErrorMessages.NO_QUALIFICATION_AVAILABLE.toString());
+        }
     }
 
     @Override
@@ -61,6 +62,18 @@ public class QualificationServiceImpl implements QualificationService {
             updateQualification.setTitle(qualificationDto.getTitle());
             updateQualification.setInstitution(qualificationDto.getInstitution());
             qualificationRepo.save(qualificationMapper.qualificationDtoToEntity(updateQualification));
+        } else {
+            throw new QualificationNotFoundException(ErrorMessages.NO_QUALIFICATION_AVAILABLE.toString());
+        }
+    }
+
+    @Override
+    public List<QualificationDto> findByCandidateId(long candidateId) throws QualificationNotFoundException {
+        List<Qualification> qualifications = qualificationRepo.findByCandidateId(candidateId);
+        if (qualifications.size() != 0) {
+            return qualifications.stream()
+                    .map(qualificationMapper::qualificationEntityToDto)
+                    .collect(Collectors.toList());
         } else {
             throw new QualificationNotFoundException(ErrorMessages.NO_QUALIFICATION_AVAILABLE.toString());
         }

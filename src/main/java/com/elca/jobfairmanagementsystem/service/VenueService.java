@@ -15,4 +15,6 @@ public interface VenueService {
     void updateVenue(VenueDto venueDto) throws VenueNotFoundException;
 
     void deleteVenue(Long venueId) throws VenueNotFoundException;
+
+    List<VenueDto> findVenueByActive(boolean active) throws VenueNotFoundException;
 }

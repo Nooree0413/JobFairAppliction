@@ -4,6 +4,7 @@ import com.elca.jobfairmanagementsystem.dto.VenueDto;
 import com.elca.jobfairmanagementsystem.entity.Venue;
 import com.elca.jobfairmanagementsystem.exception.Error;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
+import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.VenueNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.VenueMapper;
 import com.elca.jobfairmanagementsystem.repository.VenueRepository;
@@ -71,6 +72,16 @@ public class VenueServiceImpl implements VenueService {
             venueRepository.deleteById(venueId);
         } else {
             throw new VenueNotFoundException(ErrorMessages.VENUE_NOT_FOUND.toString());
+        }
+    }
+
+    @Override
+    public List<VenueDto> findVenueByActive(boolean active) throws VenueNotFoundException {
+        List<Venue> getVenueListByActive = venueRepository.findVenueByActive(active);
+        if (getVenueListByActive != null) {
+            return getVenueListByActive.stream().map(venueMapper::venueEntityToDto).collect(Collectors.toList());
+        } else {
+            throw new VenueNotFoundException(ErrorMessages.NO_VENUE_AVAILABLE.toString());
         }
     }
 }

@@ -46,4 +46,10 @@ public class JobController {
         jobService.deleteJob(jobId);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<JobDto>> getJobByCategory(@PathVariable String category) throws JobNotFoundException{
+        return new ResponseEntity<>(jobService.findJobByCategory(category),HttpStatus.OK);
+    }
+
 }

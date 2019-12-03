@@ -71,4 +71,14 @@ public class JobServiceImpl implements JobService {
             throw new JobNotFoundException(ErrorMessages.JOB_NOT_FOUND.toString());
         }
     }
+
+    @Override
+    public List<JobDto> findJobByCategory(String category) throws JobNotFoundException {
+        List<Job> getJobByCategory = jobRepository.findByCategory(category);
+        if (getJobByCategory.size() != 0) {
+            return getJobByCategory.stream().map(jobMapper::jobEntityToDto).collect(Collectors.toList());
+        } else {
+            throw new JobNotFoundException(ErrorMessages.JOB_NOT_FOUND.toString());
+        }
+    }
 }

@@ -1,7 +1,6 @@
 package com.elca.jobfairmanagementsystem.service;
 
 import com.elca.jobfairmanagementsystem.dto.QualificationDto;
-import com.elca.jobfairmanagementsystem.entity.Qualification;
 import com.elca.jobfairmanagementsystem.exception.QualificationNotFoundException;
 
 import java.util.List;
@@ -17,5 +16,7 @@ public interface QualificationService {
     void deleteQualification(Long qualificationId) throws QualificationNotFoundException;
 
     void updateQualification(QualificationDto qualificationDto) throws QualificationNotFoundException;
+
+    List<QualificationDto> findByCandidateId(long candidateId) throws QualificationNotFoundException;
 
 }

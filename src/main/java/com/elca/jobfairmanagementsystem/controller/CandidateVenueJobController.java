@@ -46,4 +46,9 @@ public class CandidateVenueJobController {
         candidateVenueJobService.deleteCandidateVenueJob(candidateVenueJobId);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("/candidates/{venueId}")
+    public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueId(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findAllCandidateByVenueId(venueId), HttpStatus.OK);
+    }
 }

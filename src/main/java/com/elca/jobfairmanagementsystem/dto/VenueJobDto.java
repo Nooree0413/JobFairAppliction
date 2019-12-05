@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class VenueJobDto {
     private Long venueJobId;
-    private Long venueId;
+    private VenueDto venue;
     private JobDto job;
 }

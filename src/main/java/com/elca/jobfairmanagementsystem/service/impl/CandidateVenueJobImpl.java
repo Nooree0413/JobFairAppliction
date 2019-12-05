@@ -57,8 +57,8 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
     public void updateCandidateVenueJob(CandidateVenueJobDto candidateVenueJobDto) throws CandidateVenueJobNotFoundException {
         var getCandidateVenueJobId = findCandidateVenueJobById(candidateVenueJobDto.getCandidateVenueJob());
         if (getCandidateVenueJobId != null) {
-            getCandidateVenueJobId.setCandidateId(candidateVenueJobDto.getCandidateId());
-            getCandidateVenueJobId.setVenueJobId(candidateVenueJobDto.getVenueJobId());
+            getCandidateVenueJobId.setCandidate(candidateVenueJobDto.getCandidate());
+            getCandidateVenueJobId.setVenueJob(candidateVenueJobDto.getVenueJob());
             getCandidateVenueJobId.setJobPriority(candidateVenueJobDto.getJobPriority());
             candidateVenueJobRepository.save(candidateVenueJobMapper.candidateVenueJobDtoToEntity(getCandidateVenueJobId));
         } else {
@@ -71,5 +71,17 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
         Optional<CandidateVenueJob> getCandidateVenueJob = candidateVenueJobRepository.findById(candidateVenueJobId);
         var candidateVenueJob = getCandidateVenueJob.orElseThrow(() -> new CandidateVenueJobNotFoundException(ErrorMessages.CANDIDATE_VENUE_JOB_NOT_FOUND.toString()));
         return candidateVenueJobMapper.candidateVenueJobEntityToDto(candidateVenueJob);
+    }
+
+    @Override
+    public List<CandidateVenueJobDto> findAllCandidateByVenueId(Long venueId) throws CandidateVenueJobNotFoundException {
+        List<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findCandidatesByVenueId(venueId);
+        if (candidateVenueJobs.size() != 0) {
+            return candidateVenueJobs.stream()
+                    .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        }
     }
 }

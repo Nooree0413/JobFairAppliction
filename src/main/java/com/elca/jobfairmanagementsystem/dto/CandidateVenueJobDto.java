@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CandidateVenueJobDto {
     private Long candidateVenueJob;
-    private Long venueJobId;
-    private Long candidateId;
+    private VenueJobDto venueJob;
+    private CandidateDto candidate;
     private String jobPriority;
 }

@@ -15,4 +15,6 @@ public interface CandidateVenueJobService {
     void updateCandidateVenueJob(CandidateVenueJobDto candidateVenueJobDto) throws CandidateVenueJobNotFoundException;
 
     CandidateVenueJobDto findCandidateVenueJobById(Long candidateVenueJobId) throws CandidateVenueJobNotFoundException;
+
+    List<CandidateVenueJobDto> findAllCandidateByVenueId(Long venueId) throws CandidateVenueJobNotFoundException;
 }

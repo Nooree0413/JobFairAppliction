@@ -11,4 +11,5 @@ import com.elca.jobfairmanagementsystem.entity.Candidate;
  */
 @Repository
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
+    Candidate findByEmail (String email);
 }

@@ -38,9 +38,9 @@ public class CandidateSkillImpl implements CandidateSkillService {
     }
 
     @Override
-    public void saveCandidateSkill(CandidateSkillDto candidateSkillDto) {
-        var saveCandidate = candidateSkillMapper.candidateSkillDtoToEntity(candidateSkillDto);
-        candidateSkillRepository.save(saveCandidate);
+    public void saveCandidateSkill(List<CandidateSkillDto> candidateSkillDto) {
+        candidateSkillDto.forEach(System.out::println);
+        candidateSkillRepository.saveAll(candidateSkillDto.stream().filter(CandidateSkillDto::isChecked).map(candidateSkillMapper::candidateSkillDtoToEntity).collect(Collectors.toList()));
     }
 
     @Override

@@ -30,8 +30,8 @@ public class CandidateSkillController {
     }
 
     @PostMapping
-    public ResponseEntity saveCandidateSkill(@RequestBody CandidateSkillDto candidateSkillDto) {
-        candidateSkillService.saveCandidateSkill(candidateSkillDto);
+    public ResponseEntity saveCandidateSkill(@RequestBody List<CandidateSkillDto> candidateSkillDtos) {
+        candidateSkillService.saveCandidateSkill(candidateSkillDtos);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

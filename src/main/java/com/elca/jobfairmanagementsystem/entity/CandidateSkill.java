@@ -22,4 +22,7 @@ public class CandidateSkill {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "skill_id")
     private Skill skill;
+
+    @Column(name="is_checked")
+    private boolean isChecked;
 }

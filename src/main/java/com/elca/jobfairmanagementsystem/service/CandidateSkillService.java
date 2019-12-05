@@ -8,7 +8,7 @@ import java.util.List;
 public interface CandidateSkillService {
     List<CandidateSkillDto> findAllCandidateSkills() throws CandidateSkillNotFoundException;
 
-    void saveCandidateSkill(CandidateSkillDto candidateSkillDto);
+    void saveCandidateSkill(List<CandidateSkillDto> candidateSkillDto);
 
     void deleteCandidateSkill(Long candidateSkillId) throws CandidateSkillNotFoundException;
 

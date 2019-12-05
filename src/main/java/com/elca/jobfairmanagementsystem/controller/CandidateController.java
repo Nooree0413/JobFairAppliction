@@ -51,4 +51,9 @@ public class CandidateController {
         candidateService.deleteCandidate(candidateId);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("/email")
+    public ResponseEntity<CandidateDto> getCandidateIdByEmail(@RequestParam String email) throws CandidateNotFoundException {
+        return new ResponseEntity<>(candidateService.findCandidateIdByEmail(email), HttpStatus.OK);
+    }
 }

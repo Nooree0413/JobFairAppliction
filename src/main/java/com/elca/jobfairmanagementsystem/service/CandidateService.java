@@ -20,4 +20,6 @@ public interface CandidateService {
     void updateCandidate(CandidateDto candidateDto) throws CandidateNotFoundException;
 
     CandidateDto findCandidateById(Long candidateId) throws CandidateNotFoundException;
+
+    CandidateDto findCandidateIdByEmail(String email) throws CandidateNotFoundException;
 }

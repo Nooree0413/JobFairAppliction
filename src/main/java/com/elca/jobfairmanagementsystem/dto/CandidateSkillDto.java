@@ -7,4 +7,5 @@ public class CandidateSkillDto {
     private Long candidateSkillId;
     private Long candidateId;
     private Long skillId;
+    private boolean checked;
 }

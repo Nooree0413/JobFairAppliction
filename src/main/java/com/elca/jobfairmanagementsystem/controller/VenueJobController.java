@@ -52,4 +52,19 @@ public class VenueJobController {
     public ResponseEntity<List<VenueJobDto>> getAllJobsByVenue(@PathVariable long venueId) throws VenueJobNotFoundException {
         return new ResponseEntity<>(venueJobService.findByVenueId(venueId), HttpStatus.OK);
     }
+
+    @GetMapping("/jobs/category")
+    public ResponseEntity<List<VenueJobDto>> getAllJobsByVenueAndCategory(@RequestParam long venueId,@RequestParam String category) throws VenueJobNotFoundException {
+        return new ResponseEntity<>(venueJobService.findByVenueIdAndCategory(venueId,category), HttpStatus.OK);
+    }
+
+    @GetMapping("/jobs/level/{level}")
+    public ResponseEntity<List<VenueJobDto>> getAllJobsByLevel(@PathVariable String level) throws VenueJobNotFoundException {
+        return new ResponseEntity<>(venueJobService.findByLevel(level), HttpStatus.OK);
+    }
+
+    @GetMapping("/jobs/title/{title}")
+    public ResponseEntity<List<VenueJobDto>> getAllJobsByTitle(@PathVariable String title) throws VenueJobNotFoundException {
+        return new ResponseEntity<>(venueJobService.findByTitle(title), HttpStatus.OK);
+    }
 }

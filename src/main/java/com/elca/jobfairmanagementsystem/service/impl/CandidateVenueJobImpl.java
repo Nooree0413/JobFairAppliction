@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
+import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
 import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
@@ -78,6 +79,26 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
         List<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findCandidatesByVenueId(venueId);
         if (candidateVenueJobs.size() != 0) {
             return candidateVenueJobs.stream()
+                    .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        }
+    }
+
+    @Override
+    public CandidateVenueJobCountAllDto countCandidatesByVenue(Long venueId) {
+        Integer counts = candidateVenueJobRepository.findCountOfCandidatesByVenueId(venueId);
+        CandidateVenueJobCountAllDto candidateVenueJobCountAllDto = new CandidateVenueJobCountAllDto();
+        candidateVenueJobCountAllDto.setCountCandidates(counts);
+        return candidateVenueJobCountAllDto;
+    }
+
+    @Override
+    public List<CandidateVenueJobDto> findCandidateVenueJobByLastName(String lastName) throws CandidateVenueJobNotFoundException {
+        List<CandidateVenueJob> candidateVenueJobsByLastName = candidateVenueJobRepository.findByLastName(lastName);
+        if (candidateVenueJobsByLastName.size() != 0) {
+            return candidateVenueJobsByLastName.stream()
                     .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
                     .collect(Collectors.toList());
         } else {

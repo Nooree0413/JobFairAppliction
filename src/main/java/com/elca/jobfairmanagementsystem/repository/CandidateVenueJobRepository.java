@@ -11,4 +11,10 @@ import java.util.List;
 public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenueJob, Long> {
     @Query("SELECT a FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId")
     List<CandidateVenueJob> findCandidatesByVenueId(long venueId);
+
+    @Query("SELECT count(a) FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId")
+    Integer findCountOfCandidatesByVenueId(long venueId);
+
+    @Query("SELECT a FROM CandidateVenueJob a WHERE a.candidate.lastName =:lastName")
+    List<CandidateVenueJob> findByLastName(String lastName);
 }

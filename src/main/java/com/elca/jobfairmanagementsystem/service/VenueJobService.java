@@ -18,4 +18,10 @@ public interface VenueJobService {
     void deleteVenueJob(Long venueJobId) throws VenueJobNotFoundException;
 
     List<VenueJobDto> findByVenueId(long venueId) throws VenueJobNotFoundException;
+
+    List<VenueJobDto> findByVenueIdAndCategory(long venueId,String category) throws VenueJobNotFoundException;
+
+    List<VenueJobDto> findByLevel(String level) throws VenueJobNotFoundException;
+
+    List<VenueJobDto> findByTitle(String title) throws VenueJobNotFoundException;
 }

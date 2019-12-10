@@ -84,4 +84,40 @@ public class VenueJobServiceImpl implements VenueJobService {
             throw new VenueJobNotFoundException(ErrorMessages.NO_VENUE_JOB_AVAILABLE.toString());
         }
     }
+
+    @Override
+    public List<VenueJobDto> findByVenueIdAndCategory(long venueId, String category) throws VenueJobNotFoundException {
+        List<VenueJob> findJobsByVenueAndCategory = venueJobRepository.findByVenueIdAndCategory(venueId,category);
+        if (findJobsByVenueAndCategory.size() != 0) {
+            return findJobsByVenueAndCategory.stream()
+                    .map(venueJobMapper::venueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new VenueJobNotFoundException(ErrorMessages.NO_VENUE_JOB_AVAILABLE.toString());
+        }
+    }
+
+    @Override
+    public List<VenueJobDto> findByLevel(String level) throws VenueJobNotFoundException {
+        List<VenueJob> findJobslevel = venueJobRepository.findByLevel(level);
+        if (findJobslevel.size() != 0) {
+            return findJobslevel.stream()
+                    .map(venueJobMapper::venueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new VenueJobNotFoundException(ErrorMessages.NO_VENUE_JOB_AVAILABLE.toString());
+        }
+    }
+
+    @Override
+    public List<VenueJobDto> findByTitle(String title) throws VenueJobNotFoundException {
+        List<VenueJob> findJobsByTitle = venueJobRepository.findByTitle(title);
+        if (findJobsByTitle.size() != 0) {
+            return findJobsByTitle.stream()
+                    .map(venueJobMapper::venueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new VenueJobNotFoundException(ErrorMessages.NO_VENUE_JOB_AVAILABLE.toString());
+        }
+    }
 }

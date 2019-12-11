@@ -120,4 +120,11 @@ public class VenueJobServiceImpl implements VenueJobService {
             throw new VenueJobNotFoundException(ErrorMessages.NO_VENUE_JOB_AVAILABLE.toString());
         }
     }
+
+    @Override
+    public VenueJob findByVenueIdAndJobId(long venueId, long jobId) throws VenueJobNotFoundException {
+        Optional<VenueJob> getVenueJobByIdAndJobId = Optional.ofNullable(venueJobRepository.findByVenueIdAndJobId(venueId, jobId));
+        var venueJob = getVenueJobByIdAndJobId.orElseThrow(() -> new VenueJobNotFoundException(ErrorMessages.VENUE_JOB_NOT_FOUND.toString()));
+        return venueJob;
+    }
 }

@@ -15,6 +15,12 @@ public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenu
     @Query("SELECT count(a) FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId")
     Integer findCountOfCandidatesByVenueId(long venueId);
 
-    @Query("SELECT a FROM CandidateVenueJob a WHERE a.candidate.lastName =:lastName")
+    @Query("SELECT a FROM CandidateVenueJob a WHERE a.candidate.lastName LIKE CONCAT('%',:lastName,'%')")
     List<CandidateVenueJob> findByLastName(String lastName);
+
+    @Query("SELECT a FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId ORDER BY a.candidate.lastName DESC")
+    List<CandidateVenueJob> findCandidatesByVenueIdDESC(long venueId);
+
+    @Query("SELECT a FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId ORDER BY a.candidate.lastName ASC")
+    List<CandidateVenueJob> findCandidatesByVenueIdASC(long venueId);
 }

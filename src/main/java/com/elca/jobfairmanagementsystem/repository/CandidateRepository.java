@@ -5,11 +5,13 @@ import org.springframework.stereotype.Repository;
 
 import com.elca.jobfairmanagementsystem.entity.Candidate;
 
+import java.util.Optional;
+
 /**
  *
  * @author ghr
  */
 @Repository
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
-    Candidate findByEmail (String email);
+    Optional<Candidate> findByEmail (String email);
 }

@@ -2,6 +2,7 @@ package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobSaveDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
 import org.springframework.http.HttpStatus;
@@ -31,8 +32,8 @@ public class CandidateVenueJobController {
     }
 
     @PostMapping
-    public ResponseEntity saveCandidateVenueJob(@RequestBody CandidateVenueJobDto candidateVenueJobDto) {
-        candidateVenueJobService.saveCandidateVenueJob(candidateVenueJobDto);
+    public ResponseEntity saveCandidateVenueJob(@RequestBody CandidateVenueJobSaveDto candidateVenueJobSaveDto) throws CandidateVenueJobNotFoundException{
+        candidateVenueJobService.saveCandidateVenueJob(candidateVenueJobSaveDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
@@ -61,5 +62,15 @@ public class CandidateVenueJobController {
     @GetMapping("/candidates/lastname/{lastName}")
     public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByLastName(@PathVariable String lastName) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByLastName(lastName), HttpStatus.OK);
+    }
+
+    @GetMapping("/candidates-desc/{venueId}")
+    public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueIdDESC(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByDESC(venueId), HttpStatus.OK);
+    }
+
+    @GetMapping("/candidates-asc/{venueId}")
+    public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueIdASC(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByASC(venueId), HttpStatus.OK);
     }
 }

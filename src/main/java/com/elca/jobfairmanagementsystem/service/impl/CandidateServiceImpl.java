@@ -66,7 +66,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateDto findCandidateIdByEmail(String email) throws CandidateNotFoundException {
-        Optional<Candidate> findCandidateByEmail = Optional.ofNullable(candidateRepository.findByEmail(email));
+        Optional<Candidate> findCandidateByEmail = candidateRepository.findByEmail(email);
         var candidate = findCandidateByEmail.orElseThrow(() -> new CandidateNotFoundException(ErrorMessages.CANDIDATE_NOT_FOUND.toString()));
         return candidateMapper.candidateEntityToCandidateDto(candidate);
     }

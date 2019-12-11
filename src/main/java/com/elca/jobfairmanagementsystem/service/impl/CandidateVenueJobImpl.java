@@ -2,12 +2,16 @@ package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobSaveDto;
 import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
+import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
+import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.CandidateVenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.CandidateVenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
+import com.elca.jobfairmanagementsystem.service.VenueJobService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +24,12 @@ import java.util.stream.Collectors;
 public class CandidateVenueJobImpl implements CandidateVenueJobService {
     private final CandidateVenueJobMapper candidateVenueJobMapper;
     private final CandidateVenueJobRepository candidateVenueJobRepository;
+    private final VenueJobService venueJobService;
 
-    CandidateVenueJobImpl(CandidateVenueJobMapper candidateVenueJobMapper, CandidateVenueJobRepository candidateVenueJobRepository) {
+    CandidateVenueJobImpl(CandidateVenueJobMapper candidateVenueJobMapper, CandidateVenueJobRepository candidateVenueJobRepository,VenueJobService venueJobService) {
         this.candidateVenueJobMapper = candidateVenueJobMapper;
         this.candidateVenueJobRepository = candidateVenueJobRepository;
+        this.venueJobService = venueJobService;
     }
 
     @Override
@@ -39,9 +45,18 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public void saveCandidateVenueJob(CandidateVenueJobDto candidateVenueJobDto) {
-        var saveCandidateVenueJob = candidateVenueJobMapper.candidateVenueJobDtoToEntity(candidateVenueJobDto);
-        candidateVenueJobRepository.save(saveCandidateVenueJob);
+    public void saveCandidateVenueJob(CandidateVenueJobSaveDto candidateVenueJobSaveDto) throws CandidateVenueJobNotFoundException {
+        try {
+            var venueJob = venueJobService.findByVenueIdAndJobId(candidateVenueJobSaveDto.getVenueId(),candidateVenueJobSaveDto.getJobId());
+            var candidateVenueJobSave = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidateVenueJobSaveDto);
+            CandidateVenueJob candidateVenueJob = new CandidateVenueJob();
+            candidateVenueJob.setVenueJob(venueJob);
+            candidateVenueJob.setCandidate(candidateVenueJobSave.getCandidate());
+            candidateVenueJob.setJobPriority(candidateVenueJobSave.getJobPriority());
+            candidateVenueJobRepository.save(candidateVenueJob);
+        } catch (VenueJobNotFoundException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -99,6 +114,30 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
         List<CandidateVenueJob> candidateVenueJobsByLastName = candidateVenueJobRepository.findByLastName(lastName);
         if (candidateVenueJobsByLastName.size() != 0) {
             return candidateVenueJobsByLastName.stream()
+                    .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        }
+    }
+
+    @Override
+    public List<CandidateVenueJobDto> findCandidateVenueJobByDESC(Long venueId) throws CandidateVenueJobNotFoundException {
+        List<CandidateVenueJob> candidateVenueJobDESC = candidateVenueJobRepository.findCandidatesByVenueIdDESC(venueId);
+        if (candidateVenueJobDESC.size() != 0) {
+            return candidateVenueJobDESC.stream()
+                    .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        }
+    }
+
+    @Override
+    public List<CandidateVenueJobDto> findCandidateVenueJobByASC(Long venueId) throws CandidateVenueJobNotFoundException {
+        List<CandidateVenueJob> candidateVenueJobASC = candidateVenueJobRepository.findCandidatesByVenueIdASC(venueId);
+        if (candidateVenueJobASC.size() != 0) {
+            return candidateVenueJobASC.stream()
                     .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
                     .collect(Collectors.toList());
         } else {

@@ -2,6 +2,7 @@ package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
 import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
+import com.elca.jobfairmanagementsystem.mapper.VenueJobMapper;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ import java.util.List;
 public class VenueJobController {
 
     private final VenueJobService venueJobService;
+    private final VenueJobMapper venueJobMapper;
 
-    public VenueJobController(VenueJobService venueJobService) {
+    public VenueJobController(VenueJobService venueJobService, VenueJobMapper venueJobMapper) {
         this.venueJobService = venueJobService;
+        this.venueJobMapper = venueJobMapper;
     }
 
     @GetMapping("/all")
@@ -66,5 +69,10 @@ public class VenueJobController {
     @GetMapping("/jobs/title/{title}")
     public ResponseEntity<List<VenueJobDto>> getAllJobsByTitle(@PathVariable String title) throws VenueJobNotFoundException {
         return new ResponseEntity<>(venueJobService.findByTitle(title), HttpStatus.OK);
+    }
+
+    @GetMapping("/job/venue")
+    public ResponseEntity<VenueJobDto> getJobByVenueIdAndJobId(@RequestParam long venueId,@RequestParam long jobId) throws VenueJobNotFoundException {
+        return new ResponseEntity<>(venueJobMapper.venueJobEntityToDto(venueJobService.findByVenueIdAndJobId(venueId,jobId)), HttpStatus.OK);
     }
 }

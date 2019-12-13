@@ -6,6 +6,6 @@ import lombok.Data;
 public class CandidateSkillDto {
     private Long candidateSkillId;
     private Long candidateId;
-    private Long skillId;
+    private SkillDto skillId;
     private boolean checked;
 }

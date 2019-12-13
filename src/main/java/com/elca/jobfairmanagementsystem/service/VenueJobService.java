@@ -21,9 +21,9 @@ public interface VenueJobService {
 
     List<VenueJobDto> findByVenueIdAndCategory(long venueId,String category) throws VenueJobNotFoundException;
 
-    List<VenueJobDto> findByLevel(String level) throws VenueJobNotFoundException;
+    List<VenueJobDto> findByLevel(long venueId,String level) throws VenueJobNotFoundException;
 
-    List<VenueJobDto> findByTitle(String title) throws VenueJobNotFoundException;
+    List<VenueJobDto> findByTitle(long venueId, String title) throws VenueJobNotFoundException;
 
     VenueJob findByVenueIdAndJobId (long venueId,long jobId) throws VenueJobNotFoundException;
 }

@@ -98,8 +98,8 @@ public class VenueJobServiceImpl implements VenueJobService {
     }
 
     @Override
-    public List<VenueJobDto> findByLevel(String level) throws VenueJobNotFoundException {
-        List<VenueJob> findJobslevel = venueJobRepository.findByLevel(level);
+    public List<VenueJobDto> findByLevel(long venueId,String level) throws VenueJobNotFoundException {
+        List<VenueJob> findJobslevel = venueJobRepository.findByLevel(venueId,level);
         if (findJobslevel.size() != 0) {
             return findJobslevel.stream()
                     .map(venueJobMapper::venueJobEntityToDto)
@@ -110,8 +110,8 @@ public class VenueJobServiceImpl implements VenueJobService {
     }
 
     @Override
-    public List<VenueJobDto> findByTitle(String title) throws VenueJobNotFoundException {
-        List<VenueJob> findJobsByTitle = venueJobRepository.findByTitle(title);
+    public List<VenueJobDto> findByTitle(long venueId, String title) throws VenueJobNotFoundException {
+        List<VenueJob> findJobsByTitle = venueJobRepository.findByTitle(venueId, title);
         if (findJobsByTitle.size() != 0) {
             return findJobsByTitle.stream()
                     .map(venueJobMapper::venueJobEntityToDto)

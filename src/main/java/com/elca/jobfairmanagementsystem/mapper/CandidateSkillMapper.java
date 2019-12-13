@@ -8,10 +8,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CandidateSkillMapper {
     @Mapping(target = "candidate.candidateId", source = "candidateSkillDto.candidateId")
-    @Mapping(target = "skill.skillId", source = "candidateSkillDto.skillId")
+    @Mapping(target = "skill.skillId", source = "candidateSkillDto.skillId.skillId")
     CandidateSkill candidateSkillDtoToEntity (CandidateSkillDto candidateSkillDto);
 
-    @Mapping(target = "skillId", source = "candidateSkill.skill.skillId")
+    @Mapping(target = "skillId.skillId", source = "candidateSkill.skill.skillId")
     @Mapping(target = "candidateId", source = "candidateSkill.candidate.candidateId")
     CandidateSkillDto candidateSkillEntityToDto (CandidateSkill candidateSkill);
 }

@@ -46,4 +46,9 @@ public class CandidateSkillController {
         candidateSkillService.deleteCandidateSkill(candidateSkillId);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("/candidate/{candidateId}")
+    public ResponseEntity<List<CandidateSkillDto>> getCandidateSkillByCandidateId(@PathVariable Long candidateId) throws CandidateSkillNotFoundException {
+        return new ResponseEntity<>(candidateSkillService.findCandidateSkillByCandidateId(candidateId), HttpStatus.OK);
+    }
 }

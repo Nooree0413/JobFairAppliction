@@ -71,4 +71,16 @@ public class CandidateSkillImpl implements CandidateSkillService {
         var candidateSkill = getCandidateSkill.orElseThrow(() -> new CandidateSkillNotFoundException(ErrorMessages.CANDIDATE_SKILL_NOT_FOUND.toString()));
         return candidateSkillMapper.candidateSkillEntityToDto(candidateSkill);
     }
+
+    @Override
+    public List<CandidateSkillDto> findCandidateSkillByCandidateId(Long candidateId) throws CandidateSkillNotFoundException {
+        List<CandidateSkill> candidateSkillsByCandidateId = candidateSkillRepository.findByCandidateId(candidateId);
+        if (candidateSkillsByCandidateId.size() != 0) {
+            return candidateSkillsByCandidateId.stream()
+                    .map(candidateSkillMapper::candidateSkillEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new CandidateSkillNotFoundException(ErrorMessages.NO_CANDIDATE_SKILL_AVAILABLE.toString());
+        }
+    }
 }

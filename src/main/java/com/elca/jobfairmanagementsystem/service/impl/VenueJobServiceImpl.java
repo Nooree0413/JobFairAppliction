@@ -57,6 +57,7 @@ public class VenueJobServiceImpl implements VenueJobService {
         if (getVenueJobId != null) {
             getVenueJobId.setJob(venueJobDto.getJob());
             getVenueJobId.setVenue(venueJobDto.getVenue());
+            getVenueJobId.setVenueJobDate(venueJobDto.getVenueJobDate());
             venueJobRepository.save(venueJobMapper.venueJobDtoToEntity(getVenueJobId));
         } else {
             throw new VenueJobNotFoundException(ErrorMessages.VENUE_JOB_NOT_FOUND.toString());

@@ -50,6 +50,7 @@ public class ExperienceController {
 
     @GetMapping("/candidate/{candidateId}")
     public ResponseEntity<List<ExperienceDto>> getAllExperienceByCandidateId(@PathVariable Long candidateId) throws ExperienceNotFoundException {
-        return new ResponseEntity<>(experienceService.findByCandidateId(candidateId), HttpStatus.OK);
+//        return new ResponseEntity<>(experienceService.findByCandidateId(candidateId), HttpStatus.OK);
+        return null;
     }
 }

@@ -58,7 +58,7 @@ public class CandidateSkillImpl implements CandidateSkillService {
         var getCandidateSkillById = findCandidateSkillById(candidateSkillDto.getCandidateSkillId());
         if (getCandidateSkillById != null) {
             getCandidateSkillById.setCandidateId(candidateSkillDto.getCandidateId());
-            getCandidateSkillById.setSkillId(candidateSkillDto.getSkillId());
+            getCandidateSkillById.setSkill(candidateSkillDto.getSkill());
             candidateSkillRepository.save(candidateSkillMapper.candidateSkillDtoToEntity(getCandidateSkillById));
         } else {
             throw new CandidateSkillNotFoundException(ErrorMessages.CANDIDATE_SKILL_NOT_FOUND.toString());
@@ -72,15 +72,15 @@ public class CandidateSkillImpl implements CandidateSkillService {
         return candidateSkillMapper.candidateSkillEntityToDto(candidateSkill);
     }
 
-    @Override
-    public List<CandidateSkillDto> findCandidateSkillByCandidateId(Long candidateId) throws CandidateSkillNotFoundException {
-        List<CandidateSkill> candidateSkillsByCandidateId = candidateSkillRepository.findByCandidateId(candidateId);
-        if (candidateSkillsByCandidateId.size() != 0) {
-            return candidateSkillsByCandidateId.stream()
-                    .map(candidateSkillMapper::candidateSkillEntityToDto)
-                    .collect(Collectors.toList());
-        } else {
-            throw new CandidateSkillNotFoundException(ErrorMessages.NO_CANDIDATE_SKILL_AVAILABLE.toString());
-        }
-    }
+//    @Override
+//    public List<CandidateSkillDto> findCandidateSkillByCandidateId(Long candidateId) throws CandidateSkillNotFoundException {
+//        List<CandidateSkill> candidateSkillsByCandidateId = candidateSkillRepository.findByCandidateId(candidateId);
+//        if (candidateSkillsByCandidateId.size() != 0) {
+//            return candidateSkillsByCandidateId.stream()
+//                    .map(candidateSkillMapper::candidateSkillEntityToDto)
+//                    .collect(Collectors.toList());
+//        } else {
+//            throw new CandidateSkillNotFoundException(ErrorMessages.NO_CANDIDATE_SKILL_AVAILABLE.toString());
+//        }
+//    }
 }

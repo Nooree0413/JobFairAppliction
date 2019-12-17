@@ -1,11 +1,12 @@
 package com.elca.jobfairmanagementsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.elca.jobfairmanagementsystem.entity.Candidate;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  *
@@ -13,5 +14,9 @@ import java.util.Optional;
  */
 @Repository
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
-    Optional<Candidate> findByEmail (String email);
+    @Query("SELECT c FROM Candidate c INNER JOIN c.candidateVenueJobs cvj INNER JOIN cvj.venueJob vj WHERE vj.venue.venueId =:venueId")
+    List<Candidate> findCandidatesByVenueId(long venueId);
+
+    @Query("SELECT count(c) FROM Candidate c INNER JOIN c.candidateVenueJobs cvj INNER JOIN cvj.venueJob vj WHERE vj.venue.venueId =:venueId")
+    Integer findCountOfCandidatesByVenueId(long venueId);
 }

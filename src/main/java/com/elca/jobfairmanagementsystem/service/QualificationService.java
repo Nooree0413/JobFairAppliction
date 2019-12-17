@@ -17,6 +17,6 @@ public interface QualificationService {
 
     void updateQualification(QualificationDto qualificationDto) throws QualificationNotFoundException;
 
-    List<QualificationDto> findByCandidateId(long candidateId) throws QualificationNotFoundException;
+//    List<QualificationDto> findByCandidateId(long candidateId) throws QualificationNotFoundException;
 
 }

@@ -50,6 +50,7 @@ public class QualificationController {
 
     @GetMapping("/candidate/{candidateId}")
     public ResponseEntity<List<QualificationDto>> getAllQualificationByCandidateId(@PathVariable long candidateId) throws QualificationNotFoundException {
-        return new ResponseEntity<>(qualificationService.findByCandidateId(candidateId), HttpStatus.OK);
+//        return new ResponseEntity<>(qualificationService.findByCandidateId(candidateId), HttpStatus.OK);
+        return null;
     }
 }

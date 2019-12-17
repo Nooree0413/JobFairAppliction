@@ -52,8 +52,8 @@ public class CandidateController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/email")
-    public ResponseEntity<CandidateDto> getCandidateIdByEmail(@RequestParam String email) throws CandidateNotFoundException {
-        return new ResponseEntity<>(candidateService.findCandidateIdByEmail(email), HttpStatus.OK);
+    @GetMapping("/candidates/{venueId}")
+    public ResponseEntity<List<CandidateDto>> getCandidateByVenueId(@PathVariable Long venueId) throws CandidateNotFoundException{
+        return new ResponseEntity<>(candidateService.findCandidateByVenueId(venueId), HttpStatus.OK);
     }
 }

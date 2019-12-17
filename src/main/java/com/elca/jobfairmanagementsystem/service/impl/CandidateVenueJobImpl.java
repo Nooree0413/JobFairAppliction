@@ -44,20 +44,20 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
         }
     }
 
-    @Override
-    public void saveCandidateVenueJob(CandidateVenueJobSaveDto candidateVenueJobSaveDto) throws CandidateVenueJobNotFoundException {
-        try {
-            var venueJob = venueJobService.findByVenueIdAndJobId(candidateVenueJobSaveDto.getVenueId(),candidateVenueJobSaveDto.getJobId());
-            var candidateVenueJobSave = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidateVenueJobSaveDto);
-            CandidateVenueJob candidateVenueJob = new CandidateVenueJob();
-            candidateVenueJob.setVenueJob(venueJob);
-            candidateVenueJob.setCandidate(candidateVenueJobSave.getCandidate());
-            candidateVenueJob.setJobPriority(candidateVenueJobSave.getJobPriority());
-            candidateVenueJobRepository.save(candidateVenueJob);
-        } catch (VenueJobNotFoundException e){
-            e.printStackTrace();
-        }
-    }
+//    @Override
+//    public void saveCandidateVenueJob(CandidateVenueJobSaveDto candidateVenueJobSaveDto) throws CandidateVenueJobNotFoundException {
+//        try {
+//            var venueJob = venueJobService.findByVenueIdAndJobId(candidateVenueJobSaveDto.getVenueId(),candidateVenueJobSaveDto.getJobId());
+//            var candidateVenueJobSave = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidateVenueJobSaveDto);
+//            CandidateVenueJob candidateVenueJob = new CandidateVenueJob();
+//            candidateVenueJob.setVenueJob(venueJob);
+//            candidateVenueJob.setCandidate(candidateVenueJobSave.getCandidate());
+//            candidateVenueJob.setJobPriority(candidateVenueJobSave.getJobPriority());
+//            candidateVenueJobRepository.save(candidateVenueJob);
+//        } catch (VenueJobNotFoundException e){
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public void deleteCandidateVenueJob(Long candidateVenueJobId) throws CandidateVenueJobNotFoundException {

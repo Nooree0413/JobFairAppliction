@@ -21,5 +21,5 @@ public interface CandidateService {
 
     CandidateDto findCandidateById(Long candidateId) throws CandidateNotFoundException;
 
-    CandidateDto findCandidateIdByEmail(String email) throws CandidateNotFoundException;
+    List<CandidateDto> findCandidateByVenueId(Long venueId) throws CandidateNotFoundException;
 }

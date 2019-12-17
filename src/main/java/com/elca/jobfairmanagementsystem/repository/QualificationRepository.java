@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface QualificationRepository extends JpaRepository<Qualification,Long> {
-    @Query("SELECT a FROM Qualification a WHERE a.candidate.candidateId =:candidateId")
-    List<Qualification> findByCandidateId(long candidateId);
+//    @Query("SELECT a FROM Qualification a WHERE a.candidate.candidateId =:candidateId")
+//    List<Qualification> findByCandidateId(long candidateId);
 }

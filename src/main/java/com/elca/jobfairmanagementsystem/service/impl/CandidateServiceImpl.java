@@ -1,18 +1,22 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
+import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
+import com.elca.jobfairmanagementsystem.mapper.*;
+import com.elca.jobfairmanagementsystem.repository.*;
+import com.elca.jobfairmanagementsystem.service.VenueJobService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateDto;
 import com.elca.jobfairmanagementsystem.entity.Candidate;
-import com.elca.jobfairmanagementsystem.mapper.CandidateMapper;
-import com.elca.jobfairmanagementsystem.repository.CandidateRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateService;
 
 /**
@@ -23,10 +27,20 @@ import com.elca.jobfairmanagementsystem.service.CandidateService;
 public class CandidateServiceImpl implements CandidateService {
     private final CandidateRepository candidateRepository;
     private final CandidateMapper candidateMapper;
+    private final ExperienceMapper experienceMapper;
+    private final QualificationMapper qualificationMapper;
+    private final CandidateSkillMapper candidateSkillMapper;
+    private final CandidateVenueJobMapper candidateVenueJobMapper;
+    private final VenueJobService venueJobService;
 
-    public CandidateServiceImpl(CandidateMapper candidateMapper, CandidateRepository candidateRepository) {
+    public CandidateServiceImpl(CandidateMapper candidateMapper, CandidateRepository candidateRepository, ExperienceMapper experienceMapper, QualificationMapper qualificationMapper, CandidateSkillMapper candidateSkillMapper, CandidateVenueJobMapper candidateVenueJobMapper, ExperienceRepository experienceRepository, QualificationRepository qualificationRepository, CandidateSkillRepository candidateSkillRepository, CandidateVenueJobRepository candidateVenueJobRepository, VenueJobService venueJobService) {
         this.candidateMapper = candidateMapper;
         this.candidateRepository = candidateRepository;
+        this.experienceMapper = experienceMapper;
+        this.qualificationMapper = qualificationMapper;
+        this.candidateSkillMapper = candidateSkillMapper;
+        this.candidateVenueJobMapper = candidateVenueJobMapper;
+        this.venueJobService = venueJobService;
     }
 
     @Override
@@ -43,8 +57,51 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public void saveCandidate(CandidateDto candidateDto) {
-        Candidate newCandidate = candidateMapper.candidateDtoToCandidateEntity(candidateDto);
-        candidateRepository.save(newCandidate);
+        var candidate = candidateMapper.candidateDtoToCandidateEntity(candidateDto);
+
+        var experienceList = candidateDto.getExperienceDtos();
+        var qualificationList = candidateDto.getQualificationDtos();
+        var candidateSkillList = candidateDto.getCandidateSkillDtos();
+        var candidateVenueJobSaveList = candidateDto.getCandidateVenueJobSaveDto();
+
+        var experiences = experienceList.stream().map(experienceMapper::experienceDtoToEntity).collect(Collectors.toList());
+        candidate.setExperiences(experiences);
+
+//        experiences.forEach(experience -> experience.setCandidate(candidate));
+//        experienceRepository.saveAll(experiences);
+
+        var qualifications = qualificationList.stream().map(qualificationMapper::qualificationDtoToEntity).collect(Collectors.toList());
+        candidate.setQualifications(qualifications);
+
+//        qualifications.forEach(qualification -> qualification.setCandidate(candidate));
+//        qualificationRepository.saveAll(qualifications);
+
+        var candidateSkills = candidateSkillList.stream().map(candidateSkillMapper::candidateSkillDtoToEntity).collect(Collectors.toList());
+        candidate.setCandidateSkills(candidateSkills);
+
+//        candidateSkills.forEach(candidateSkill -> candidateSkill.setCandidate(candidate));
+//        candidateSkillRepository.saveAll(candidateSkills);
+
+//      var venueJobs = candidateVenueJobSaveList.stream().map(candidateVenueJobMapper::candidateVenueJobSaveDtoToEntity).collect(Collectors.toList());
+            candidateVenueJobSaveList.forEach(candidatesVenueDto ->{
+            try {
+                var venueJob = venueJobService.findByVenueIdAndJobId(candidatesVenueDto.getVenueId(),candidatesVenueDto.getJobId());
+                candidatesVenueDto.setVenueJobId(venueJob.getVenueJobId());
+                candidatesVenueDto.setJobId(venueJob.getJob().getJobId());
+                var saveCandidateVenueJob = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidatesVenueDto);
+                candidate.setCandidateVenueJobs(Collections.singletonList(saveCandidateVenueJob));
+                candidateRepository.save(candidate);
+
+            } catch (VenueJobNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+//            candidateVenueJobSaveDto.setVenueJobId(venueJob.getVenueJobId());
+//            candidateVenueJobSaveDto.setCandidateId(candidate.getCandidateId());
+//            var saveCandidateVenueJob = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidateVenueJobSaveDto);
+//            candidate.setCandidateVenueJobs(saveCandidateVenueJob);
+//            candidateRepository.save(candidate);
+
     }
 
     @Override
@@ -65,10 +122,15 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public CandidateDto findCandidateIdByEmail(String email) throws CandidateNotFoundException {
-        Optional<Candidate> findCandidateByEmail = candidateRepository.findByEmail(email);
-        var candidate = findCandidateByEmail.orElseThrow(() -> new CandidateNotFoundException(ErrorMessages.CANDIDATE_NOT_FOUND.toString()));
-        return candidateMapper.candidateEntityToCandidateDto(candidate);
+    public List<CandidateDto> findCandidateByVenueId(Long venueId) throws CandidateNotFoundException {
+        List<Candidate> candidates = candidateRepository.findCandidatesByVenueId(venueId);
+        if (candidates.size() != 0) {
+            return candidates.stream()
+                    .map(candidateMapper::candidateEntityToCandidateDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new CandidateNotFoundException(ErrorMessages.NO_CANDIDATE_AVAILABLE.toString());
+        }
     }
 
     @Override

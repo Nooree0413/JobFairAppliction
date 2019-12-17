@@ -3,6 +3,7 @@ package com.elca.jobfairmanagementsystem.dto;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ghr
@@ -23,4 +24,8 @@ public class CandidateDto {
     private String currentLevel;
     private String jobType;
     private String currentAcademicYear;
+    private List<ExperienceDto> experienceDtos;
+    private List<QualificationDto> qualificationDtos;
+    private List<CandidateSkillDto> candidateSkillDtos;
+    private List<CandidateVenueJobSaveDto> candidateVenueJobSaveDto;
 }

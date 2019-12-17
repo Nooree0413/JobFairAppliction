@@ -33,7 +33,7 @@ public class CandidateVenueJobController {
 
     @PostMapping
     public ResponseEntity saveCandidateVenueJob(@RequestBody CandidateVenueJobSaveDto candidateVenueJobSaveDto) throws CandidateVenueJobNotFoundException{
-        candidateVenueJobService.saveCandidateVenueJob(candidateVenueJobSaveDto);
+//        candidateVenueJobService.saveCandidateVenueJob(candidateVenueJobSaveDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

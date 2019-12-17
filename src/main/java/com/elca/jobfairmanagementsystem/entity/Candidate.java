@@ -5,9 +5,7 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -64,4 +62,32 @@ public class Candidate {
 
     @Column(name = "current_academic_year")
     private String currentAcademicYear;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "candidate_id")
+    private List<Experience> experiences = new ArrayList<>();
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "candidate_id")
+    private List<Qualification> qualifications = new ArrayList<>();
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "candidate_id")
+    private List<CandidateSkill> candidateSkills = new ArrayList<>();
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "candidate_id")
+    private List<CandidateVenueJob> candidateVenueJobs = new ArrayList<>();
 }

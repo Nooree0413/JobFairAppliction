@@ -67,17 +67,17 @@ public class QualificationServiceImpl implements QualificationService {
         }
     }
 
-    @Override
-    public List<QualificationDto> findByCandidateId(long candidateId) throws QualificationNotFoundException {
-        List<Qualification> qualifications = qualificationRepo.findByCandidateId(candidateId);
-        if (qualifications.size() != 0) {
-            return qualifications.stream()
-                    .map(qualificationMapper::qualificationEntityToDto)
-                    .collect(Collectors.toList());
-        } else {
-            throw new QualificationNotFoundException(ErrorMessages.NO_QUALIFICATION_AVAILABLE.toString());
-        }
-    }
+//    @Override
+//    public List<QualificationDto> findByCandidateId(long candidateId) throws QualificationNotFoundException {
+//        List<Qualification> qualifications = qualificationRepo.findByCandidateId(candidateId);
+//        if (qualifications.size() != 0) {
+//            return qualifications.stream()
+//                    .map(qualificationMapper::qualificationEntityToDto)
+//                    .collect(Collectors.toList());
+//        } else {
+//            throw new QualificationNotFoundException(ErrorMessages.NO_QUALIFICATION_AVAILABLE.toString());
+//        }
+//    }
 
     @Override
     public QualificationDto findByQualificationId(Long qualificationId) throws QualificationNotFoundException{

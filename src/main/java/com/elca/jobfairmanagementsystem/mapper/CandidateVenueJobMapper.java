@@ -17,8 +17,10 @@ public interface CandidateVenueJobMapper {
     CandidateVenueJobDto candidateVenueJobEntityToDto (CandidateVenueJob candidateVenueJob);
 
     @Mapping(target = "candidate.candidateId", source = "candidateVenueJobSaveDto.candidateId")
+    @Mapping(target = "venueJob.venueJobId", source = "candidateVenueJobSaveDto.venueJobId")
     CandidateVenueJob candidateVenueJobSaveDtoToEntity (CandidateVenueJobSaveDto candidateVenueJobSaveDto);
 
     @Mapping(target = "candidateId", source = "candidateVenueJob.candidate.candidateId")
+    @Mapping(target = "venueJobId", source = "candidateVenueJob.venueJob.venueJobId")
     CandidateVenueJobSaveDto candidateVenueJobSaveEntityToDto (CandidateVenueJob candidateVenueJob);
 }

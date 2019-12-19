@@ -84,7 +84,7 @@ public class CandidateServiceImpl implements CandidateService {
 //        qualifications.forEach(qualification -> qualification.setCandidate(candidate));
 //        qualificationRepository.saveAll(qualifications);
 
-        var candidateSkills = candidateSkillList.stream().map(candidateSkillMapper::candidateSkillDtoToEntity).collect(Collectors.toList());
+        var candidateSkills = candidateSkillList.stream().filter(CandidateSkillDto::isChecked).map(candidateSkillMapper::candidateSkillDtoToEntity).collect(Collectors.toList());
         candidate.setCandidateSkills(candidateSkills);
 
 //        List<CandidateSkill> candidateSkills = new ArrayList<>();

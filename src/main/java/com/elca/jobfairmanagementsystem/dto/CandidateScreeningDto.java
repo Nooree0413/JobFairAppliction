@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -14,10 +16,10 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class CandidateScreeningDto {
-    private Long CandidateScreeningId;
-    private Date InterviewDate;
-    private String InterviewerName;
-    private String InterviewerFeedback;
-    private String ScreeningStatus;
+    private Long candidateScreeningId;
+    private LocalDateTime interviewDate;
+    private String interviewerName;
+    private String interviewerFeedback;
+    private String screeningStatus;
     private Long candidateId;
 }

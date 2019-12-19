@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -29,9 +31,8 @@ public class CandidateScreening {
     @Column(name = "candidate_screening_id")
     private Long candidateScreeningId;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "interview_date")
-    private Date interviewDate;
+    private LocalDateTime interviewDate;
 
     @Column(name = "interviewer_name")
     private String interviewerName;

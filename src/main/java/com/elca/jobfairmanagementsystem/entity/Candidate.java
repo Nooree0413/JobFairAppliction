@@ -64,29 +64,33 @@ public class Candidate {
     private String currentAcademicYear;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name = "candidate_id")
     private List<Experience> experiences = new ArrayList<>();
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name = "candidate_id")
     private List<Qualification> qualifications = new ArrayList<>();
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name = "candidate_id")
     private List<CandidateSkill> candidateSkills = new ArrayList<>();
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     @JoinColumn(name = "candidate_id")
     private List<CandidateVenueJob> candidateVenueJobs = new ArrayList<>();

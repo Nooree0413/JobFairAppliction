@@ -1,16 +1,22 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 
-import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
-import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
-import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
+import com.elca.jobfairmanagementsystem.dto.CandidateSkillDto;
+import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobSaveDto;
+import com.elca.jobfairmanagementsystem.dto.SkillDto;
+import com.elca.jobfairmanagementsystem.entity.CandidateSkill;
+import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
+import com.elca.jobfairmanagementsystem.entity.VenueJob;
+import com.elca.jobfairmanagementsystem.exception.*;
 import com.elca.jobfairmanagementsystem.mapper.*;
 import com.elca.jobfairmanagementsystem.repository.*;
+import com.elca.jobfairmanagementsystem.service.CandidateSkillService;
+import com.elca.jobfairmanagementsystem.service.SkillService;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +38,9 @@ public class CandidateServiceImpl implements CandidateService {
     private final CandidateSkillMapper candidateSkillMapper;
     private final CandidateVenueJobMapper candidateVenueJobMapper;
     private final VenueJobService venueJobService;
+    private final SkillService skillService;
 
-    public CandidateServiceImpl(CandidateMapper candidateMapper, CandidateRepository candidateRepository, ExperienceMapper experienceMapper, QualificationMapper qualificationMapper, CandidateSkillMapper candidateSkillMapper, CandidateVenueJobMapper candidateVenueJobMapper, ExperienceRepository experienceRepository, QualificationRepository qualificationRepository, CandidateSkillRepository candidateSkillRepository, CandidateVenueJobRepository candidateVenueJobRepository, VenueJobService venueJobService) {
+    public CandidateServiceImpl(CandidateMapper candidateMapper, CandidateRepository candidateRepository, ExperienceMapper experienceMapper, QualificationMapper qualificationMapper, CandidateSkillMapper candidateSkillMapper, CandidateVenueJobMapper candidateVenueJobMapper, ExperienceRepository experienceRepository, QualificationRepository qualificationRepository, CandidateSkillRepository candidateSkillRepository, CandidateVenueJobRepository candidateVenueJobRepository, VenueJobService venueJobService, CandidateSkillService candidateSkillService, SkillService skillService) {
         this.candidateMapper = candidateMapper;
         this.candidateRepository = candidateRepository;
         this.experienceMapper = experienceMapper;
@@ -41,6 +48,7 @@ public class CandidateServiceImpl implements CandidateService {
         this.candidateSkillMapper = candidateSkillMapper;
         this.candidateVenueJobMapper = candidateVenueJobMapper;
         this.venueJobService = venueJobService;
+        this.skillService = skillService;
     }
 
     @Override
@@ -61,8 +69,8 @@ public class CandidateServiceImpl implements CandidateService {
 
         var experienceList = candidateDto.getExperienceDtos();
         var qualificationList = candidateDto.getQualificationDtos();
-        var candidateSkillList = candidateDto.getCandidateSkillDtos();
-        var candidateVenueJobSaveList = candidateDto.getCandidateVenueJobSaveDto();
+        List<CandidateSkillDto> candidateSkillList = candidateDto.getCandidateSkillDtos();
+        List<CandidateVenueJobSaveDto> candidateVenueJobSaveList = candidateDto.getCandidateVenueJobSaveDto();
 
         var experiences = experienceList.stream().map(experienceMapper::experienceDtoToEntity).collect(Collectors.toList());
         candidate.setExperiences(experiences);
@@ -79,23 +87,37 @@ public class CandidateServiceImpl implements CandidateService {
         var candidateSkills = candidateSkillList.stream().map(candidateSkillMapper::candidateSkillDtoToEntity).collect(Collectors.toList());
         candidate.setCandidateSkills(candidateSkills);
 
+//        List<CandidateSkill> candidateSkills = new ArrayList<>();
+//        candidateSkillList.forEach(candidateSkillDto -> {
+//            try {
+//                SkillDto skillId = skillService.findSkillById(candidateSkillDto.getSkill().getSkillId());
+//                candidateSkillDto.setSkill(skillId);
+//                CandidateSkill candidateSkill = candidateSkillMapper.candidateSkillDtoToEntity(candidateSkillDto);
+//                candidateSkills.add(candidateSkill);
+//            } catch (SkillNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        });
+
 //        candidateSkills.forEach(candidateSkill -> candidateSkill.setCandidate(candidate));
 //        candidateSkillRepository.saveAll(candidateSkills);
 
 //      var venueJobs = candidateVenueJobSaveList.stream().map(candidateVenueJobMapper::candidateVenueJobSaveDtoToEntity).collect(Collectors.toList());
+        List<CandidateVenueJob> candidateVenueJobs = new ArrayList<>();
             candidateVenueJobSaveList.forEach(candidatesVenueDto ->{
             try {
-                var venueJob = venueJobService.findByVenueIdAndJobId(candidatesVenueDto.getVenueId(),candidatesVenueDto.getJobId());
+                VenueJob venueJob = venueJobService.findByVenueIdAndJobId(candidatesVenueDto.getVenueId(),candidatesVenueDto.getJobId());
                 candidatesVenueDto.setVenueJobId(venueJob.getVenueJobId());
                 candidatesVenueDto.setJobId(venueJob.getJob().getJobId());
-                var saveCandidateVenueJob = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidatesVenueDto);
-                candidate.setCandidateVenueJobs(Collections.singletonList(saveCandidateVenueJob));
-                candidateRepository.save(candidate);
-
+                CandidateVenueJob saveCandidateVenueJob = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidatesVenueDto);
+                saveCandidateVenueJob.setCandidate(candidate);
+                candidateVenueJobs.add(saveCandidateVenueJob);
             } catch (VenueJobNotFoundException e) {
                 e.printStackTrace();
             }
         });
+        candidate.setCandidateVenueJobs(candidateVenueJobs);
+        candidateRepository.save(candidate);
 //            candidateVenueJobSaveDto.setVenueJobId(venueJob.getVenueJobId());
 //            candidateVenueJobSaveDto.setCandidateId(candidate.getCandidateId());
 //            var saveCandidateVenueJob = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidateVenueJobSaveDto);

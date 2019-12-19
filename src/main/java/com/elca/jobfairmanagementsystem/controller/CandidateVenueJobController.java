@@ -49,9 +49,9 @@ public class CandidateVenueJobController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/candidates/{venueId}")
-    public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueId(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
-        return new ResponseEntity<>(candidateVenueJobService.findAllCandidateByVenueId(venueId), HttpStatus.OK);
+    @GetMapping("/candidates/{venueId}/{limit}")
+    public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueId(@PathVariable Long venueId,@PathVariable Boolean limit) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findAllCandidateByVenueId(venueId,limit), HttpStatus.OK);
     }
 
     @GetMapping("/count-candidates/{venueId}")

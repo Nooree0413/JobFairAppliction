@@ -90,9 +90,15 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public List<CandidateVenueJobDto> findAllCandidateByVenueId(Long venueId) throws CandidateVenueJobNotFoundException {
+    public List<CandidateVenueJobDto> findAllCandidateByVenueId(Long venueId,Boolean limit) throws CandidateVenueJobNotFoundException {
         List<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findCandidatesByVenueId(venueId);
-        if (candidateVenueJobs.size() != 0) {
+
+        if (candidateVenueJobs.size() != 0 && limit) {
+            return candidateVenueJobs.stream()
+                    .limit(5)
+                    .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else if (candidateVenueJobs.size() != 0 && limit == false){
             return candidateVenueJobs.stream()
                     .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
                     .collect(Collectors.toList());

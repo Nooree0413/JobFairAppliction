@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenueJob, Long> {
-    @Query("SELECT a FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId")
+    @Query("SELECT a FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId ORDER BY a.candidate.registrationDate DESC")
     List<CandidateVenueJob> findCandidatesByVenueId(long venueId);
 
     @Query("SELECT count(a) FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId")

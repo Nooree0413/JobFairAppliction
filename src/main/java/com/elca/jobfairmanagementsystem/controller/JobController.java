@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -50,6 +51,11 @@ public class JobController {
     @GetMapping("/category/{category}")
     public ResponseEntity<List<JobDto>> getJobByCategory(@PathVariable String category) throws JobNotFoundException{
         return new ResponseEntity<>(jobService.findJobByCategory(category),HttpStatus.OK);
+    }
+
+    @GetMapping("/priority")
+    public ResponseEntity <List<JobDto>> getJobByPriority(@RequestParam String jobId) throws JobNotFoundException{
+        return new ResponseEntity<>(jobService.findJobsAppliedById(jobId),HttpStatus.OK);
     }
 
 }

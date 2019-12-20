@@ -5,6 +5,7 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -47,8 +48,7 @@ public class Candidate {
     private String nationality;
 
     @Column(name = "registration_date",nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date registrationDate;
+    private LocalDateTime registrationDate;
 
     @Column(name = "availability_date",nullable = false)
     @Temporal(TemporalType.DATE)

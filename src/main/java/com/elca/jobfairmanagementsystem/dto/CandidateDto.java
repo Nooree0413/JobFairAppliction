@@ -2,6 +2,7 @@ package com.elca.jobfairmanagementsystem.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class CandidateDto {
     private String gender;
     private String address;
     private String nationality;
-    private Date registrationDate;
+    private LocalDateTime registrationDate;
     private Date availabilityDate;
     private String currentLevel;
     private String jobType;

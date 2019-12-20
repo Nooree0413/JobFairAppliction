@@ -10,6 +10,7 @@ import com.elca.jobfairmanagementsystem.service.JobService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -80,5 +81,22 @@ public class JobServiceImpl implements JobService {
         } else {
             throw new JobNotFoundException(ErrorMessages.JOB_NOT_FOUND.toString());
         }
+    }
+
+    @Override
+    public List<JobDto> findJobsAppliedById(String jobId) throws JobNotFoundException{
+        String[] arrSplit = jobId.split(",");
+        List<JobDto> listJob = new ArrayList<>();
+        for(int i=0; i < arrSplit.length; i++){
+            var eachJobId = arrSplit[i];
+            var getJobId = Integer.parseInt(eachJobId);
+            try {
+                JobDto job = findJobById((long) getJobId);
+                listJob.add(job);
+            } catch (JobNotFoundException e) {
+                throw new JobNotFoundException(ErrorMessages.JOB_NOT_FOUND.toString());
+            }
+        }
+     return listJob;
     }
 }

@@ -17,6 +17,7 @@ public interface CandidateMapper {
     @Mapping(target = "qualificationDtos", source = "candidateEntity.qualifications")
     @Mapping(target = "candidateVenueJobSaveDto", source = "candidateVenueJobs")
     @Mapping(target = "candidateSkillDtos", source = "candidateEntity.candidateSkills")
+    @Mapping(target = "candidateScreeningDtos", source = "candidateEntity.candidateScreenings")
     CandidateDto candidateEntityToCandidateDto(Candidate candidateEntity);
 //
 //    @Mapping(target = "experiences", source = "candidateDto.experienceDtos")

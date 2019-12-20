@@ -94,4 +94,12 @@ public class Candidate {
     )
     @JoinColumn(name = "candidate_id")
     private List<CandidateVenueJob> candidateVenueJobs = new ArrayList<>();
+
+    @OneToMany(
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "candidate_id")
+    private List<CandidateScreening> candidateScreenings = new ArrayList<>();
 }

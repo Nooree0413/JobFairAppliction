@@ -28,4 +28,5 @@ public class CandidateDto {
     private List<QualificationDto> qualificationDtos;
     private List<CandidateSkillDto> candidateSkillDtos;
     private List<CandidateVenueJobSaveDto> candidateVenueJobSaveDto;
+    private List<CandidateScreeningDto> candidateScreeningDtos;
 }

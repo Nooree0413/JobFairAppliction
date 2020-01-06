@@ -1,6 +1,7 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.JobDto;
+import com.elca.jobfairmanagementsystem.dto.JobPriorityDto;
 import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
 import com.elca.jobfairmanagementsystem.service.JobService;
 import org.springframework.http.HttpStatus;
@@ -54,7 +55,7 @@ public class JobController {
     }
 
     @GetMapping("/priority")
-    public ResponseEntity <List<JobDto>> getJobByPriority(@RequestParam String jobId) throws JobNotFoundException{
+    public ResponseEntity <List<JobDto>> getJobByPriority(@PathVariable String jobId) throws JobNotFoundException{
         return new ResponseEntity<>(jobService.findJobsAppliedById(jobId),HttpStatus.OK);
     }
 

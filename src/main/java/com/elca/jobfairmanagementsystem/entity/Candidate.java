@@ -35,7 +35,7 @@ public class Candidate {
     @Column(name = "tel_number")
     private int telNumber;
 
-    @Column(name = "mobile_number",nullable = false)
+    @Column(name = "mobile_number")
     private int mobileNumber;
 
     @Column(name = "gender")
@@ -44,7 +44,7 @@ public class Candidate {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "nationality",nullable = false)
+    @Column(name = "nationality")
     private String nationality;
 
     @Column(name = "registration_date",nullable = false)

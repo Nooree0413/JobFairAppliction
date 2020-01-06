@@ -1,6 +1,7 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.JobDto;
+import com.elca.jobfairmanagementsystem.dto.JobPriorityDto;
 import com.elca.jobfairmanagementsystem.entity.Job;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
@@ -84,14 +85,15 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<JobDto> findJobsAppliedById(String jobId) throws JobNotFoundException{
-        String[] arrSplit = jobId.split(",");
+    public List<JobDto> findJobsAppliedById(String jobPriority) throws JobNotFoundException{
+        var removeFirstBracket = jobPriority.replace("[","");
+        var removeSecondBracket = removeFirstBracket.replace("]","");
+        String[] arrSplit = removeSecondBracket.split(",");
         List<JobDto> listJob = new ArrayList<>();
-        for(int i=0; i < arrSplit.length; i++){
-            var eachJobId = arrSplit[i];
-            var getJobId = Integer.parseInt(eachJobId);
+        for (String eachJobId : arrSplit) {
+            var getJobId = Long.parseLong(eachJobId);
             try {
-                JobDto job = findJobById((long) getJobId);
+                JobDto job = findJobById(getJobId);
                 listJob.add(job);
             } catch (JobNotFoundException e) {
                 throw new JobNotFoundException(ErrorMessages.JOB_NOT_FOUND.toString());

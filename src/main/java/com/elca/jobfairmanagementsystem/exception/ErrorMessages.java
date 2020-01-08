@@ -29,5 +29,7 @@ public enum ErrorMessages {
     NO_VENUE_AVAILABLE,
 
     VENUE_JOB_NOT_FOUND,
-    NO_VENUE_JOB_AVAILABLE
+    NO_VENUE_JOB_AVAILABLE,
+
+    FILE_NOT_FOUND
 }

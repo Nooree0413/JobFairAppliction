@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import java.io.File;
+
 @ControllerAdvice
 public class ErrorHandler {
     private Error buildError(Exception ex, int status) {
@@ -82,6 +84,13 @@ public class ErrorHandler {
 
     @ExceptionHandler(VenueJobNotFoundException.class)
     ResponseEntity<Error> VenueJobNotFoundException(Exception ex, WebRequest request){
+        int status = 200;
+        Error error = buildError(ex,status);
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    ResponseEntity<Error> FileNotFoundException(Exception ex, WebRequest request){
         int status = 200;
         Error error = buildError(ex,status);
         return ResponseEntity.status(status).body(error);

@@ -63,6 +63,15 @@ public class Candidate {
     @Column(name = "current_academic_year")
     private String currentAcademicYear;
 
+    @Column(name = "file_name")
+    private String fileName;
+
+    @Column(name = "file_type")
+    private String fileType;
+
+    @Lob
+    private byte[] data;
+
     @OneToMany(
             cascade = {CascadeType.ALL},
             orphanRemoval = true,

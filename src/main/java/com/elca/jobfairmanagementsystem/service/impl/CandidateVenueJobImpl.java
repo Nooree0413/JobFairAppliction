@@ -122,8 +122,8 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
             return candidateVenueJobsByLastName.stream()
                     .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
                     .collect(Collectors.toList());
-        } else {
-            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        }else {
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_AVAILABLE.toString());
         }
     }
 

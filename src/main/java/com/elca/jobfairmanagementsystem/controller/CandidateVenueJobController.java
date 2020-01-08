@@ -4,6 +4,7 @@ import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobSaveDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
+import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

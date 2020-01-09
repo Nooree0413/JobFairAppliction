@@ -26,6 +26,7 @@ public class CandidateDto {
     private String currentLevel;
     private String jobType;
     private String currentAcademicYear;
+    private String fileName;
     private List<ExperienceDto> experienceDtos;
     private List<QualificationDto> qualificationDtos;
     private List<CandidateSkillDto> candidateSkillDtos;

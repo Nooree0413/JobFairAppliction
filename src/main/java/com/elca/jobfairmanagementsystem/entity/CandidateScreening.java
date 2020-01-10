@@ -32,7 +32,8 @@ public class CandidateScreening {
     private Long candidateScreeningId;
 
     @Column(name = "interview_date")
-    private LocalDateTime interviewDate;
+    @Temporal(TemporalType.DATE)
+    private Date interviewDate;
 
     @Column(name = "interviewer_name")
     private String interviewerName;

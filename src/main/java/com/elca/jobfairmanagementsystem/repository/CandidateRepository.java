@@ -16,8 +16,4 @@ import java.util.List;
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
     @Query("SELECT c FROM Candidate c INNER JOIN c.candidateVenueJobs cvj INNER JOIN cvj.venueJob vj WHERE vj.venue.venueId =:venueId")
     List<Candidate> findCandidatesByVenueId(long venueId);
-
-    @Query("SELECT count(c) FROM Candidate c INNER JOIN c.candidateVenueJobs cvj INNER JOIN cvj.venueJob vj WHERE vj.venue.venueId =:venueId")
-    Integer findCountOfCandidatesByVenueId(long venueId);
-
 }

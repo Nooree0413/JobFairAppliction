@@ -19,12 +19,7 @@ public interface CandidateMapper {
     @Mapping(target = "candidateSkillDtos", source = "candidateEntity.candidateSkills")
     @Mapping(target = "candidateScreeningDtos", source = "candidateEntity.candidateScreenings")
     CandidateDto candidateEntityToCandidateDto(Candidate candidateEntity);
-//
-//    @Mapping(target = "experiences", source = "candidateDto.experienceDtos")
-//    @Mapping(target = "qualifications", source = "candidateDto.qualificationDtos")
-//    @Mapping(target = "candidateSkills", source = "candidateDto.candidateSkillDtos")
-//    @Mapping(target = "candidateVenueJobs", source = "candidateDto.candidateVenueJobSaveDto")
-//    @Mapping(target = "candidateSkills.skill.skillId", source = "candidateDto.candidateSkillDtos.skillId.skillId")
+
     @InheritInverseConfiguration
     Candidate candidateDtoToCandidateEntity(CandidateDto candidateDto);
 }

@@ -32,12 +32,6 @@ public class CandidateVenueJobController {
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobById(candidateVenueJobId), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity saveCandidateVenueJob(@RequestBody CandidateVenueJobSaveDto candidateVenueJobSaveDto) throws CandidateVenueJobNotFoundException{
-//        candidateVenueJobService.saveCandidateVenueJob(candidateVenueJobSaveDto);
-        return new ResponseEntity(HttpStatus.CREATED);
-    }
-
     @PutMapping("/{candidateVenueJobId}")
     public ResponseEntity updateCandidateVenueJob(@RequestBody CandidateVenueJobDto candidateVenueJobDto) throws CandidateVenueJobNotFoundException{
         candidateVenueJobService.updateCandidateVenueJob(candidateVenueJobDto);

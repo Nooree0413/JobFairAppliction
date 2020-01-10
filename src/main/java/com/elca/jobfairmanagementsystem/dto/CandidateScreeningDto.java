@@ -17,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class CandidateScreeningDto {
     private Long candidateScreeningId;
-    private LocalDateTime interviewDate;
+    private Date interviewDate;
     private String interviewerName;
     private String interviewerFeedback;
     private String screeningStatus;

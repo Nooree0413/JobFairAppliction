@@ -15,9 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.elca.jobfairmanagementsystem.dto.CandidateScreeningDto;
 import com.elca.jobfairmanagementsystem.service.CandidateScreeningService;
 
-/**
- * @author ghr
- */
 @Service
 @Transactional
 public class CandidateScreeningImpl implements CandidateScreeningService {

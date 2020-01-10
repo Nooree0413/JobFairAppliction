@@ -7,7 +7,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface VenueJobMapper {
-
     @Mapping(target = "venue.venueId",source = "venueJobDto.venue.venueId")
     @Mapping(target = "job.jobId",source = "venueJobDto.job.jobId")
     VenueJob venueJobDtoToEntity (VenueJobDto venueJobDto);

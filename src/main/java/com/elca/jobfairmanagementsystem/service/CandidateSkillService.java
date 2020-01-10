@@ -15,6 +15,4 @@ public interface CandidateSkillService {
     void updateCandidateSkill(CandidateSkillDto candidateSkillDto) throws CandidateSkillNotFoundException;
 
     CandidateSkillDto findCandidateSkillById(Long candidateSkillId) throws CandidateSkillNotFoundException;
-
-//    List<CandidateSkillDto> findCandidateSkillByCandidateId(Long candidateId) throws CandidateSkillNotFoundException;
 }

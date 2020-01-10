@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ExperienceRepository extends JpaRepository<Experience,Long> {
-//    @Query("SELECT a FROM Experience a WHERE a.candidate.candidateId =:candidateId")
-//    List<Experience> findByCandidateId(long candidateId);
+
 }

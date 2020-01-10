@@ -17,6 +17,4 @@ public interface ExperienceService {
 
     void updateExperience(ExperienceDto experienceDto) throws ExperienceNotFoundException;
 
-//    List<ExperienceDto> findByCandidateId(long candidateId) throws ExperienceNotFoundException;
-
 }

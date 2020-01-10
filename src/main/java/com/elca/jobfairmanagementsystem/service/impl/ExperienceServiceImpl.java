@@ -66,18 +66,6 @@ public class ExperienceServiceImpl implements ExperienceService {
             throw new ExperienceNotFoundException(ErrorMessages.EXPERIENCE_NOT_FOUND.toString());
     }
 
-//    @Override
-//    public List<ExperienceDto> findByCandidateId(long candidateId) throws ExperienceNotFoundException {
-//        List<Experience> experiences = experienceRepo.findByCandidateId(candidateId);
-//        if (experiences.size() != 0) {
-//            return experiences.stream()
-//                    .map(experienceMapper::experienceEntityToDto)
-//                    .collect(Collectors.toList());
-//        } else {
-//            throw new ExperienceNotFoundException(ErrorMessages.NO_EXPERIENCE_AVAILABLE.toString());
-//        }
-//    }
-
     @Override
     public ExperienceDto findByExperienceId(Long experienceId) throws ExperienceNotFoundException {
         Optional<Experience> optionalExperience = experienceRepo.findById(experienceId);

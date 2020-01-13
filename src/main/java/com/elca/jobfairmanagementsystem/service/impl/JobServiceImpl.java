@@ -2,7 +2,6 @@ package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.JobCategoryDto;
 import com.elca.jobfairmanagementsystem.dto.JobDto;
-import com.elca.jobfairmanagementsystem.dto.JobPriorityDto;
 import com.elca.jobfairmanagementsystem.entity.Job;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
@@ -104,7 +103,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public JobCategoryDto findCountJobCategory() throws JobNotFoundException {
+    public JobCategoryDto findCountJobCategory() {
         List<Job> jobs = jobRepository.findAll();
         JobCategoryDto jobCategoryDto = new JobCategoryDto();
         jobs.forEach(job -> {

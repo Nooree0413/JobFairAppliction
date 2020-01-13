@@ -4,6 +4,8 @@ import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,9 +44,9 @@ public class CandidateVenueJobController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/candidates/{venueId}/{limit}")
-    public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueId(@PathVariable Long venueId,@PathVariable Boolean limit) throws CandidateVenueJobNotFoundException{
-        return new ResponseEntity<>(candidateVenueJobService.findAllCandidateByVenueId(venueId,limit), HttpStatus.OK);
+    @GetMapping("/candidates/{venueId}/{pageNumber}/{pageSize}")
+    public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueId(@PathVariable Long venueId,@PathVariable Integer pageNumber,@PathVariable Integer pageSize) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findAllCandidateByVenueId(venueId,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
     @GetMapping("/count-candidates/{venueId}")

@@ -12,6 +12,7 @@ import com.elca.jobfairmanagementsystem.mapper.CandidateVenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.CandidateVenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,21 +76,11 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public List<CandidateVenueJobDto> findAllCandidateByVenueId(Long venueId,Boolean limit) throws CandidateVenueJobNotFoundException {
-        List<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findCandidatesByVenueId(venueId);
-
-        if (candidateVenueJobs.size() != 0 && limit) {
-            return candidateVenueJobs.stream()
-                    .limit(5)
-                    .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
-                    .collect(Collectors.toList());
-        } else if (candidateVenueJobs.size() != 0 && limit == false){
+    public List<CandidateVenueJobDto> findAllCandidateByVenueId(Long venueId, Pageable pageable) throws CandidateVenueJobNotFoundException {
+        List<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findCandidatesByVenueId(venueId,pageable);
             return candidateVenueJobs.stream()
                     .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
                     .collect(Collectors.toList());
-        } else {
-            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
-        }
     }
 
     @Override

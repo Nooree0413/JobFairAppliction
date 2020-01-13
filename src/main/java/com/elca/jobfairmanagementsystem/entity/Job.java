@@ -36,4 +36,5 @@ public class Job {
 
     @Column(name = "qualification_needed")
     private String qualificationNeeded;
+
 }

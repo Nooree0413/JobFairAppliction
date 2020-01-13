@@ -1,10 +1,8 @@
 package com.elca.jobfairmanagementsystem.service;
 
 import com.elca.jobfairmanagementsystem.dto.JobDto;
-import com.elca.jobfairmanagementsystem.dto.JobPriorityDto;
 import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface JobService {

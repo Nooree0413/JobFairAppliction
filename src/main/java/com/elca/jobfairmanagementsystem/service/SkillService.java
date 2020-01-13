@@ -1,7 +1,6 @@
 package com.elca.jobfairmanagementsystem.service;
 
 import com.elca.jobfairmanagementsystem.dto.SkillDto;
-import com.elca.jobfairmanagementsystem.entity.Skill;
 import com.elca.jobfairmanagementsystem.exception.SkillNotFoundException;
 
 import java.util.List;

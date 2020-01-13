@@ -143,7 +143,10 @@
                 if (fileName.contains("..")) {
                     throw new FileNotFoundException("Sorry! Filename contains invalid path sequence " + fileName);
                 }
-                candidate.setFileName(fileName);
+                String firstName = candidate.getFirstName();
+                String lastName = candidate.getLastName();
+                String fullName = firstName.concat("-" + lastName);
+                candidate.setFileName(fullName);
                 candidate.setData(file.getBytes());
                 candidate.setFileType(file.getContentType());
 

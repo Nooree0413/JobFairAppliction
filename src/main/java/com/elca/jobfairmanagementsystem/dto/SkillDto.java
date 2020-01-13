@@ -2,9 +2,6 @@ package com.elca.jobfairmanagementsystem.dto;
 
 import lombok.Data;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * @author bfk
  */

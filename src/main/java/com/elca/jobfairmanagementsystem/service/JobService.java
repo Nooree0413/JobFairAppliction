@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.service;
 
+import com.elca.jobfairmanagementsystem.dto.JobCategoryDto;
 import com.elca.jobfairmanagementsystem.dto.JobDto;
 import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
 
@@ -19,4 +20,6 @@ public interface JobService {
     List<JobDto> findJobByCategory(String category) throws JobNotFoundException;
 
     List<JobDto> findJobsAppliedById(String jobPriority) throws JobNotFoundException;
+
+    JobCategoryDto findCountJobCategory() throws JobNotFoundException;
 }

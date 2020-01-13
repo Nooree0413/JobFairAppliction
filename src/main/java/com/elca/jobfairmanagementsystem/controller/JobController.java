@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.controller;
 
+import com.elca.jobfairmanagementsystem.dto.JobCategoryDto;
 import com.elca.jobfairmanagementsystem.dto.JobDto;
 import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
 import com.elca.jobfairmanagementsystem.service.JobService;
@@ -55,6 +56,11 @@ public class JobController {
     @GetMapping("/priority")
     public ResponseEntity <List<JobDto>> getJobByPriority(@PathVariable String jobId) throws JobNotFoundException{
         return new ResponseEntity<>(jobService.findJobsAppliedById(jobId),HttpStatus.OK);
+    }
+
+    @GetMapping("/category/count")
+    public ResponseEntity <JobCategoryDto> getJobCategoryCount() throws JobNotFoundException{
+        return new ResponseEntity<>(jobService.findCountJobCategory(),HttpStatus.OK);
     }
 
 }

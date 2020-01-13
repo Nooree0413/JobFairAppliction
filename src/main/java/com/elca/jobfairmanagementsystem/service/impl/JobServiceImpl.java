@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
+import com.elca.jobfairmanagementsystem.dto.JobCategoryDto;
 import com.elca.jobfairmanagementsystem.dto.JobDto;
 import com.elca.jobfairmanagementsystem.dto.JobPriorityDto;
 import com.elca.jobfairmanagementsystem.entity.Job;
@@ -100,5 +101,42 @@ public class JobServiceImpl implements JobService {
             }
         }
      return listJob;
+    }
+
+    @Override
+    public JobCategoryDto findCountJobCategory() throws JobNotFoundException {
+        List<Job> jobs = jobRepository.findAll();
+        JobCategoryDto jobCategoryDto = new JobCategoryDto();
+        jobs.forEach(job -> {
+            switch (job.getCategory()) {
+                case "software-engineer":
+                    jobCategoryDto.setSoftwareEngineer(1);
+                    break;
+                case "human-resource":
+                    jobCategoryDto.setHumanResource(1);
+                    break;
+                case "manager":
+                    jobCategoryDto.setManager(1);
+                    break;
+                case "business-analyst":
+                    jobCategoryDto.setBusinessAnalyst(1);
+                    break;
+                case "architect":
+                    jobCategoryDto.setArchitect(1);
+                    break;
+                case "quality-assurance":
+                    jobCategoryDto.setQualityAssurance(1);
+                    break;
+                default:
+                    jobCategoryDto.setSoftwareEngineer(0);
+                    jobCategoryDto.setHumanResource(0);
+                    jobCategoryDto.setManager(0);
+                    jobCategoryDto.setBusinessAnalyst(0);
+                    jobCategoryDto.setArchitect(0);
+                    jobCategoryDto.setQualityAssurance(0);
+                    break;
+            }
+        });
+        return jobCategoryDto;
     }
 }

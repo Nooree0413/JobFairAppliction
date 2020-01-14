@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateDto;
@@ -25,7 +26,6 @@ public interface CandidateService {
 
     List<CandidateDto> findCandidateByVenueId(Long venueId) throws CandidateNotFoundException;
 
-    void saveCandidateCv(CandidateDto candidateDto,MultipartFile file) throws FileNotFoundException;
+    void saveCandidateCv(CandidateDto candidateDto,MultipartFile[] files) throws IOException;
 
-    Candidate findCandidateCvById (Long candidateId) throws FileNotFoundException;
 }

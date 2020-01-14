@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
@@ -64,17 +65,9 @@ public class CandidateController {
     }
 
     @PostMapping("/candidate-cv")
-    public ResponseEntity saveNewCandidateCv(@RequestPart CandidateDto candidateDto, @RequestPart("file")MultipartFile file) throws FileNotFoundException {
-        candidateService.saveCandidateCv(candidateDto,file);
+    public ResponseEntity saveNewCandidateCv(@RequestPart CandidateDto candidateDto, @RequestPart("file")MultipartFile[] files) throws IOException {
+        candidateService.saveCandidateCv(candidateDto,files);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @GetMapping("/candidate-cv/{candidateId}")
-    public ResponseEntity<Resource> getCandidateCvById(@PathVariable Long candidateId) throws FileNotFoundException{
-        var candidateCv = candidateService.findCandidateCvById(candidateId);
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(candidateCv.getFileType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + candidateCv.getFileName() + "\"")
-                .body(new ByteArrayResource(candidateCv.getData()));
-    }
 }

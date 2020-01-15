@@ -1,11 +1,9 @@
 package com.elca.jobfairmanagementsystem.controller;
 
-import com.elca.jobfairmanagementsystem.dto.CandidateDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateFileDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.FileNotFoundException;
 import com.elca.jobfairmanagementsystem.service.CandidateFileService;
-import com.elca.jobfairmanagementsystem.service.CandidateService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;

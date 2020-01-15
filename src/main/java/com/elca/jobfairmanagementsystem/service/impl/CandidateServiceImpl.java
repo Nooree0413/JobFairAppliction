@@ -1,10 +1,7 @@
     package com.elca.jobfairmanagementsystem.service.impl;
 
     import java.io.IOException;
-    import java.util.ArrayList;
-    import java.util.Collections;
-    import java.util.List;
-    import java.util.Optional;
+    import java.util.*;
     import java.util.stream.Collectors;
 
     import com.elca.jobfairmanagementsystem.dto.*;
@@ -16,7 +13,6 @@
     import org.springframework.stereotype.Service;
     import org.springframework.transaction.annotation.Transactional;
 
-    import org.springframework.util.StringUtils;
     import org.springframework.web.multipart.MultipartFile;
 
     /**
@@ -33,8 +29,9 @@
         private final CandidateVenueJobMapper candidateVenueJobMapper;
         private final VenueJobService venueJobService;
         private final JobService jobService;
+        private final CandidateFileService candidateFileService;
 
-        public CandidateServiceImpl(CandidateMapper candidateMapper, CandidateRepository candidateRepository, ExperienceMapper experienceMapper, QualificationMapper qualificationMapper, CandidateSkillMapper candidateSkillMapper, CandidateVenueJobMapper candidateVenueJobMapper, VenueJobService venueJobService,JobService jobService) {
+        public CandidateServiceImpl(CandidateMapper candidateMapper, CandidateRepository candidateRepository, ExperienceMapper experienceMapper, QualificationMapper qualificationMapper, CandidateSkillMapper candidateSkillMapper, CandidateVenueJobMapper candidateVenueJobMapper, VenueJobService venueJobService, JobService jobService, CandidateFileService candidateFileService) {
             this.candidateMapper = candidateMapper;
             this.candidateRepository = candidateRepository;
             this.experienceMapper = experienceMapper;
@@ -43,6 +40,7 @@
             this.candidateVenueJobMapper = candidateVenueJobMapper;
             this.venueJobService = venueJobService;
             this.jobService = jobService;
+            this.candidateFileService = candidateFileService;
         }
 
         @Override
@@ -134,46 +132,31 @@
         }
 
         @Override
-        public void saveCandidateCv(CandidateDto candidateCvDto,MultipartFile file) throws FileNotFoundException {
+        public void saveCandidateCv(CandidateDto candidateCvDto,MultipartFile[] files) throws IOException {
             Candidate candidate = candidateMapper.candidateDtoToCandidateEntity(candidateCvDto);
             List<CandidateVenueJobSaveDto> candidateVenueJobSaveList = candidateCvDto.getCandidateVenueJobSaveDto();
-
-            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-            try {
-                if (fileName.contains("..")) {
-                    throw new FileNotFoundException("Sorry! Filename contains invalid path sequence " + fileName);
+            List<CandidateVenueJob> candidateVenueJobs = new ArrayList<>();
+            candidateVenueJobSaveList.forEach(candidatesVenueDto -> {
+                try {
+                    VenueJob venueJob = venueJobService.findByVenueIdAndJobId(candidatesVenueDto.getVenueId(), candidatesVenueDto.getJobId());
+                    candidatesVenueDto.setVenueJobId(venueJob.getVenueJobId());
+                    candidatesVenueDto.setJobId(venueJob.getJob().getJobId());
+                    CandidateVenueJob saveCandidateVenueJob = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidatesVenueDto);
+                    saveCandidateVenueJob.setCandidate(candidate);
+                    candidateVenueJobs.add(saveCandidateVenueJob);
+                } catch (VenueJobNotFoundException e) {
+                    e.printStackTrace();
                 }
-                String firstName = candidate.getFirstName();
-                String lastName = candidate.getLastName();
-                String fullName = firstName.concat("-" + lastName);
-                candidate.setFileName(fullName);
-                candidate.setData(file.getBytes());
-                candidate.setFileType(file.getContentType());
-
-                List<CandidateVenueJob> candidateVenueJobs = new ArrayList<>();
-                candidateVenueJobSaveList.forEach(candidatesVenueDto -> {
-                    try {
-                        VenueJob venueJob = venueJobService.findByVenueIdAndJobId(candidatesVenueDto.getVenueId(), candidatesVenueDto.getJobId());
-                        candidatesVenueDto.setVenueJobId(venueJob.getVenueJobId());
-                        candidatesVenueDto.setJobId(venueJob.getJob().getJobId());
-                        CandidateVenueJob saveCandidateVenueJob = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidatesVenueDto);
-                        saveCandidateVenueJob.setCandidate(candidate);
-                        candidateVenueJobs.add(saveCandidateVenueJob);
-                    } catch (VenueJobNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                });
-                candidate.setCandidateVenueJobs(candidateVenueJobs);
-                candidateRepository.save(candidate);
-
-            } catch (IOException ex){
-                throw new FileNotFoundException(ErrorMessages.FILE_NOT_FOUND.toString());
-            }
-        }
-
-        @Override
-        public Candidate findCandidateCvById(Long candidateId) throws FileNotFoundException {
-            return candidateRepository.findById(candidateId).orElseThrow(() -> new FileNotFoundException("File not found with id: " + candidateId));
+            });
+            candidate.setCandidateVenueJobs(candidateVenueJobs);
+            candidateRepository.save(candidate);
+            Arrays.asList(files).forEach(candidateCv->{
+                try {
+                    candidateFileService.saveCandidateCv(candidateCv,candidate.getCandidateId());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
 
         @Override

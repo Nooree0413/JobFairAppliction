@@ -1,20 +1,15 @@
 package com.elca.jobfairmanagementsystem.controller;
 
-import java.util.List;
-
+import com.elca.jobfairmanagementsystem.dto.CandidateDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
-import com.elca.jobfairmanagementsystem.exception.FileNotFoundException;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
+import com.elca.jobfairmanagementsystem.service.CandidateService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.elca.jobfairmanagementsystem.dto.CandidateDto;
-import com.elca.jobfairmanagementsystem.service.CandidateService;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author ghr
@@ -64,17 +59,9 @@ public class CandidateController {
     }
 
     @PostMapping("/candidate-cv")
-    public ResponseEntity saveNewCandidateCv(@RequestPart CandidateDto candidateDto, @RequestPart("file")MultipartFile file) throws FileNotFoundException {
-        candidateService.saveCandidateCv(candidateDto,file);
+    public ResponseEntity saveNewCandidateCv(@RequestPart CandidateDto candidateDto, @RequestPart("file")MultipartFile[] files) throws IOException {
+        candidateService.saveCandidateCv(candidateDto,files);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @GetMapping("/candidate-cv/{candidateId}")
-    public ResponseEntity<Resource> getCandidateCvById(@PathVariable Long candidateId) throws FileNotFoundException{
-        var candidateCv = candidateService.findCandidateCvById(candidateId);
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(candidateCv.getFileType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + candidateCv.getFileName() + "\"")
-                .body(new ByteArrayResource(candidateCv.getData()));
-    }
 }

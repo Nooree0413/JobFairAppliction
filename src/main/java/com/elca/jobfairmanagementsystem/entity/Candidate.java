@@ -60,17 +60,11 @@ public class Candidate {
     @Column(name = "job_type",nullable = false)
     private String jobType;
 
+    @Column(name = "cv_upload",nullable = false)
+    private Boolean cvUpload;
+
     @Column(name = "current_academic_year")
     private String currentAcademicYear;
-
-    @Column(name = "file_name")
-    private String fileName;
-
-    @Column(name = "file_type")
-    private String fileType;
-
-    @Lob
-    private byte[] data;
 
     @OneToMany(
             cascade = {CascadeType.ALL},

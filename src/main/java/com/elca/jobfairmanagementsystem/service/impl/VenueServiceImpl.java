@@ -2,9 +2,7 @@ package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.VenueDto;
 import com.elca.jobfairmanagementsystem.entity.Venue;
-import com.elca.jobfairmanagementsystem.exception.Error;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
-import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.VenueNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.VenueMapper;
 import com.elca.jobfairmanagementsystem.repository.VenueRepository;

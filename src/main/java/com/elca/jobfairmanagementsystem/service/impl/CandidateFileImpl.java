@@ -1,20 +1,16 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
-import com.elca.jobfairmanagementsystem.dto.CandidateDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateFileDto;
 import com.elca.jobfairmanagementsystem.entity.Candidate;
 import com.elca.jobfairmanagementsystem.entity.CandidateFile;
 import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.mapper.CandidateFileMapper;
-import com.elca.jobfairmanagementsystem.mapper.CandidateMapper;
 import com.elca.jobfairmanagementsystem.repository.CandidateFileRepository;
 import com.elca.jobfairmanagementsystem.repository.CandidateRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateFileService;
-import com.elca.jobfairmanagementsystem.service.CandidateService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -35,8 +31,7 @@ public class CandidateFileImpl implements CandidateFileService {
     }
 
     @Override
-    public void saveCandidateCv(MultipartFile file, Long candidateId) throws IOException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    public void saveCandidateCv(MultipartFile file, Long candidateId,String fileName) throws IOException {
         CandidateFile candidateFile = new CandidateFile();
         candidateFile.setFileName(fileName);
         candidateFile.setData(file.getBytes());
@@ -51,9 +46,9 @@ public class CandidateFileImpl implements CandidateFileService {
     }
 
     @Override
-    public CandidateFileDto getCandidateFileById(Long candidateId) throws CandidateNotFoundException{
-        Optional<CandidateFile> candidateFile = Optional.ofNullable(candidateFileRepository.findByCandidateId(candidateId));
-        var candidate = candidateFile.orElseThrow(()-> new CandidateNotFoundException("Candidate not found with id: " + candidateId));
+    public CandidateFileDto getCandidateFileByFileName(String fileName) throws CandidateNotFoundException{
+        Optional<CandidateFile> candidateFile = Optional.ofNullable(candidateFileRepository.findByFileName(fileName));
+        var candidate = candidateFile.orElseThrow(()-> new CandidateNotFoundException("Candidate not found!"));
         return candidateFileMapper.candidateFileEntityToDto(candidate);
     }
 }

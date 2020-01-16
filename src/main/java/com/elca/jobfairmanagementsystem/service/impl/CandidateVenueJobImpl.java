@@ -2,12 +2,9 @@ package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
-import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobSaveDto;
 import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
-import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
-import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.CandidateVenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.CandidateVenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
@@ -84,7 +81,7 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public CandidateVenueJobCountAllDto countCandidatesByVenue(Long venueId) {
+    public CandidateVenueJobCountAllDto countCandidatesByVenue(Long venueId) throws CandidateVenueJobNotFoundException{
         Integer counts = candidateVenueJobRepository.findCountOfCandidatesByVenueId(venueId);
         CandidateVenueJobCountAllDto candidateVenueJobCountAllDto = new CandidateVenueJobCountAllDto();
         candidateVenueJobCountAllDto.setCountCandidates(counts);

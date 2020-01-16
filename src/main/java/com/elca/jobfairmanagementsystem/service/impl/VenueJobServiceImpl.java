@@ -7,6 +7,7 @@ import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.VenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.VenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,8 +76,8 @@ public class VenueJobServiceImpl implements VenueJobService {
     }
 
     @Override
-    public List<VenueJobDto> findByVenueId(long venueId) throws VenueJobNotFoundException {
-        List<VenueJob> findJobsByVenue = venueJobRepository.findByVenue(venueId);
+    public List<VenueJobDto> findByVenueId(long venueId, Pageable pageable) throws VenueJobNotFoundException {
+        List<VenueJob> findJobsByVenue = venueJobRepository.findByVenue(venueId,pageable);
         if (findJobsByVenue.size() != 0) {
             return findJobsByVenue.stream()
                     .map(venueJobMapper::venueJobEntityToDto)

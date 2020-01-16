@@ -19,7 +19,7 @@ public interface CandidateVenueJobService {
 
     List<CandidateVenueJobDto> findAllCandidateByVenueId(Long venueId, Pageable pageable) throws CandidateVenueJobNotFoundException;
 
-    CandidateVenueJobCountAllDto countCandidatesByVenue(Long venueId);
+    CandidateVenueJobCountAllDto countCandidatesByVenue(Long venueId) throws CandidateVenueJobNotFoundException;
 
     List<CandidateVenueJobDto> findCandidateVenueJobByLastName(String lastName) throws CandidateVenueJobNotFoundException;
 

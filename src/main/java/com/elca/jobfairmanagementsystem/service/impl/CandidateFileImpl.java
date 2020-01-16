@@ -1,20 +1,16 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
-import com.elca.jobfairmanagementsystem.dto.CandidateDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateFileDto;
 import com.elca.jobfairmanagementsystem.entity.Candidate;
 import com.elca.jobfairmanagementsystem.entity.CandidateFile;
 import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.mapper.CandidateFileMapper;
-import com.elca.jobfairmanagementsystem.mapper.CandidateMapper;
 import com.elca.jobfairmanagementsystem.repository.CandidateFileRepository;
 import com.elca.jobfairmanagementsystem.repository.CandidateRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateFileService;
-import com.elca.jobfairmanagementsystem.service.CandidateService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

@@ -8,6 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface CandidateFileService {
-    void saveCandidateCv(MultipartFile file,Long candidateId) throws IOException;
-    CandidateFileDto getCandidateFileById(Long candidateId) throws CandidateNotFoundException;
+    void saveCandidateCv(MultipartFile file,Long candidateId,String fileName) throws IOException;
+    CandidateFileDto getCandidateFileByFileName(String fileName) throws CandidateNotFoundException;
 }

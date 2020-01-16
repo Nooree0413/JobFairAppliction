@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CandidateFileRepository extends JpaRepository<CandidateFile, Long> {
-    @Query("SELECT a FROM CandidateFile a WHERE a.candidate.candidateId = :candidateId")
-    CandidateFile findByCandidateId (Long candidateId);
+    CandidateFile findByFileName (String fileName);
 }

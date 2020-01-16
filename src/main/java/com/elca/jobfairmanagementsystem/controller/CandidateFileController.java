@@ -26,14 +26,14 @@ public class CandidateFileController {
     }
 
     @PostMapping()
-    public ResponseEntity saveNewCandidateCv(@RequestPart("candidateId") Long candidateId, @RequestPart("file") MultipartFile file) throws FileNotFoundException, IOException {
-        candidateFileService.saveCandidateCv(file,candidateId);
+    public ResponseEntity saveNewCandidateCv(@RequestPart("candidateId") Long candidateId, @RequestPart("file") MultipartFile file,@RequestPart("fileName") String fileName) throws FileNotFoundException, IOException {
+        candidateFileService.saveCandidateCv(file,candidateId,fileName);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @GetMapping("/{candidateId}")
-    public ResponseEntity<Resource> getCandidateCvById(@PathVariable Long candidateId) throws CandidateNotFoundException {
-        CandidateFileDto candidateCv = candidateFileService.getCandidateFileById(candidateId);
+    @GetMapping("/{fileName}")
+    public ResponseEntity<Resource> getCandidateCvById(@PathVariable String fileName) throws CandidateNotFoundException {
+        CandidateFileDto candidateCv = candidateFileService.getCandidateFileByFileName(fileName);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(candidateCv.getFileType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + candidateCv.getFileName() + "\"")

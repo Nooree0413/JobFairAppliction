@@ -2,6 +2,7 @@
 
     import java.io.IOException;
     import java.util.*;
+    import java.util.concurrent.atomic.AtomicInteger;
     import java.util.stream.Collectors;
 
     import com.elca.jobfairmanagementsystem.dto.*;
@@ -150,9 +151,20 @@
             });
             candidate.setCandidateVenueJobs(candidateVenueJobs);
             candidateRepository.save(candidate);
+
+            AtomicInteger incrementNumber = new AtomicInteger(1);
             Arrays.asList(files).forEach(candidateCv->{
                 try {
-                    candidateFileService.saveCandidateCv(candidateCv,candidate.getCandidateId());
+                    if(files.length < 2){
+                        String extension = candidateCv.getOriginalFilename().split("\\.")[1];
+                        String fullName = candidate.getFirstName().concat("-" + candidate.getLastName() + "." + extension);
+                        candidateFileService.saveCandidateCv(candidateCv,candidate.getCandidateId(),fullName);
+                    } else {
+                        String extension = candidateCv.getOriginalFilename().split("\\.")[1];
+                        String fullName = candidate.getFirstName().concat("-" + candidate.getLastName()).concat("-" + incrementNumber + "." + extension);
+                        candidateFileService.saveCandidateCv(candidateCv,candidate.getCandidateId(),fullName);
+                        incrementNumber.getAndIncrement();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

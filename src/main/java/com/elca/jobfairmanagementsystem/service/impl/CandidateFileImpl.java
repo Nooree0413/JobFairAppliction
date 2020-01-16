@@ -35,8 +35,7 @@ public class CandidateFileImpl implements CandidateFileService {
     }
 
     @Override
-    public void saveCandidateCv(MultipartFile file, Long candidateId) throws IOException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    public void saveCandidateCv(MultipartFile file, Long candidateId,String fileName) throws IOException {
         CandidateFile candidateFile = new CandidateFile();
         candidateFile.setFileName(fileName);
         candidateFile.setData(file.getBytes());
@@ -51,9 +50,9 @@ public class CandidateFileImpl implements CandidateFileService {
     }
 
     @Override
-    public CandidateFileDto getCandidateFileById(Long candidateId) throws CandidateNotFoundException{
-        Optional<CandidateFile> candidateFile = Optional.ofNullable(candidateFileRepository.findByCandidateId(candidateId));
-        var candidate = candidateFile.orElseThrow(()-> new CandidateNotFoundException("Candidate not found with id: " + candidateId));
+    public CandidateFileDto getCandidateFileByFileName(String fileName) throws CandidateNotFoundException{
+        Optional<CandidateFile> candidateFile = Optional.ofNullable(candidateFileRepository.findByFileName(fileName));
+        var candidate = candidateFile.orElseThrow(()-> new CandidateNotFoundException("Candidate not found!"));
         return candidateFileMapper.candidateFileEntityToDto(candidate);
     }
 }

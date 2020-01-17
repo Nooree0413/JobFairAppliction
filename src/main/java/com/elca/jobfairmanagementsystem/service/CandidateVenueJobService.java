@@ -2,6 +2,7 @@ package com.elca.jobfairmanagementsystem.service;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobPaginationDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
 import org.springframework.data.domain.Pageable;
 
@@ -17,7 +18,7 @@ public interface CandidateVenueJobService {
 
     CandidateVenueJobDto findCandidateVenueJobById(Long candidateVenueJobId) throws CandidateVenueJobNotFoundException;
 
-    List<CandidateVenueJobDto> findAllCandidateByVenueId(Long venueId, Pageable pageable) throws CandidateVenueJobNotFoundException;
+    CandidateVenueJobPaginationDto findAllCandidateByVenueId(Long venueId, Pageable pageable) throws CandidateVenueJobNotFoundException;
 
     CandidateVenueJobCountAllDto countCandidatesByVenue(Long venueId) throws CandidateVenueJobNotFoundException;
 

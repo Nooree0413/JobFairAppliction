@@ -2,6 +2,7 @@ package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobPaginationDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
 
@@ -45,7 +46,7 @@ public class CandidateVenueJobController {
     }
 
     @GetMapping("/candidates/{venueId}/{pageNumber}/{pageSize}")
-    public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueId(@PathVariable Long venueId,@PathVariable Integer pageNumber,@PathVariable Integer pageSize) throws CandidateVenueJobNotFoundException{
+    public ResponseEntity <CandidateVenueJobPaginationDto> getCandidateByVenueId(@PathVariable Long venueId, @PathVariable Integer pageNumber, @PathVariable Integer pageSize) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findAllCandidateByVenueId(venueId,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 

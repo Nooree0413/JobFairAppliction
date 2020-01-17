@@ -2,6 +2,7 @@ package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobPaginationDto;
 import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
@@ -9,6 +10,9 @@ import com.elca.jobfairmanagementsystem.mapper.CandidateVenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.CandidateVenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
+
+
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,11 +77,14 @@ public class CandidateVenueJobImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public List<CandidateVenueJobDto> findAllCandidateByVenueId(Long venueId, Pageable pageable) throws CandidateVenueJobNotFoundException {
-        List<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findCandidatesByVenueId(venueId,pageable);
-            return candidateVenueJobs.stream()
-                    .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
-                    .collect(Collectors.toList());
+    public CandidateVenueJobPaginationDto findAllCandidateByVenueId(Long venueId, Pageable pageable) throws CandidateVenueJobNotFoundException {
+        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findCandidatesByVenueId(venueId,pageable);
+        List<CandidateVenueJobDto> candidateVenueJobDto = candidateVenueJobs.stream().map(candidateVenueJobMapper::candidateVenueJobEntityToDto).collect(Collectors.toList());
+        CandidateVenueJobPaginationDto candidateVenueJobPaginationDto = new CandidateVenueJobPaginationDto();
+        candidateVenueJobPaginationDto.setCandidateVenueJobDtoList(candidateVenueJobDto);
+        candidateVenueJobPaginationDto.setTotalElements(candidateVenueJobs.getNumberOfElements());
+        candidateVenueJobPaginationDto.setTotalPages(candidateVenueJobs.getTotalPages());
+        return  candidateVenueJobPaginationDto;
     }
 
     @Override

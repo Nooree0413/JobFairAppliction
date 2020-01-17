@@ -1,6 +1,7 @@
 package com.elca.jobfairmanagementsystem.repository;
 
 import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,7 @@ import java.util.List;
 @Repository
 public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenueJob, Long> {
     @Query("SELECT a FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId ORDER BY a.candidate.registrationDate DESC")
-    List<CandidateVenueJob> findCandidatesByVenueId(long venueId, Pageable pageable);
+    Page<CandidateVenueJob> findCandidatesByVenueId(long venueId, Pageable pageable);
 
     @Query("SELECT count(a) FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId")
     Integer findCountOfCandidatesByVenueId(long venueId);

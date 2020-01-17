@@ -8,4 +8,6 @@ public class CandidateVenueJobDto {
     private VenueJobDto venueJob;
     private CandidateDto candidate;
     private String jobPriority;
+    private Integer totalElements;
+    private Integer totalPages;
 }

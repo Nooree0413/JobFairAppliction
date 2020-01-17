@@ -1,12 +1,14 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.VenueJobPaginationDto;
 import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.VenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.VenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,15 +78,14 @@ public class VenueJobServiceImpl implements VenueJobService {
     }
 
     @Override
-    public List<VenueJobDto> findByVenueId(long venueId, Pageable pageable) throws VenueJobNotFoundException {
-        List<VenueJob> findJobsByVenue = venueJobRepository.findByVenue(venueId,pageable);
-        if (findJobsByVenue.size() != 0) {
-            return findJobsByVenue.stream()
-                    .map(venueJobMapper::venueJobEntityToDto)
-                    .collect(Collectors.toList());
-        } else {
-            throw new VenueJobNotFoundException(ErrorMessages.NO_VENUE_JOB_AVAILABLE.toString());
-        }
+    public VenueJobPaginationDto findByVenueId(long venueId, Pageable pageable) throws VenueJobNotFoundException {
+        Page<VenueJob> findJobsByVenue = venueJobRepository.findByVenue(venueId,pageable);
+        var jobsList = findJobsByVenue.stream().map(venueJobMapper::venueJobEntityToDto).collect(Collectors.toList());
+        var paginationVenueJob = new VenueJobPaginationDto();
+        paginationVenueJob.setVenueJobDtoList(jobsList);
+        paginationVenueJob.setTotalElements(findJobsByVenue.getNumberOfElements());
+        paginationVenueJob.setTotalPages(findJobsByVenue.getTotalPages());
+        return paginationVenueJob;
     }
 
     @Override

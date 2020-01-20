@@ -17,12 +17,12 @@ import com.elca.jobfairmanagementsystem.service.CandidateScreeningService;
 
 @Service
 @Transactional
-public class CandidateScreeningImpl implements CandidateScreeningService {
+public class CandidateScreeningServiceImpl implements CandidateScreeningService {
 
     private final CandidateScreeningMapper candidateScreeningMapper;
     private final CandidateScreeningRepository candidateScreeningRepository;
 
-    public CandidateScreeningImpl(CandidateScreeningRepository candidateScreeningRepository, CandidateScreeningMapper candidateScreeningMapper) {
+    public CandidateScreeningServiceImpl(CandidateScreeningRepository candidateScreeningRepository, CandidateScreeningMapper candidateScreeningMapper) {
         this.candidateScreeningMapper = candidateScreeningMapper;
         this.candidateScreeningRepository = candidateScreeningRepository;
     }

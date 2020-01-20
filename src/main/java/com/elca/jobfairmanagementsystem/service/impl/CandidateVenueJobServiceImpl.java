@@ -9,7 +9,6 @@ import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.mapper.CandidateVenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.CandidateVenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
-import com.elca.jobfairmanagementsystem.service.VenueJobService;
 
 
 import org.springframework.data.domain.Page;
@@ -23,15 +22,13 @@ import java.util.stream.Collectors;
 
 @Transactional
 @Service
-public class CandidateVenueJobImpl implements CandidateVenueJobService {
+public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     private final CandidateVenueJobMapper candidateVenueJobMapper;
     private final CandidateVenueJobRepository candidateVenueJobRepository;
-    private final VenueJobService venueJobService;
 
-    CandidateVenueJobImpl(CandidateVenueJobMapper candidateVenueJobMapper, CandidateVenueJobRepository candidateVenueJobRepository,VenueJobService venueJobService) {
+    CandidateVenueJobServiceImpl(CandidateVenueJobMapper candidateVenueJobMapper, CandidateVenueJobRepository candidateVenueJobRepository) {
         this.candidateVenueJobMapper = candidateVenueJobMapper;
         this.candidateVenueJobRepository = candidateVenueJobRepository;
-        this.venueJobService = venueJobService;
     }
 
     @Override

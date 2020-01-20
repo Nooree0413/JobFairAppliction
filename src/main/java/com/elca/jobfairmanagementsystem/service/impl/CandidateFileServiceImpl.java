@@ -18,13 +18,13 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class CandidateFileImpl implements CandidateFileService {
+public class CandidateFileServiceImpl implements CandidateFileService {
 
     private final CandidateRepository candidateRepository;
     private final CandidateFileRepository candidateFileRepository;
     private final CandidateFileMapper candidateFileMapper;
 
-    public CandidateFileImpl(CandidateRepository candidateRepository, CandidateFileRepository candidateFileRepository, CandidateFileMapper candidateFileMapper) {
+    public CandidateFileServiceImpl(CandidateRepository candidateRepository, CandidateFileRepository candidateFileRepository, CandidateFileMapper candidateFileMapper) {
         this.candidateRepository = candidateRepository;
         this.candidateFileRepository = candidateFileRepository;
         this.candidateFileMapper = candidateFileMapper;

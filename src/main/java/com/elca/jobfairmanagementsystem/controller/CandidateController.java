@@ -1,8 +1,10 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateDto;
+import com.elca.jobfairmanagementsystem.dto.CandidatePaginationDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
 import com.elca.jobfairmanagementsystem.service.CandidateService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +27,9 @@ public class CandidateController {
     }
 
     //get all candidate
-    @GetMapping("/all")
-    public ResponseEntity<List<CandidateDto>> getAllCandidates() throws CandidateNotFoundException {
-        return new ResponseEntity<>(candidateService.findAllCandidate(), HttpStatus.OK);
+    @GetMapping("/all/{pageNumber}/{pageSize}")
+    public ResponseEntity<CandidatePaginationDto> getAllCandidates(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) throws CandidateNotFoundException {
+        return new ResponseEntity<>(candidateService.findAllCandidate(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
     @PostMapping

@@ -1,12 +1,15 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.VenueDto;
+import com.elca.jobfairmanagementsystem.dto.VenuePaginationDto;
 import com.elca.jobfairmanagementsystem.entity.Venue;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.VenueNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.VenueMapper;
 import com.elca.jobfairmanagementsystem.repository.VenueRepository;
 import com.elca.jobfairmanagementsystem.service.VenueService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,12 +43,17 @@ public class VenueServiceImpl implements VenueService {
     }
 
     @Override
-    public List<VenueDto> findAllVenue() throws VenueNotFoundException {
-        List<Venue> getVenueList = venueRepository.findAll();
-        if (getVenueList != null) {
-            return getVenueList.stream().map(venueMapper::venueEntityToDto).collect(Collectors.toList());
-        } else {
+    public VenuePaginationDto findAllVenue(Pageable pageable) throws VenueNotFoundException {
+        Page<Venue> getVenueList = venueRepository.findAll(pageable);
+        if(getVenueList == null){
             throw new VenueNotFoundException(ErrorMessages.NO_VENUE_AVAILABLE.toString());
+        }else{
+            List<VenueDto> venueDtos = getVenueList.stream().map(venueMapper::venueEntityToDto).collect(Collectors.toList());
+            VenuePaginationDto venuePaginationDto = new VenuePaginationDto();
+            venuePaginationDto.setVenueDtoList(venueDtos);
+            venuePaginationDto.setTotalElements(getVenueList.getNumberOfElements());
+            venuePaginationDto.setTotalPages(getVenueList.getTotalPages());
+            return venuePaginationDto;
         }
     }
 

@@ -2,12 +2,15 @@ package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.JobCategoryDto;
 import com.elca.jobfairmanagementsystem.dto.JobDto;
+import com.elca.jobfairmanagementsystem.dto.JobPaginationDto;
 import com.elca.jobfairmanagementsystem.entity.Job;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.JobMapper;
 import com.elca.jobfairmanagementsystem.repository.JobRepository;
 import com.elca.jobfairmanagementsystem.service.JobService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,12 +45,17 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<JobDto> findAllJobs() throws JobNotFoundException {
-        List<Job> getJobList = jobRepository.findAll();
-        if (getJobList.size() != 0) {
-            return getJobList.stream().map(jobMapper::jobEntityToDto).collect(Collectors.toList());
-        } else {
+    public JobPaginationDto findAllJobs(Pageable pageable) throws JobNotFoundException {
+        Page<Job> getJobList = jobRepository.findAll(pageable);
+        if(getJobList == null){
             throw new JobNotFoundException(ErrorMessages.NO_JOB_AVAILABLE.toString());
+        } else {
+            List<JobDto> jobDtos = getJobList.stream().map(jobMapper::jobEntityToDto).collect(Collectors.toList());
+            JobPaginationDto paginationDto = new JobPaginationDto();
+            paginationDto.setJobDtoList(jobDtos);
+            paginationDto.setTotalElements(getJobList.getNumberOfElements());
+            paginationDto.setTotalPages(getJobList.getTotalPages());
+            return paginationDto;
         }
     }
 

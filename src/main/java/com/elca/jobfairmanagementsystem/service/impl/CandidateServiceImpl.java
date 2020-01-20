@@ -11,6 +11,8 @@ import com.elca.jobfairmanagementsystem.exception.*;
 import com.elca.jobfairmanagementsystem.mapper.*;
 import com.elca.jobfairmanagementsystem.repository.*;
 import com.elca.jobfairmanagementsystem.service.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,14 +47,17 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<CandidateDto> findAllCandidate() throws CandidateNotFoundException {
-        List<Candidate> listOfCandidate = candidateRepository.findAll();
-        if (listOfCandidate.size() != 0) {
-            return listOfCandidate.stream()
-                    .map(candidateMapper::candidateEntityToCandidateDto)
-                    .collect(Collectors.toList());
-        } else {
+    public CandidatePaginationDto findAllCandidate(Pageable pageable) throws CandidateNotFoundException {
+        Page<Candidate> listOfCandidate = candidateRepository.findAll(pageable);
+        if(listOfCandidate == null){
             throw new CandidateNotFoundException(ErrorMessages.NO_CANDIDATE_AVAILABLE.toString());
+        } else {
+            List<CandidateDto> listOfCandidateDto = listOfCandidate.stream().map(candidateMapper::candidateEntityToCandidateDto).collect(Collectors.toList());
+            CandidatePaginationDto candidatePaginationDto = new CandidatePaginationDto();
+            candidatePaginationDto.setCandidateDtoList(listOfCandidateDto);
+            candidatePaginationDto.setTotalElements(listOfCandidate.getNumberOfElements());
+            candidatePaginationDto.setTotalPages(listOfCandidate.getTotalPages());
+            return candidatePaginationDto;
         }
     }
 

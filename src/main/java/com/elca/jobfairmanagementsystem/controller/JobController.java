@@ -2,8 +2,10 @@ package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.JobCategoryDto;
 import com.elca.jobfairmanagementsystem.dto.JobDto;
+import com.elca.jobfairmanagementsystem.dto.JobPaginationDto;
 import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
 import com.elca.jobfairmanagementsystem.service.JobService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +22,9 @@ public class JobController {
         this.jobService = jobService;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<JobDto>> getAllJobs() throws JobNotFoundException {
-        return new ResponseEntity<>(jobService.findAllJobs(), HttpStatus.OK);
+    @GetMapping("/all/{pageNumber}/{pageSize}")
+    public ResponseEntity<JobPaginationDto> getAllJobs(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) throws JobNotFoundException {
+        return new ResponseEntity<>(jobService.findAllJobs(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
     @GetMapping("/{jobId}")

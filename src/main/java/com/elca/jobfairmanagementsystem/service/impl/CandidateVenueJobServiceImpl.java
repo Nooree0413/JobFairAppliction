@@ -76,12 +76,16 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     @Override
     public CandidateVenueJobPaginationDto findAllCandidateByVenueId(Long venueId, Pageable pageable) throws CandidateVenueJobNotFoundException {
         Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findCandidatesByVenueId(venueId,pageable);
-        List<CandidateVenueJobDto> candidateVenueJobDto = candidateVenueJobs.stream().map(candidateVenueJobMapper::candidateVenueJobEntityToDto).collect(Collectors.toList());
-        CandidateVenueJobPaginationDto candidateVenueJobPaginationDto = new CandidateVenueJobPaginationDto();
-        candidateVenueJobPaginationDto.setCandidateVenueJobDtoList(candidateVenueJobDto);
-        candidateVenueJobPaginationDto.setTotalElements(candidateVenueJobs.getNumberOfElements());
-        candidateVenueJobPaginationDto.setTotalPages(candidateVenueJobs.getTotalPages());
-        return  candidateVenueJobPaginationDto;
+        if(candidateVenueJobs == null){
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        } else {
+            List<CandidateVenueJobDto> candidateVenueJobDto = candidateVenueJobs.stream().map(candidateVenueJobMapper::candidateVenueJobEntityToDto).collect(Collectors.toList());
+            CandidateVenueJobPaginationDto candidateVenueJobPaginationDto = new CandidateVenueJobPaginationDto();
+            candidateVenueJobPaginationDto.setCandidateVenueJobDtoList(candidateVenueJobDto);
+            candidateVenueJobPaginationDto.setTotalElements(candidateVenueJobs.getNumberOfElements());
+            candidateVenueJobPaginationDto.setTotalPages(candidateVenueJobs.getTotalPages());
+            return candidateVenueJobPaginationDto;
+        }
     }
 
     @Override

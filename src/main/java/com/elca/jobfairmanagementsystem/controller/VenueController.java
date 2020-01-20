@@ -1,8 +1,10 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.VenueDto;
+import com.elca.jobfairmanagementsystem.dto.VenuePaginationDto;
 import com.elca.jobfairmanagementsystem.exception.VenueNotFoundException;
 import com.elca.jobfairmanagementsystem.service.VenueService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +22,9 @@ public class VenueController {
         this.venueService = venueService;
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<VenueDto>> getAllVenues() throws VenueNotFoundException {
-        return new ResponseEntity<>(venueService.findAllVenue(), HttpStatus.OK);
+    @GetMapping("/all/{pageNumber}/{pageSize}")
+    public ResponseEntity<VenuePaginationDto> getAllVenues(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) throws VenueNotFoundException {
+        return new ResponseEntity<>(venueService.findAllVenue(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
     @GetMapping("/{venueId}")

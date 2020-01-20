@@ -19,7 +19,7 @@ import java.util.List;
 public class CandidateVenueJobController {
     private final CandidateVenueJobService candidateVenueJobService;
 
-    CandidateVenueJobController(CandidateVenueJobService candidateVenueJobService) {
+    public CandidateVenueJobController(CandidateVenueJobService candidateVenueJobService) {
         this.candidateVenueJobService = candidateVenueJobService;
     }
 

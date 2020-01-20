@@ -26,7 +26,7 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     private final CandidateVenueJobMapper candidateVenueJobMapper;
     private final CandidateVenueJobRepository candidateVenueJobRepository;
 
-    CandidateVenueJobServiceImpl(CandidateVenueJobMapper candidateVenueJobMapper, CandidateVenueJobRepository candidateVenueJobRepository) {
+    public CandidateVenueJobServiceImpl(CandidateVenueJobMapper candidateVenueJobMapper, CandidateVenueJobRepository candidateVenueJobRepository) {
         this.candidateVenueJobMapper = candidateVenueJobMapper;
         this.candidateVenueJobRepository = candidateVenueJobRepository;
     }

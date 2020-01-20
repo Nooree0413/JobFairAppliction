@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.dto;
 
+import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import lombok.Data;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 @Data
 public class CandidateVenueJobSaveDto {
     private Long candidateVenueJob;
-    private Long venueId;
+    private VenueDto venueId;
     private Long jobId;
     private Long candidateId;
     private Long venueJobId;

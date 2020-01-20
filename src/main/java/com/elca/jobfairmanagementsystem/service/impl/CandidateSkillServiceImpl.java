@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 
 @Transactional
 @Service
-public class CandidateSkillImpl implements CandidateSkillService {
+public class CandidateSkillServiceImpl implements CandidateSkillService {
     private final CandidateSkillMapper candidateSkillMapper;
     private final CandidateSkillRepository candidateSkillRepository;
 
-    public CandidateSkillImpl(CandidateSkillMapper candidateSkillMapper, CandidateSkillRepository candidateSkillRepository) {
+    public CandidateSkillServiceImpl(CandidateSkillMapper candidateSkillMapper, CandidateSkillRepository candidateSkillRepository) {
         this.candidateSkillMapper = candidateSkillMapper;
         this.candidateSkillRepository = candidateSkillRepository;
     }

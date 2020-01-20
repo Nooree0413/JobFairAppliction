@@ -6,7 +6,7 @@ import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {VenueMapper.class})
 public interface CandidateVenueJobMapper {
     @Mapping(target = "venueJob.venueJobId", source = "candidateVenueJobDto.venueJob.venueJobId")
     @Mapping(target = "candidate.candidateId", source = "candidateVenueJobDto.candidate.candidateId")
@@ -17,10 +17,13 @@ public interface CandidateVenueJobMapper {
     CandidateVenueJobDto candidateVenueJobEntityToDto (CandidateVenueJob candidateVenueJob);
 
     @Mapping(target = "candidate.candidateId", source = "candidateVenueJobSaveDto.candidateId")
-    @Mapping(target = "venueJob.venueJobId", source = "candidateVenueJobSaveDto.venueJobId")
+    @Mapping(target = "venueJob.venueJobId", source = "venueJobId")
+    @Mapping(target = "venueJob.venue.venueId", source = "venueId.venueId")
     CandidateVenueJob candidateVenueJobSaveDtoToEntity (CandidateVenueJobSaveDto candidateVenueJobSaveDto);
 
-    @Mapping(target = "candidateId", source = "candidateVenueJob.candidate.candidateId")
-    @Mapping(target = "venueJobId", source = "candidateVenueJob.venueJob.venueJobId")
-    CandidateVenueJobSaveDto candidateVenueJobSaveEntityToDto (CandidateVenueJob candidateVenueJob);
+    @Mapping(source = "candidate.candidateId", target = "candidateId")
+    @Mapping(source = "venueJob.venueJobId", target = "venueJobId")
+    @Mapping(source = "venueJob.venue", target = "venueId")
+    CandidateVenueJobSaveDto entityToCandidateVenueJobSaveDto (CandidateVenueJob candidateVenueJob);
+
 }

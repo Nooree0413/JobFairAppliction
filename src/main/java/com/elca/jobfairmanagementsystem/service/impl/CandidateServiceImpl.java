@@ -76,7 +76,7 @@ public class CandidateServiceImpl implements CandidateService {
         List<CandidateVenueJob> candidateVenueJobs = new ArrayList<>();
         candidateVenueJobSaveList.forEach(candidatesVenueDto -> {
             try {
-                VenueJob venueJob = venueJobService.findByVenueIdAndJobId(candidatesVenueDto.getVenueId(), candidatesVenueDto.getJobId());
+                VenueJob venueJob = venueJobService.findByVenueIdAndJobId(candidatesVenueDto.getVenueId().getVenueId(), candidatesVenueDto.getJobId());
                 candidatesVenueDto.setVenueJobId(venueJob.getVenueJobId());
                 candidatesVenueDto.setJobId(venueJob.getJob().getJobId());
                 CandidateVenueJob saveCandidateVenueJob = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidatesVenueDto);
@@ -139,7 +139,7 @@ public class CandidateServiceImpl implements CandidateService {
         List<CandidateVenueJob> candidateVenueJobs = new ArrayList<>();
         candidateVenueJobSaveList.forEach(candidatesVenueDto -> {
             try {
-                VenueJob venueJob = venueJobService.findByVenueIdAndJobId(candidatesVenueDto.getVenueId(), candidatesVenueDto.getJobId());
+                VenueJob venueJob = venueJobService.findByVenueIdAndJobId(candidatesVenueDto.getVenueId().getVenueId(), candidatesVenueDto.getJobId());
                 candidatesVenueDto.setVenueJobId(venueJob.getVenueJobId());
                 candidatesVenueDto.setJobId(venueJob.getJob().getJobId());
                 CandidateVenueJob saveCandidateVenueJob = candidateVenueJobMapper.candidateVenueJobSaveDtoToEntity(candidatesVenueDto);

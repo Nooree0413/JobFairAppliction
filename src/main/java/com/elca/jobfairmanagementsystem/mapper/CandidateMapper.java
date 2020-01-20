@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 /**
  * @author ghr
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {CandidateVenueJobMapper.class})
 public interface CandidateMapper {
 
     @Mapping(target = "experienceDtos", source = "candidateEntity.experiences")

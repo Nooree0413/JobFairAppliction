@@ -22,7 +22,7 @@ public interface CandidateVenueJobService {
 
     CandidateVenueJobCountAllDto countCandidatesByVenue(Long venueId) throws CandidateVenueJobNotFoundException;
 
-    CandidateVenueJobPaginationDto findCandidateVenueJobByLastName(String lastName,Pageable pageable) throws CandidateVenueJobNotFoundException;
+    List<CandidateVenueJobDto> findCandidateVenueJobByLastName(String lastName) throws CandidateVenueJobNotFoundException;
 
     List<CandidateVenueJobDto> findCandidateVenueJobByDESC(Long venueId) throws CandidateVenueJobNotFoundException;
 

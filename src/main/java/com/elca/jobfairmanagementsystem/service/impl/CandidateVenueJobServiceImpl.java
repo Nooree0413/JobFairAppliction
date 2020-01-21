@@ -6,6 +6,7 @@ import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobPaginationDto;
 import com.elca.jobfairmanagementsystem.dto.PaginationDto;
 import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
+import com.elca.jobfairmanagementsystem.exception.Error;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.mapper.CandidateVenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.CandidateVenueJobRepository;
@@ -109,6 +110,36 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
                     .collect(Collectors.toList());
         } else {
             throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        }
+    }
+
+    @Override
+    public CandidateVenueJobPaginationDto findAllCandidateVenueJobByDESC(Pageable pageable) throws CandidateVenueJobNotFoundException {
+        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findAllCandidatesByDESC(pageable);
+        if(candidateVenueJobs == null){
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        } else{
+            return getCandidateVenueJobPaginationDto(candidateVenueJobs);
+        }
+    }
+
+    @Override
+    public CandidateVenueJobPaginationDto findAllCandidateVenueJobByASC(Pageable pageable) throws CandidateVenueJobNotFoundException {
+        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findAllCandidatesBydASC(pageable);
+        if(candidateVenueJobs == null){
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        } else{
+            return getCandidateVenueJobPaginationDto(candidateVenueJobs);
+        }
+    }
+
+    @Override
+    public CandidateVenueJobPaginationDto findCandidateVenueJobByCurrentLevel(String currentLevel, Pageable pageable) throws CandidateVenueJobNotFoundException {
+        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findByCurrentLevel(currentLevel,pageable);
+        if(candidateVenueJobs == null){
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        } else{
+            return getCandidateVenueJobPaginationDto(candidateVenueJobs);
         }
     }
 

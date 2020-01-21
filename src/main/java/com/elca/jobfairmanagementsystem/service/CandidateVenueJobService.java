@@ -27,4 +27,10 @@ public interface CandidateVenueJobService {
     List<CandidateVenueJobDto> findCandidateVenueJobByDESC(Long venueId) throws CandidateVenueJobNotFoundException;
 
     List<CandidateVenueJobDto> findCandidateVenueJobByASC(Long venueId) throws CandidateVenueJobNotFoundException;
+
+    CandidateVenueJobPaginationDto findAllCandidateVenueJobByDESC(Pageable pageable) throws CandidateVenueJobNotFoundException;
+
+    CandidateVenueJobPaginationDto findAllCandidateVenueJobByASC(Pageable pageable) throws CandidateVenueJobNotFoundException;
+
+    CandidateVenueJobPaginationDto findCandidateVenueJobByCurrentLevel(String currentLevel,Pageable pageable) throws CandidateVenueJobNotFoundException;
 }

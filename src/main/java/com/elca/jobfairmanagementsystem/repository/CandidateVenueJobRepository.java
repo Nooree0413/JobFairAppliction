@@ -25,4 +25,13 @@ public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenu
 
     @Query("SELECT a FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId ORDER BY a.candidate.lastName ASC")
     List<CandidateVenueJob> findCandidatesByVenueIdASC(long venueId);
+
+    @Query("SELECT a FROM CandidateVenueJob a ORDER BY a.candidate.lastName DESC")
+    Page<CandidateVenueJob> findAllCandidatesByDESC(Pageable pageable);
+
+    @Query("SELECT a FROM CandidateVenueJob a ORDER BY a.candidate.lastName ASC")
+    Page<CandidateVenueJob> findAllCandidatesBydASC(Pageable pageable);
+
+    @Query("SELECT a FROM CandidateVenueJob a WHERE a.candidate.currentLevel =:currentLevel")
+    Page<CandidateVenueJob> findByCurrentLevel(String currentLevel,Pageable pageable);
 }

@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface CandidateVenueJobService {
-    List<CandidateVenueJobDto> findAllCandidateVenueJobs() throws CandidateVenueJobNotFoundException;
+    CandidateVenueJobPaginationDto findAllCandidateVenueJobs(Pageable pageable) throws CandidateVenueJobNotFoundException;
 
     void deleteCandidateVenueJob(Long candidateVenueJobId) throws CandidateVenueJobNotFoundException;
 

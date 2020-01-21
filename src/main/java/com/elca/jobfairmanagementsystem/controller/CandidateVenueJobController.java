@@ -45,8 +45,8 @@ public class CandidateVenueJobController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/candidates/{venueId}/{pageNumber}/{pageSize}")
-    public ResponseEntity <CandidateVenueJobPaginationDto> getCandidateByVenueId(@PathVariable Long venueId, @PathVariable Integer pageNumber, @PathVariable Integer pageSize) throws CandidateVenueJobNotFoundException{
+    @GetMapping("/candidates")
+    public ResponseEntity <CandidateVenueJobPaginationDto> getCandidateByVenueId(@RequestParam Long venueId, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findAllCandidateByVenueId(venueId,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
@@ -55,9 +55,9 @@ public class CandidateVenueJobController {
         return new ResponseEntity<>(candidateVenueJobService.countCandidatesByVenue(venueId), HttpStatus.OK);
     }
 
-    @GetMapping("/candidates/lastname/{lastName}")
-    public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByLastName(@PathVariable String lastName) throws CandidateVenueJobNotFoundException{
-        return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByLastName(lastName), HttpStatus.OK);
+    @GetMapping("/candidates/{lastName}")
+    public ResponseEntity<CandidateVenueJobPaginationDto> getCandidateByLastName(@PathVariable String lastName,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByLastName(lastName,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
     @GetMapping("/candidates-desc/{venueId}")

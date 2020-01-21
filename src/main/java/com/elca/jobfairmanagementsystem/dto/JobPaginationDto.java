@@ -4,8 +4,6 @@ import lombok.Data;
 
 import java.util.List;
 @Data
-public class JobPaginationDto {
+public class JobPaginationDto extends PaginationDto{
     List<JobDto> jobDtoList;
-    Integer totalElements;
-    Integer totalPages;
 }

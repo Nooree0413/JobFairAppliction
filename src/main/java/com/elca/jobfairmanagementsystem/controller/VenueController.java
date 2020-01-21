@@ -22,8 +22,8 @@ public class VenueController {
         this.venueService = venueService;
     }
 
-    @GetMapping("/all/{pageNumber}/{pageSize}")
-    public ResponseEntity<VenuePaginationDto> getAllVenues(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) throws VenueNotFoundException {
+    @GetMapping("/all")
+    public ResponseEntity<VenuePaginationDto> getAllVenues(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws VenueNotFoundException {
         return new ResponseEntity<>(venueService.findAllVenue(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 

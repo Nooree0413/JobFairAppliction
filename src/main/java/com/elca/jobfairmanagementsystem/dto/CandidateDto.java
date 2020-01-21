@@ -31,4 +31,5 @@ public class CandidateDto {
     private List<CandidateSkillDto> candidateSkillDtos;
     private List<CandidateVenueJobSaveDto> candidateVenueJobSaveDto;
     private List<CandidateScreeningDto> candidateScreeningDtos;
+    private List<CandidateFileDto> candidateFileDtos;
 }

@@ -1,11 +1,11 @@
 package com.elca.jobfairmanagementsystem.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 @Data
-public class CandidatePaginationDto {
+@EqualsAndHashCode(callSuper = false)
+public class CandidatePaginationDto extends PaginationDto{
     List<CandidateDto> candidateDtoList;
-    Integer totalElements;
-    Integer totalPages;
 }

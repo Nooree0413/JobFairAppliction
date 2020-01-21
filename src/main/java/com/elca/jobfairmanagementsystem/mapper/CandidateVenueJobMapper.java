@@ -1,7 +1,9 @@
 package com.elca.jobfairmanagementsystem.mapper;
 
+import com.elca.jobfairmanagementsystem.dto.CandidateFileDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobSaveDto;
+import com.elca.jobfairmanagementsystem.entity.CandidateFile;
 import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,13 +14,17 @@ public interface CandidateVenueJobMapper {
     @Mapping(target = "candidate.candidateId", source = "candidateVenueJobDto.candidate.candidateId")
     CandidateVenueJob candidateVenueJobDtoToEntity (CandidateVenueJobDto candidateVenueJobDto);
 
-    @Mapping(target = "venueJob.venueJobId", source = "candidateVenueJob.venueJob.venueJobId")
-    @Mapping(target = "candidate.candidateId", source = "candidateVenueJob.candidate.candidateId")
-    @Mapping(target = "candidate.experienceDtos", source = "candidateVenueJob.candidate.experiences")
-    @Mapping(target = "candidate.qualificationDtos", source = "candidateVenueJob.candidate.qualifications")
-    @Mapping(target = "candidate.candidateSkillDtos", source = "candidateVenueJob.candidate.candidateSkills")
-    @Mapping(target = "candidate.candidateScreeningDtos", source = "candidateVenueJob.candidate.candidateScreenings")
+    @Mapping(target = "venueJob.venueJobId", source = "venueJob.venueJobId")
+    @Mapping(target = "candidate.candidateId", source = "candidate.candidateId")
+    @Mapping(target = "candidate.experienceDtos", source = "candidate.experiences")
+    @Mapping(target = "candidate.qualificationDtos", source = "candidate.qualifications")
+    @Mapping(target = "candidate.candidateSkillDtos", source = "candidate.candidateSkills")
+    @Mapping(target = "candidate.candidateScreeningDtos", source = "candidate.candidateScreenings")
+    @Mapping(target = "candidate.candidateFileDtos", source = "candidate.candidateFiles")
     CandidateVenueJobDto candidateVenueJobEntityToDto (CandidateVenueJob candidateVenueJob);
+
+    @Mapping(target = "data", ignore = true)
+    CandidateFileDto candidateFileEntityToDto(CandidateFile candidateFile);
 
     @Mapping(target = "candidate.candidateId", source = "candidateVenueJobSaveDto.candidateId")
     @Mapping(target = "venueJob.venueJobId", source = "venueJobId")

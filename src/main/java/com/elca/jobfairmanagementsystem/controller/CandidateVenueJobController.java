@@ -69,4 +69,19 @@ public class CandidateVenueJobController {
     public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueIdASC(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByASC(venueId), HttpStatus.OK);
     }
+
+    @GetMapping("/all-candidates-desc")
+    public ResponseEntity<CandidateVenueJobPaginationDto> getAllCandidateByDESC(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findAllCandidateVenueJobByDESC(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
+    }
+
+    @GetMapping("/all-candidates-asc")
+    public ResponseEntity<CandidateVenueJobPaginationDto> getAllCandidateByASC(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findAllCandidateVenueJobByASC(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
+    }
+
+    @GetMapping("/candidates-level/{currentLevel}")
+    public ResponseEntity<CandidateVenueJobPaginationDto> getCandidateByCurrentLevel(@PathVariable String currentLevel,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByCurrentLevel(currentLevel,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
+    }
 }

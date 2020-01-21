@@ -84,9 +84,15 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public CandidateVenueJobPaginationDto findCandidateVenueJobByLastName(String lastName,Pageable pageable) throws CandidateVenueJobNotFoundException {
-        Page<CandidateVenueJob> candidateVenueJobsByLastName = candidateVenueJobRepository.findByLastName(lastName,pageable);
-        return getCandidateVenueJobPaginationDto(candidateVenueJobsByLastName);
+    public List<CandidateVenueJobDto> findCandidateVenueJobByLastName(String lastName) throws CandidateVenueJobNotFoundException {
+        List<CandidateVenueJob> candidateVenueJobsByLastName = candidateVenueJobRepository.findByLastName(lastName);
+        if (candidateVenueJobsByLastName.size() != 0) {
+            return candidateVenueJobsByLastName.stream()
+                    .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        }
     }
 
     @Override

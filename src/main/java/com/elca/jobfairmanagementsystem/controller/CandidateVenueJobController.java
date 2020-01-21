@@ -24,8 +24,8 @@ public class CandidateVenueJobController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<CandidateVenueJobDto>> getAllCandidateVenueJobs() throws CandidateVenueJobNotFoundException {
-        return new ResponseEntity<>(candidateVenueJobService.findAllCandidateVenueJobs(), HttpStatus.OK);
+    public ResponseEntity<CandidateVenueJobPaginationDto> getAllCandidateVenueJobs(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException {
+        return new ResponseEntity<>(candidateVenueJobService.findAllCandidateVenueJobs(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
     @GetMapping("/{candidateVenueJobId}")

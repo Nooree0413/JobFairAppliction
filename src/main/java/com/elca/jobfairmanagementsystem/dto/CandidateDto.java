@@ -25,7 +25,6 @@ public class CandidateDto {
     private String currentLevel;
     private String jobType;
     private String currentAcademicYear;
-    private String fileName;
     private Boolean cvUpload;
     private List<ExperienceDto> experienceDtos;
     private List<QualificationDto> qualificationDtos;

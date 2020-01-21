@@ -3,6 +3,7 @@ package com.elca.jobfairmanagementsystem.service.impl;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobPaginationDto;
+import com.elca.jobfairmanagementsystem.dto.PaginationDto;
 import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
@@ -82,15 +83,9 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public List<CandidateVenueJobDto> findCandidateVenueJobByLastName(String lastName) throws CandidateVenueJobNotFoundException {
-        List<CandidateVenueJob> candidateVenueJobsByLastName = candidateVenueJobRepository.findByLastName(lastName);
-        if (candidateVenueJobsByLastName.size() != 0) {
-            return candidateVenueJobsByLastName.stream()
-                    .map(candidateVenueJobMapper::candidateVenueJobEntityToDto)
-                    .collect(Collectors.toList());
-        }else {
-            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_AVAILABLE.toString());
-        }
+    public CandidateVenueJobPaginationDto findCandidateVenueJobByLastName(String lastName,Pageable pageable) throws CandidateVenueJobNotFoundException {
+        Page<CandidateVenueJob> candidateVenueJobsByLastName = candidateVenueJobRepository.findByLastName(lastName,pageable);
+        return getCandidateVenueJobPaginationDto(candidateVenueJobsByLastName);
     }
 
     @Override

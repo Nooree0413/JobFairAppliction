@@ -18,6 +18,7 @@ public interface CandidateMapper {
     @Mapping(target = "candidateVenueJobSaveDto", source = "candidateVenueJobs")
     @Mapping(target = "candidateSkillDtos", source = "candidateEntity.candidateSkills")
     @Mapping(target = "candidateScreeningDtos", source = "candidateEntity.candidateScreenings")
+    @Mapping(target = "candidateFileDtos", source = "candidateEntity.candidateFiles")
     CandidateDto candidateEntityToCandidateDto(Candidate candidateEntity);
 
     @InheritInverseConfiguration

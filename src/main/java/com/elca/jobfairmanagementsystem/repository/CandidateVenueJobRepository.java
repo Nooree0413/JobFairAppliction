@@ -18,7 +18,7 @@ public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenu
     Integer findCountOfCandidatesByVenueId(long venueId);
 
     @Query("SELECT a FROM CandidateVenueJob a WHERE a.candidate.lastName LIKE CONCAT('%',:lastName,'%')")
-    List<CandidateVenueJob> findByLastName(String lastName);
+    Page<CandidateVenueJob> findByLastName(String lastName,Pageable pageable);
 
     @Query("SELECT a FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId ORDER BY a.candidate.lastName DESC")
     List<CandidateVenueJob> findCandidatesByVenueIdDESC(long venueId);

@@ -27,8 +27,8 @@ public class CandidateController {
     }
 
     //get all candidate
-    @GetMapping("/all/{pageNumber}/{pageSize}")
-    public ResponseEntity<CandidatePaginationDto> getAllCandidates(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) throws CandidateNotFoundException {
+    @GetMapping("/all")
+    public ResponseEntity<CandidatePaginationDto> getAllCandidates(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateNotFoundException {
         return new ResponseEntity<>(candidateService.findAllCandidate(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 

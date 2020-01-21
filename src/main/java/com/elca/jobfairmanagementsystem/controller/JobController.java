@@ -22,8 +22,8 @@ public class JobController {
         this.jobService = jobService;
     }
 
-    @GetMapping("/all/{pageNumber}/{pageSize}")
-    public ResponseEntity<JobPaginationDto> getAllJobs(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) throws JobNotFoundException {
+    @GetMapping("/all")
+    public ResponseEntity<JobPaginationDto> getAllJobs(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws JobNotFoundException {
         return new ResponseEntity<>(jobService.findAllJobs(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 

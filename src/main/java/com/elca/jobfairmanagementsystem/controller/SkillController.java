@@ -1,8 +1,10 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.SkillDto;
+import com.elca.jobfairmanagementsystem.dto.SkillPaginationDto;
 import com.elca.jobfairmanagementsystem.exception.SkillNotFoundException;
 import com.elca.jobfairmanagementsystem.service.SkillService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +44,8 @@ public class SkillController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<SkillDto>> getAllSkills() throws SkillNotFoundException{
-        return new ResponseEntity<>(skillService.findAllSkills(),HttpStatus.OK);
+    public ResponseEntity<SkillPaginationDto> getAllSkills(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws SkillNotFoundException{
+        return new ResponseEntity<>(skillService.findAllSkills(PageRequest.of(pageNumber,pageSize)),HttpStatus.OK);
     }
 
     @DeleteMapping("/{skillId}")

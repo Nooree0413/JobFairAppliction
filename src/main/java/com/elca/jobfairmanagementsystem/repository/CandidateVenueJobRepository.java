@@ -34,4 +34,7 @@ public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenu
 
     @Query("SELECT a FROM CandidateVenueJob a WHERE a.candidate.currentLevel =:currentLevel")
     Page<CandidateVenueJob> findByCurrentLevel(String currentLevel,Pageable pageable);
+
+    @Query("SELECT a FROM CandidateVenueJob a JOIN a.candidate c JOIN c.candidateScreenings cs WHERE cs.screeningStatus =:screeningStatus")
+    Page<CandidateVenueJob> findByScreeningStatus(String screeningStatus,Pageable pageable);
 }

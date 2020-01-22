@@ -84,4 +84,9 @@ public class CandidateVenueJobController {
     public ResponseEntity<CandidateVenueJobPaginationDto> getCandidateByCurrentLevel(@PathVariable String currentLevel,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByCurrentLevel(currentLevel,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
+
+    @GetMapping("/candidates-screening-status/{screeningStatus}")
+    public ResponseEntity<CandidateVenueJobPaginationDto> getCandidateByScreeningStatus(@PathVariable String screeningStatus,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByScreeningStatus(screeningStatus,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
+    }
 }

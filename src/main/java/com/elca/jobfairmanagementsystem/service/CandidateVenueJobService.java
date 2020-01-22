@@ -33,4 +33,6 @@ public interface CandidateVenueJobService {
     CandidateVenueJobPaginationDto findAllCandidateVenueJobByASC(Pageable pageable) throws CandidateVenueJobNotFoundException;
 
     CandidateVenueJobPaginationDto findCandidateVenueJobByCurrentLevel(String currentLevel,Pageable pageable) throws CandidateVenueJobNotFoundException;
+
+    CandidateVenueJobPaginationDto findCandidateVenueJobByScreeningStatus(String screeningStatus,Pageable pageable) throws CandidateVenueJobNotFoundException;
 }

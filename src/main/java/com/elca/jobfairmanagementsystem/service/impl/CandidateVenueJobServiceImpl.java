@@ -149,6 +149,16 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         }
     }
 
+    @Override
+    public CandidateVenueJobPaginationDto findCandidateVenueJobByScreeningStatus(String screeningStatus, Pageable pageable) throws CandidateVenueJobNotFoundException {
+        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findByScreeningStatus(screeningStatus,pageable);
+        if(candidateVenueJobs == null){
+            throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
+        } else{
+            return getCandidateVenueJobPaginationDto(candidateVenueJobs);
+        }
+    }
+
     private CandidateVenueJobPaginationDto getCandidateVenueJobPaginationDto(Page<CandidateVenueJob> candidateVenueJobs) throws CandidateVenueJobNotFoundException {
         if (candidateVenueJobs == null) {
             throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());

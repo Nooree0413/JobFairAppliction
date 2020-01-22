@@ -63,6 +63,9 @@ public class JobServiceImpl implements JobService {
     public void updateJob(JobDto jobDto) throws JobNotFoundException {
         var getJobById = findJobById(jobDto.getJobId());
         if (getJobById != null) {
+            getJobById.setTitle(jobDto.getTitle());
+            getJobById.setCategory(jobDto.getCategory());
+            getJobById.setLevel(jobDto.getLevel());
             getJobById.setDescription(jobDto.getDescription());
             getJobById.setMinimumExperience(jobDto.getMinimumExperience());
             getJobById.setQualificationNeeded(jobDto.getQualificationNeeded());

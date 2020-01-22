@@ -1,15 +1,12 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.SkillDto;
-import com.elca.jobfairmanagementsystem.dto.SkillPaginationDto;
 import com.elca.jobfairmanagementsystem.entity.Skill;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.SkillNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.SkillMapper;
 import com.elca.jobfairmanagementsystem.repository.SkillRepository;
 import com.elca.jobfairmanagementsystem.service.SkillService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,17 +29,12 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public SkillPaginationDto findAllSkills(Pageable pageable) throws SkillNotFoundException {
-        Page<Skill> skills = skillRepository.findAll(pageable);
-        if(skills == null){
-            throw new SkillNotFoundException(ErrorMessages.SKILL_NOT_FOUND.toString());
+    public List<SkillDto> findAllSkills() throws SkillNotFoundException {
+        List<Skill> skills = skillRepository.findAll();
+        if(skills.size() != 0){
+            return skills.stream().map(skillMapper::skillEntityToDto).collect(Collectors.toList());
         } else {
-            List<SkillDto> skillDto = skills.stream().map(skillMapper::skillEntityToDto).collect(Collectors.toList());
-            SkillPaginationDto skillPaginationDto = new SkillPaginationDto();
-            skillPaginationDto.setSkillDtoList(skillDto);
-            skillPaginationDto.setTotalElements(skills.getNumberOfElements());
-            skillPaginationDto.setTotalPages(skills.getTotalPages());
-            return skillPaginationDto;
+            throw new SkillNotFoundException(ErrorMessages.NO_SKILL_AVAILABLE.toString());
         }
     }
 

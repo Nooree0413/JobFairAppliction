@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class CandidateVenueJobSaveDto {
     private Long candidateVenueJob;
-    private VenueDto venueId;
+    private Long venueId;
     private Long jobId;
     private Long candidateId;
     private Long venueJobId;

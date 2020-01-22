@@ -35,7 +35,7 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
 
     @Override
     public CandidateVenueJobPaginationDto findAllCandidateVenueJobs(Pageable pageable) throws CandidateVenueJobNotFoundException {
-        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findAll(pageable);
+        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findAllCandidateVenueJobOrderByRegistrationDate(pageable);
         return getCandidateVenueJobPaginationDto(candidateVenueJobs);
     }
 
@@ -131,7 +131,7 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
 
     @Override
     public CandidateVenueJobPaginationDto findAllCandidateVenueJobByASC(Pageable pageable) throws CandidateVenueJobNotFoundException {
-        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findAllCandidatesBydASC(pageable);
+        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findAllCandidatesByASC(pageable);
         if(candidateVenueJobs == null){
             throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
         } else{

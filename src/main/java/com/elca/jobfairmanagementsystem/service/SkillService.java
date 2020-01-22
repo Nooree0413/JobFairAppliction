@@ -1,7 +1,10 @@
 package com.elca.jobfairmanagementsystem.service;
 
 import com.elca.jobfairmanagementsystem.dto.SkillDto;
+import com.elca.jobfairmanagementsystem.dto.SkillPaginationDto;
 import com.elca.jobfairmanagementsystem.exception.SkillNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -9,7 +12,7 @@ import java.util.List;
  * @author bfk
  */
 public interface SkillService {
-    List<SkillDto> findAllSkills() throws SkillNotFoundException;
+    SkillPaginationDto findAllSkills(Pageable pageable) throws SkillNotFoundException;
 
     SkillDto findSkillById(long skillId) throws SkillNotFoundException;
 

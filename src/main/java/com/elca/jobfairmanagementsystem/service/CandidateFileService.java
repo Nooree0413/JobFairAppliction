@@ -2,7 +2,6 @@ package com.elca.jobfairmanagementsystem.service;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateFileDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
-import com.elca.jobfairmanagementsystem.exception.FileNotFoundException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

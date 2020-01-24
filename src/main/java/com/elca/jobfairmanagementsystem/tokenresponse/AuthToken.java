@@ -9,15 +9,13 @@ public class AuthToken {
 
     private String token;
     private String visa;
-    private List<String> role;
 
     public AuthToken(){
 
     }
 
-    public AuthToken(String token, String username,List<String> role){
+    public AuthToken(String token, String username){
         this.token = token;
         this.visa = username;
-        this.role = role;
     }
 }

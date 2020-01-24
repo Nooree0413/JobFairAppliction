@@ -17,5 +17,5 @@ public class RoleDto {
     private Boolean jobBo;
     private Boolean skillBo;
     private Boolean venueBo;
-    private Boolean VenueJobBo;
+    private Boolean venueJobBo;
 }

@@ -1,5 +1,7 @@
 package com.elca.jobfairmanagementsystem.config;
 
+import com.elca.jobfairmanagementsystem.dto.UserDto;
+import com.elca.jobfairmanagementsystem.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -41,9 +43,9 @@ public class JwtTokenUtil {
         return expiration.before(new Date());
     }
 
-//    public String generateToken(Employee employee) {
-//        return doGenerateToken(employee.getVisa());
-//    }
+    public String generateToken(UserDto user) {
+        return doGenerateToken(user.getVisa());
+    }
 
     private String doGenerateToken(String subject) {
 

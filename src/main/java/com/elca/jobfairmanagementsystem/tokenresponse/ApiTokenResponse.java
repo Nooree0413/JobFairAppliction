@@ -13,4 +13,5 @@ public class ApiTokenResponse<T> {
         this.message = message;
         this.result = result;
     }
+
 }

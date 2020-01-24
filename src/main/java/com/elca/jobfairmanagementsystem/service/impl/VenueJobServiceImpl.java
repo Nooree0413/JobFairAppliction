@@ -1,10 +1,14 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
+import com.elca.jobfairmanagementsystem.dto.JobDto;
 import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.VenueJobMultipleSaveDto;
 import com.elca.jobfairmanagementsystem.dto.VenueJobPaginationDto;
+import com.elca.jobfairmanagementsystem.entity.Venue;
 import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
+import com.elca.jobfairmanagementsystem.mapper.JobMapper;
 import com.elca.jobfairmanagementsystem.mapper.VenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.VenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
@@ -23,10 +27,12 @@ public class VenueJobServiceImpl implements VenueJobService {
 
     private final VenueJobRepository venueJobRepository;
     private final VenueJobMapper venueJobMapper;
+    private final JobMapper jobMapper;
 
-    public VenueJobServiceImpl(VenueJobRepository venueJobRepository, VenueJobMapper venueJobMapper) {
+    public VenueJobServiceImpl(VenueJobRepository venueJobRepository, VenueJobMapper venueJobMapper, JobMapper jobMapper) {
         this.venueJobMapper = venueJobMapper;
         this.venueJobRepository = venueJobRepository;
+        this.jobMapper = jobMapper;
     }
 
     @Override
@@ -127,7 +133,39 @@ public class VenueJobServiceImpl implements VenueJobService {
     @Override
     public VenueJob findByVenueIdAndJobId(long venueId, long jobId) throws VenueJobNotFoundException {
         Optional<VenueJob> getVenueJobByIdAndJobId = Optional.ofNullable(venueJobRepository.findByVenueIdAndJobId(venueId, jobId));
-        var venueJob = getVenueJobByIdAndJobId.orElseThrow(() -> new VenueJobNotFoundException(ErrorMessages.VENUE_JOB_NOT_FOUND.toString()));
-        return venueJob;
+        return getVenueJobByIdAndJobId.orElseThrow(() -> new VenueJobNotFoundException(ErrorMessages.VENUE_JOB_NOT_FOUND.toString()));
+    }
+
+    @Override
+    public void saveMultipleVenueJobs(VenueJobMultipleSaveDto venueJobMultipleSaveDto) throws VenueJobNotFoundException{
+        List<JobDto> jobDtos = venueJobMultipleSaveDto.getJob();
+        VenueJobDto venueJobDto = new VenueJobDto();
+        if(jobDtos == null){
+            throw new VenueJobNotFoundException(ErrorMessages.NO_VENUE_JOB_AVAILABLE.toString());
+        }else {
+            jobDtos.forEach(saveVenueJob ->{
+
+                Long jobId = saveVenueJob.getJobId();
+                Long venueId = venueJobMultipleSaveDto.getVenue().getVenueId();
+
+                if(saveVenueJob.getChecked()){
+                    VenueJob checkVenueJob = venueJobRepository.findByVenueIdAndJobId(venueId,jobId);
+                    if(checkVenueJob == null){
+                        venueJobDto.setJob(saveVenueJob);
+                        venueJobDto.setVenue(venueJobMultipleSaveDto.getVenue());
+                        venueJobDto.setVenueJobDate(venueJobMultipleSaveDto.getVenueJobDate());
+                        VenueJob venueJob = venueJobMapper.venueJobDtoToEntity(venueJobDto);
+                        venueJobRepository.save(venueJob);
+                    }
+                } if(!saveVenueJob.getChecked()){
+                    deleteVenueJobByJobIdAndVenueId(venueId,jobId);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void deleteVenueJobByJobIdAndVenueId(long venueId, long jobId) {
+        venueJobRepository.deleteVenueJobByVenueIdAndJobId(venueId,jobId);
     }
 }

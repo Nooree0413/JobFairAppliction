@@ -1,6 +1,7 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.VenueJobMultipleSaveDto;
 import com.elca.jobfairmanagementsystem.dto.VenueJobPaginationDto;
 import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.VenueJobMapper;
@@ -76,5 +77,17 @@ public class VenueJobController {
     @GetMapping("/job/venue")
     public ResponseEntity<VenueJobDto> getJobByVenueIdAndJobId(@RequestParam long venueId,@RequestParam long jobId) throws VenueJobNotFoundException {
         return new ResponseEntity<>(venueJobMapper.venueJobEntityToDto(venueJobService.findByVenueIdAndJobId(venueId,jobId)), HttpStatus.OK);
+    }
+
+    @PostMapping("/multiple-job")
+    public ResponseEntity saveMultipleVenueJob(@RequestBody VenueJobMultipleSaveDto venueJobMultipleSaveDto) throws VenueJobNotFoundException{
+        venueJobService.saveMultipleVenueJobs(venueJobMultipleSaveDto);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/multiple-job/delete/{venueId}/{jobId}")
+    public ResponseEntity deleteVenueJob(@PathVariable Long venueId,@PathVariable Long jobId) throws VenueJobNotFoundException{
+        venueJobService.deleteVenueJobByJobIdAndVenueId(venueId,jobId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

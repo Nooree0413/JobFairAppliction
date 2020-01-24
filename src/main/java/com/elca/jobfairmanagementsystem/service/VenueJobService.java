@@ -1,6 +1,7 @@
 package com.elca.jobfairmanagementsystem.service;
 
 import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.VenueJobMultipleSaveDto;
 import com.elca.jobfairmanagementsystem.dto.VenueJobPaginationDto;
 import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
@@ -28,4 +29,8 @@ public interface VenueJobService {
     List<VenueJobDto> findByTitle(long venueId, String title) throws VenueJobNotFoundException;
 
     VenueJob findByVenueIdAndJobId (long venueId,long jobId) throws VenueJobNotFoundException;
+
+    void saveMultipleVenueJobs (VenueJobMultipleSaveDto venueJobMultipleSaveDto) throws VenueJobNotFoundException;
+
+    void deleteVenueJobByJobIdAndVenueId(long venueId,long jobId) throws VenueJobNotFoundException;
 }

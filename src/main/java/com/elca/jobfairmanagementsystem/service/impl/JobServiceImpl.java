@@ -149,4 +149,28 @@ public class JobServiceImpl implements JobService {
         });
         return jobCategoryDto;
     }
+
+    @Override
+    public List<JobDto> findByTitle(String title) throws JobNotFoundException {
+        List<Job> findJobsByTitle = jobRepository.findByTitle(title);
+        if (findJobsByTitle.size() != 0) {
+            return findJobsByTitle.stream()
+                    .map(jobMapper::jobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new JobNotFoundException(ErrorMessages.JOB_NOT_FOUND.toString());
+        }
+    }
+
+    @Override
+    public List<JobDto> findByLevel(String level) throws JobNotFoundException {
+        List<Job> findJobsBylevel = jobRepository.findByLevel(level);
+        if (findJobsBylevel.size() != 0) {
+            return findJobsBylevel.stream()
+                    .map(jobMapper::jobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new JobNotFoundException(ErrorMessages.JOB_NOT_FOUND.toString());
+        }
+    }
 }

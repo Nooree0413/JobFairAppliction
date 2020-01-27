@@ -19,4 +19,5 @@ public class JobDto {
 
     private String qualificationNeeded;
 
+    private Boolean checked;
 }

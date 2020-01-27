@@ -24,4 +24,8 @@ public interface JobService {
     List<JobDto> findJobsAppliedById(String jobPriority) throws JobNotFoundException;
 
     JobCategoryDto findCountJobCategory() throws JobNotFoundException;
+
+    List<JobDto> findByTitle(String title) throws JobNotFoundException;
+
+    List<JobDto> findByLevel(String level) throws JobNotFoundException;
 }

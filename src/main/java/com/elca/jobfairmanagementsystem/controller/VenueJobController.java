@@ -74,6 +74,11 @@ public class VenueJobController {
         return new ResponseEntity<>(venueJobService.findByTitle(venueId, title), HttpStatus.OK);
     }
 
+    @GetMapping("/jobs/category/title")
+    public ResponseEntity<List<VenueJobDto>> getAllJobsByTitleAndCategory(@RequestParam long venueId,@RequestParam String title,@RequestParam String category) throws VenueJobNotFoundException {
+        return new ResponseEntity<>(venueJobService.findByTitleAndCategory(venueId, title,category), HttpStatus.OK);
+    }
+
     @GetMapping("/job/venue")
     public ResponseEntity<VenueJobDto> getJobByVenueIdAndJobId(@RequestParam long venueId,@RequestParam long jobId) throws VenueJobNotFoundException {
         return new ResponseEntity<>(venueJobMapper.venueJobEntityToDto(venueJobService.findByVenueIdAndJobId(venueId,jobId)), HttpStatus.OK);

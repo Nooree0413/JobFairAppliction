@@ -23,6 +23,9 @@ public interface VenueJobRepository extends JpaRepository<VenueJob,Long>{
     @Query("SELECT a FROM VenueJob a WHERE a.job.title LIKE CONCAT('%',:title,'%') AND a.venue.venueId=:venueId")
     List<VenueJob> findByTitle (long venueId,String title);
 
+    @Query("SELECT a FROM VenueJob a WHERE a.job.title LIKE CONCAT('%',:title,'%') AND a.venue.venueId=:venueId AND a.job.category = :category")
+    List<VenueJob> findByTitleAndCategory (long venueId,String title,String category);
+
     @Query("SELECT a FROM VenueJob a WHERE a.venue.venueId =:venueId AND a.job.jobId =:jobId")
     VenueJob findByVenueIdAndJobId (long venueId,long jobId);
 

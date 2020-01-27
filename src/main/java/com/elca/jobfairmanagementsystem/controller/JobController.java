@@ -65,4 +65,13 @@ public class JobController {
         return new ResponseEntity<>(jobService.findCountJobCategory(),HttpStatus.OK);
     }
 
+    @GetMapping("/title")
+    public ResponseEntity<List<JobDto>> getAllJobsByTitle(@RequestParam String title) throws JobNotFoundException {
+        return new ResponseEntity<>(jobService.findByTitle(title), HttpStatus.OK);
+    }
+
+    @GetMapping("/level")
+    public ResponseEntity<List<JobDto>> getAllJobsByLevel(@RequestParam String level) throws JobNotFoundException {
+        return new ResponseEntity<>(jobService.findByLevel(level), HttpStatus.OK);
+    }
 }

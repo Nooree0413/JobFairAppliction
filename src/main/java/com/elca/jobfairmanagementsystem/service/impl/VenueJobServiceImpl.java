@@ -4,6 +4,7 @@ import com.elca.jobfairmanagementsystem.dto.JobDto;
 import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
 import com.elca.jobfairmanagementsystem.dto.VenueJobMultipleSaveDto;
 import com.elca.jobfairmanagementsystem.dto.VenueJobPaginationDto;
+import com.elca.jobfairmanagementsystem.entity.Venue;
 import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;

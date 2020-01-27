@@ -1,5 +1,6 @@
 package com.elca.jobfairmanagementsystem.tokenresponse;
 
+import com.elca.jobfairmanagementsystem.dto.RoleDto;
 import lombok.Data;
 
 import java.util.List;
@@ -8,16 +9,16 @@ import java.util.List;
 public class AuthToken {
 
     private String token;
-    private String role;
     private String visa;
+    private RoleDto roleDto;
 
     public AuthToken(){
 
     }
 
-    public AuthToken(String token, String username,String visa){
+    public AuthToken(String token,String visa,RoleDto roleDto){
         this.token = token;
-        this.role = username;
+        this.roleDto = roleDto;
         this.visa = visa;
     }
 }

@@ -37,7 +37,6 @@ public class AuthenticationController {
         final UserDto user = userService.loadUserByVisa(loginDto.getVisa());
         final String token = jwtTokenUtil.generateToken(user);
         final UserRoleDto userRoleDto = userRoleService.getUserRoleByVisa(loginDto.getVisa());
-        final String role = userRoleDto.getRole().getName();
-        return new ApiTokenResponse<>(200,"Success",new AuthToken(token, role,user.getVisa()));
+        return new ApiTokenResponse<>(200,"Success",new AuthToken(token,user.getVisa(),userRoleDto.getRole()));
     }
 }

@@ -3,6 +3,8 @@ package com.elca.jobfairmanagementsystem.controller;
 import com.elca.jobfairmanagementsystem.config.JwtTokenUtil;
 import com.elca.jobfairmanagementsystem.dto.LoginDto;
 import com.elca.jobfairmanagementsystem.dto.UserDto;
+import com.elca.jobfairmanagementsystem.dto.UserRoleDto;
+import com.elca.jobfairmanagementsystem.service.UserRoleService;
 import com.elca.jobfairmanagementsystem.service.UserService;
 import com.elca.jobfairmanagementsystem.tokenresponse.ApiTokenResponse;
 import com.elca.jobfairmanagementsystem.tokenresponse.AuthToken;
@@ -19,11 +21,13 @@ public class AuthenticationController {
     private final JwtTokenUtil jwtTokenUtil;
     private AuthenticationManager authenticationManager;
     private final UserService userService;
+    private final UserRoleService userRoleService;
 
-    public AuthenticationController(JwtTokenUtil jwtTokenUtil, AuthenticationManager authenticationManager, UserService userService) {
+    public AuthenticationController(JwtTokenUtil jwtTokenUtil, AuthenticationManager authenticationManager, UserService userService, UserRoleService userRoleService) {
         this.jwtTokenUtil = jwtTokenUtil;
         this.authenticationManager = authenticationManager;
         this.userService = userService;
+        this.userRoleService = userRoleService;
     }
 
     @RequestMapping(value = "/generate-token", method = RequestMethod.POST)
@@ -32,6 +36,8 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().getAuthentication();
         final UserDto user = userService.loadUserByVisa(loginDto.getVisa());
         final String token = jwtTokenUtil.generateToken(user);
-        return new ApiTokenResponse<>(200,"Success",new AuthToken(token, user.getVisa()));
+        final UserRoleDto userRoleDto = userRoleService.getUserRoleByVisa(loginDto.getVisa());
+        final String role = userRoleDto.getRole().getName();
+        return new ApiTokenResponse<>(200,"Success",new AuthToken(token, role,user.getVisa()));
     }
 }

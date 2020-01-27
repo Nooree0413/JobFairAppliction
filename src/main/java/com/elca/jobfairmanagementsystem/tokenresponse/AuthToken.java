@@ -8,14 +8,16 @@ import java.util.List;
 public class AuthToken {
 
     private String token;
+    private String role;
     private String visa;
 
     public AuthToken(){
 
     }
 
-    public AuthToken(String token, String username){
+    public AuthToken(String token, String username,String visa){
         this.token = token;
-        this.visa = username;
+        this.role = username;
+        this.visa = visa;
     }
 }

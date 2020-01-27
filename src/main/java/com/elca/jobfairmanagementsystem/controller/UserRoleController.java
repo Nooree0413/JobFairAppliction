@@ -28,4 +28,9 @@ public class UserRoleController {
     public ResponseEntity<List<UserRoleDto>> getAllUserRoles() {
         return new ResponseEntity<>(userRoleService.getAllUserRole(), HttpStatus.OK);
     }
+
+    @GetMapping("/visa/{visa}")
+    public ResponseEntity<UserRoleDto> getUserRoleByVisa(@PathVariable String visa) {
+        return new ResponseEntity<>(userRoleService.getUserRoleByVisa(visa), HttpStatus.OK);
+    }
 }

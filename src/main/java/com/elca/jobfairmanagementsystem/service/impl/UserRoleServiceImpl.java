@@ -31,4 +31,10 @@ public class UserRoleServiceImpl implements UserRoleService {
         List<UserRole> userRoles = userRoleRepository.findAll();
         return userRoles.stream().map(userRoleMapper::userRoleEntityToDto).collect(Collectors.toList());
     }
+
+    @Override
+    public UserRoleDto getUserRoleByVisa(String visa) {
+        UserRole userRole = userRoleRepository.getUserRoleByVisa(visa);
+        return userRoleMapper.userRoleEntityToDto(userRole);
+    }
 }

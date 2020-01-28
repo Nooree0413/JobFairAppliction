@@ -33,4 +33,7 @@ public interface VenueJobRepository extends JpaRepository<VenueJob,Long>{
     @Modifying
     @Query("DELETE FROM VenueJob a WHERE a.venue.venueId =:venueId AND a.job.jobId =:jobId")
     void deleteVenueJobByVenueIdAndJobId(long venueId,long jobId);
+
+    @Query("SELECT count(a) FROM VenueJob a WHERE a.venue.venueId =:venueId")
+    Integer findCountOfJobsByVenue(long venueId);
 }

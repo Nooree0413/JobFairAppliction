@@ -40,4 +40,19 @@ public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenu
 
     @Query("SELECT a FROM CandidateVenueJob a ORDER BY a.candidate.registrationDate DESC")
     Page<CandidateVenueJob> findAllCandidateVenueJobOrderByRegistrationDate(Pageable pageable);
+
+    @Query("SELECT count(a) FROM CandidateVenueJob a JOIN a.venueJob vj JOIN a.candidate c JOIN vj.venue v JOIN c.candidateScreenings cs WHERE v.venueId=:venueId AND cs.screeningStatus =:screeningStatus")
+    Integer findCountOfScreeningStatusByVenueId(long venueId,String screeningStatus);
+
+    @Query("SELECT count(a) FROM CandidateVenueJob a JOIN a.venueJob vj JOIN vj.venue v JOIN a.candidate c WHERE v.venueId =:venueId AND MONTH(c.availabilityDate) = :month")
+    Integer findCandidatesPerMonthByVenue(long venueId,Integer month);
+
+    @Query("SELECT count(a) FROM CandidateVenueJob a")
+    Integer findCountOfCandidates();
+
+    @Query("SELECT count(a) FROM CandidateVenueJob a JOIN a.venueJob vj JOIN a.candidate c JOIN vj.venue v JOIN c.candidateScreenings cs WHERE cs.screeningStatus =:screeningStatus")
+    Integer findCountOfScreeningStatusByAllVenue(String screeningStatus);
+
+    @Query("SELECT count(a) FROM CandidateVenueJob a WHERE a.venueJob.job.category =:category")
+    Integer findCountOfCandidatesPerJobCategoryByAllVenue(String category);
 }

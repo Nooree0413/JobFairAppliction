@@ -3,6 +3,7 @@ package com.elca.jobfairmanagementsystem.controller;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
 import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobPaginationDto;
+import com.elca.jobfairmanagementsystem.dto.DashboardDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
 
@@ -88,5 +89,15 @@ public class CandidateVenueJobController {
     @GetMapping("/candidates-screening-status/{screeningStatus}")
     public ResponseEntity<CandidateVenueJobPaginationDto> getCandidateByScreeningStatus(@PathVariable String screeningStatus,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByScreeningStatus(screeningStatus,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
+    }
+
+    @GetMapping("/count-by-venue/{venueId}")
+    public ResponseEntity<DashboardDto> getDashboardStatisticByVenue(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.dashboardStatisticByVenue(venueId), HttpStatus.OK);
+    }
+
+    @GetMapping("/count-by-all-venue")
+    public ResponseEntity<DashboardDto> getDashboardStatisticByAllVenue() throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.dashboardStatisticByAllVenue(), HttpStatus.OK);
     }
 }

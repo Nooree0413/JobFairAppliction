@@ -10,6 +10,13 @@ public class DashboardDto {
     private Integer totalApprovedScreeningStatusByVenue;
     private Integer totalRejectedScreeningStatusByVenue;
 
+    private Integer totalCandidatesPerSoftwareEngineerByVenue;
+    private Integer totalCandidatesPerBusinessAnalystByVenue;
+    private Integer totalCandidatesPerQualityAssuranceByVenue;
+    private Integer totalCandidatesPerManagerByVenue;
+    private Integer totalCandidatesPerHumanResourceByVenue;
+    private Integer totalCandidatesPerArchitectByVenue;
+
     private Integer totalCandidatesByAllVenue;
     private Integer totalProceedScreeningStatusByAllVenue;
     private Integer totalApprovedScreeningStatusByAllVenue;

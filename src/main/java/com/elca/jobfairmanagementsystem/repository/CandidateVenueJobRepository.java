@@ -55,4 +55,7 @@ public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenu
 
     @Query("SELECT count(a) FROM CandidateVenueJob a WHERE a.venueJob.job.category =:category")
     Integer findCountOfCandidatesPerJobCategoryByAllVenue(String category);
+
+    @Query("SELECT count(a) FROM CandidateVenueJob a WHERE a.venueJob.job.category =:category AND a.venueJob.venue.venueId =:venueId")
+    Integer findCountOfCandidatesPerJobCategoryByVenue(long venueId,String category);
 }

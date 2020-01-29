@@ -167,11 +167,24 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         Integer totalRejectedScreeningStatusByVenue = candidateVenueJobRepository.findCountOfScreeningStatusByVenueId(venueId,"Rejected");
         Integer totalAcceptedScreeningStatusByVenue = candidateVenueJobRepository.findCountOfScreeningStatusByVenueId(venueId,"Accepted");
 
+        Integer totalCandidatesPerSoftwareEngineerByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"software-engineer");
+        Integer totalCandidatesPerBusinessAnalystByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"business-analyst");
+        Integer totalCandidatesPerQualityAssuranceByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"quality-assurance");
+        Integer totalCandidatesPerManagerByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"manager");
+        Integer totalCandidatesPerHumanResourceByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"human-resource");
+        Integer totalCandidatesPerArchitectByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"architect");
+
         DashboardDto dashboardDto = new DashboardDto();
         dashboardDto.setTotalJobsByVenue(totalJobsByVenue);
         dashboardDto.setTotalRejectedScreeningStatusByVenue(totalRejectedScreeningStatusByVenue);
         dashboardDto.setTotalProceedScreeningStatusByVenue(totalProceedScreeningStatusByVenue);
         dashboardDto.setTotalApprovedScreeningStatusByVenue(totalAcceptedScreeningStatusByVenue);
+        dashboardDto.setTotalCandidatesPerSoftwareEngineerByVenue(totalCandidatesPerSoftwareEngineerByVenue);
+        dashboardDto.setTotalCandidatesPerBusinessAnalystByVenue(totalCandidatesPerBusinessAnalystByVenue);
+        dashboardDto.setTotalCandidatesPerQualityAssuranceByVenue(totalCandidatesPerQualityAssuranceByVenue);
+        dashboardDto.setTotalCandidatesPerManagerByVenue(totalCandidatesPerManagerByVenue);
+        dashboardDto.setTotalCandidatesPerHumanResourceByVenue(totalCandidatesPerHumanResourceByVenue);
+        dashboardDto.setTotalCandidatesPerArchitectByVenue(totalCandidatesPerArchitectByVenue);
 
         CandidatesPerMonthDto candidatesPerMonthDto = new CandidatesPerMonthDto();
         candidatesPerMonthDto.setTotalCandidatesForJanuaryByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,1));

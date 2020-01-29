@@ -143,6 +143,18 @@ public class VenueJobServiceImpl implements VenueJobService {
     }
 
     @Override
+    public List<VenueJobDto> findByLevelAndCategory(long venueId, String level, String category) throws VenueJobNotFoundException {
+        List<VenueJob> findJobsByLevel = venueJobRepository.findByLevelAndCategory(venueId,level,category);
+        if (findJobsByLevel.size() != 0) {
+            return findJobsByLevel.stream()
+                    .map(venueJobMapper::venueJobEntityToDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new VenueJobNotFoundException(ErrorMessages.NO_VENUE_JOB_AVAILABLE.toString());
+        }
+    }
+
+    @Override
     public VenueJob findByVenueIdAndJobId(long venueId, long jobId) throws VenueJobNotFoundException {
         Optional<VenueJob> getVenueJobByIdAndJobId = Optional.ofNullable(venueJobRepository.findByVenueIdAndJobId(venueId, jobId));
         return getVenueJobByIdAndJobId.orElseThrow(() -> new VenueJobNotFoundException(ErrorMessages.VENUE_JOB_NOT_FOUND.toString()));

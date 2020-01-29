@@ -30,6 +30,8 @@ public interface VenueJobService {
 
     List<VenueJobDto> findByTitleAndCategory(long venueId, String title, String category) throws VenueJobNotFoundException;
 
+    List<VenueJobDto> findByLevelAndCategory(long venueId, String level, String category) throws VenueJobNotFoundException;
+
     VenueJob findByVenueIdAndJobId (long venueId,long jobId) throws VenueJobNotFoundException;
 
     void saveMultipleVenueJobs (VenueJobMultipleSaveDto venueJobMultipleSaveDto) throws VenueJobNotFoundException;

@@ -16,26 +16,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class JobFairManagementSystemApplicationTests {
 
-    @Autowired
-    private JobService jobService;
-    @Autowired
-    private CandidateService candidateService;
+//    @Autowired
+//    private JobService jobService;
+//    @Autowired
+//    private CandidateService candidateService;
 
 	@Test
 	void contextLoads() {
 
 	}
-
-	@Test
-     void getJobById() throws JobNotFoundException {
-        JobDto getJob = jobService.findJobById(1L);
-        assertThat(getJob.getTitle().equals("Software"));
-    }
-
-    @Test
-    void getCandidateById() throws CandidateNotFoundException {
-        CandidateDto getCandidate = candidateService.findCandidateById((long) 42);
-        assertThat(getCandidate.getAddress().equals("Candos Quatre Bornes"));
-    }
+//
+//	@Test
+//     void getJobById() throws JobNotFoundException {
+//        JobDto getJob = jobService.findJobById(1L);
+//        assertThat(getJob.getTitle().equals("Software"));
+//    }
+//
+//    @Test
+//    void getCandidateById() throws CandidateNotFoundException {
+//        CandidateDto getCandidate = candidateService.findCandidateById((long) 42);
+//        assertThat(getCandidate.getAddress().equals("Candos Quatre Bornes"));
+//    }
 
 }

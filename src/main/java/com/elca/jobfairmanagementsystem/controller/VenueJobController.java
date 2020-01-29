@@ -54,8 +54,8 @@ public class VenueJobController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/jobs/{venueId}/{pageNumber}/{pageSize}")
-    public ResponseEntity <VenueJobPaginationDto> getAllJobsByVenue(@PathVariable long venueId, @PathVariable Integer pageNumber, @PathVariable Integer pageSize) throws VenueJobNotFoundException {
+    @GetMapping("/jobs")
+    public ResponseEntity <VenueJobPaginationDto> getAllJobsByVenue(@RequestParam long venueId, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws VenueJobNotFoundException {
         return new ResponseEntity<>(venueJobService.findByVenueId(venueId, PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 

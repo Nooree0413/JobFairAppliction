@@ -21,4 +21,9 @@ public class RoleController {
         roleService.saveRole(roleDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
+
+    @GetMapping("/{roleName}")
+    public ResponseEntity<RoleDto> getRoleByName(@PathVariable String roleName){
+        return new ResponseEntity<>(roleService.getRoleDetailsByRoleName(roleName),HttpStatus.OK);
+    }
 }

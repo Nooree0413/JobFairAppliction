@@ -1,9 +1,12 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.CandidateFileDto;
+import com.elca.jobfairmanagementsystem.dto.DownloadDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.FileNotFoundException;
 import com.elca.jobfairmanagementsystem.service.CandidateFileService;
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -32,11 +35,13 @@ public class CandidateFileController {
     }
 
     @GetMapping("/{fileName}")
-    public ResponseEntity<Resource> getCandidateCvById(@PathVariable String fileName) throws CandidateNotFoundException {
+    public ResponseEntity<DownloadDto> getCandidateCvById(@PathVariable String fileName) throws CandidateNotFoundException {
         CandidateFileDto candidateCv = candidateFileService.getCandidateFileByFileName(fileName);
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(candidateCv.getFileType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + candidateCv.getFileName() + "\"")
-                .body(new ByteArrayResource(candidateCv.getData()));
+//        return ResponseEntity.ok()
+//                .contentType(MediaType.parseMediaType(candidateCv.getFileType()))
+//                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + candidateCv.getFileName() + "\"")
+//                .body(new ByteArrayResource(candidateCv.getData()));
+        return ResponseEntity.ok(DownloadDto.builder().name(candidateCv.getFileName()).file(candidateCv.getData()).build());
     }
+
 }

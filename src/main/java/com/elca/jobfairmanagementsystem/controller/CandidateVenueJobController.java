@@ -10,6 +10,7 @@ import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -91,6 +92,7 @@ public class CandidateVenueJobController {
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByScreeningStatus(screeningStatus,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_HR') OR hasRole('ROLE_ADMIN')")
     @GetMapping("/count-by-venue/{venueId}")
     public ResponseEntity<DashboardDto> getDashboardStatisticByVenue(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.dashboardStatisticByVenue(venueId), HttpStatus.OK);

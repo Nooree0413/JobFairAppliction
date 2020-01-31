@@ -16,4 +16,7 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findByLevel (String level);
 
     List<Job> findByCategory (String category);
+
+    @Query("SELECT count(a) FROM Job a")
+    Integer findCountOfAllJobs();
 }

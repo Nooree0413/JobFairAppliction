@@ -6,6 +6,7 @@ import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundExcep
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.mapper.CandidateVenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.CandidateVenueJobRepository;
+import com.elca.jobfairmanagementsystem.repository.JobRepository;
 import com.elca.jobfairmanagementsystem.repository.VenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
 
@@ -15,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,11 +26,13 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     private final CandidateVenueJobMapper candidateVenueJobMapper;
     private final CandidateVenueJobRepository candidateVenueJobRepository;
     private final VenueJobRepository venueJobRepository;
+    private final JobRepository jobRepository;
 
-    public CandidateVenueJobServiceImpl(CandidateVenueJobMapper candidateVenueJobMapper, CandidateVenueJobRepository candidateVenueJobRepository, VenueJobRepository venueJobRepository) {
+    public CandidateVenueJobServiceImpl(CandidateVenueJobMapper candidateVenueJobMapper, CandidateVenueJobRepository candidateVenueJobRepository, VenueJobRepository venueJobRepository, JobRepository jobRepository) {
         this.candidateVenueJobMapper = candidateVenueJobMapper;
         this.candidateVenueJobRepository = candidateVenueJobRepository;
         this.venueJobRepository = venueJobRepository;
+        this.jobRepository = jobRepository;
     }
 
     @Override
@@ -205,7 +207,7 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
 
     @Override
     public DashboardDto dashboardStatisticByAllVenue() throws CandidateVenueJobNotFoundException {
-        Integer totalJobsByAllVenue = venueJobRepository.findCountOfJobsByAllVenue();
+        Integer totalJobsByAllVenue = jobRepository.findCountOfAllJobs();
         Integer totalCandidatesByAllVenue = candidateVenueJobRepository.findCountOfCandidates();
         Integer totalProceedScreeningStatusByAllVenue = candidateVenueJobRepository.findCountOfScreeningStatusByAllVenue("proceed-to-next-interview");
         Integer totalRejectedScreeningStatusByAllVenue = candidateVenueJobRepository.findCountOfScreeningStatusByAllVenue("Rejected");

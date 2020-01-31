@@ -58,4 +58,7 @@ public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenu
 
     @Query("SELECT count(a) FROM CandidateVenueJob a WHERE a.venueJob.job.category =:category AND a.venueJob.venue.venueId =:venueId")
     Integer findCountOfCandidatesPerJobCategoryByVenue(long venueId,String category);
+
+    @Query("SELECT count(a) FROM CandidateVenueJob a JOIN a.venueJob vj JOIN vj.venue v JOIN a.candidate c WHERE MONTH(c.availabilityDate) = :month")
+    Integer findCandidatesPerMonthByAllVenue(Integer month);
 }

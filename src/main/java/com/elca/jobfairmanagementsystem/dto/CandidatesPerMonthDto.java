@@ -4,16 +4,16 @@ import lombok.Data;
 
 @Data
 public class CandidatesPerMonthDto {
-    private Integer totalCandidatesForJanuaryByVenue;
-    private Integer totalCandidatesForFebruaryByVenue;
-    private Integer totalCandidatesForMarchByVenue;
-    private Integer totalCandidatesForAprilByVenue;
-    private Integer totalCandidatesForMayByVenue;
-    private Integer totalCandidatesForJuneByVenue;
-    private Integer totalCandidatesForJulyByVenue;
-    private Integer totalCandidatesForAugustByVenue;
-    private Integer totalCandidatesForSeptemberByVenue;
-    private Integer totalCandidatesForOctoberByVenue;
-    private Integer totalCandidatesForNovemberByVenue;
-    private Integer totalCandidatesForDecemberByVenue;
+    private Integer totalCandidatesForJanuary;
+    private Integer totalCandidatesForFebruary;
+    private Integer totalCandidatesForMarch;
+    private Integer totalCandidatesForApril;
+    private Integer totalCandidatesForMay;
+    private Integer totalCandidatesForJune;
+    private Integer totalCandidatesForJuly;
+    private Integer totalCandidatesForAugust;
+    private Integer totalCandidatesForSeptember;
+    private Integer totalCandidatesForOctober;
+    private Integer totalCandidatesForNovember;
+    private Integer totalCandidatesForDecember;
 }

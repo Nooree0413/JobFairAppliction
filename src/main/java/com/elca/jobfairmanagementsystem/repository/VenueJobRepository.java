@@ -39,4 +39,7 @@ public interface VenueJobRepository extends JpaRepository<VenueJob,Long>{
 
     @Query("SELECT count(a) FROM VenueJob a WHERE a.venue.venueId =:venueId")
     Integer findCountOfJobsByVenue(long venueId);
+
+    @Query("SELECT count(a) FROM VenueJob a")
+    Integer findCountOfJobsByAllVenue();
 }

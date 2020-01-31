@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class DashboardDto {
     private Integer totalJobsByVenue;
-    private CandidatesPerMonthDto totalCandidatesPerMonthByVenue;
+    private CandidatesPerMonthDto totalCandidatesPerMonth;
     private Integer totalProceedScreeningStatusByVenue;
     private Integer totalApprovedScreeningStatusByVenue;
     private Integer totalRejectedScreeningStatusByVenue;
@@ -17,6 +17,7 @@ public class DashboardDto {
     private Integer totalCandidatesPerHumanResourceByVenue;
     private Integer totalCandidatesPerArchitectByVenue;
 
+    private Integer totalJobsByAllVenue;
     private Integer totalCandidatesByAllVenue;
     private Integer totalProceedScreeningStatusByAllVenue;
     private Integer totalApprovedScreeningStatusByAllVenue;

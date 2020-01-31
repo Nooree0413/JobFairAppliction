@@ -187,24 +187,25 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         dashboardDto.setTotalCandidatesPerArchitectByVenue(totalCandidatesPerArchitectByVenue);
 
         CandidatesPerMonthDto candidatesPerMonthDto = new CandidatesPerMonthDto();
-        candidatesPerMonthDto.setTotalCandidatesForJanuaryByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,1));
-        candidatesPerMonthDto.setTotalCandidatesForFebruaryByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,2));
-        candidatesPerMonthDto.setTotalCandidatesForMarchByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,3));
-        candidatesPerMonthDto.setTotalCandidatesForAprilByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,4));
-        candidatesPerMonthDto.setTotalCandidatesForMayByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,5));
-        candidatesPerMonthDto.setTotalCandidatesForJuneByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,6));
-        candidatesPerMonthDto.setTotalCandidatesForJulyByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,7));
-        candidatesPerMonthDto.setTotalCandidatesForAugustByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,8));
-        candidatesPerMonthDto.setTotalCandidatesForSeptemberByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,9));
-        candidatesPerMonthDto.setTotalCandidatesForOctoberByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,10));
-        candidatesPerMonthDto.setTotalCandidatesForNovemberByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,11));
-        candidatesPerMonthDto.setTotalCandidatesForDecemberByVenue(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,12));
-        dashboardDto.setTotalCandidatesPerMonthByVenue(candidatesPerMonthDto);
+        candidatesPerMonthDto.setTotalCandidatesForJanuary(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,1));
+        candidatesPerMonthDto.setTotalCandidatesForFebruary(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,2));
+        candidatesPerMonthDto.setTotalCandidatesForMarch(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,3));
+        candidatesPerMonthDto.setTotalCandidatesForApril(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,4));
+        candidatesPerMonthDto.setTotalCandidatesForMay(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,5));
+        candidatesPerMonthDto.setTotalCandidatesForJune(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,6));
+        candidatesPerMonthDto.setTotalCandidatesForJuly(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,7));
+        candidatesPerMonthDto.setTotalCandidatesForAugust(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,8));
+        candidatesPerMonthDto.setTotalCandidatesForSeptember(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,9));
+        candidatesPerMonthDto.setTotalCandidatesForOctober(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,10));
+        candidatesPerMonthDto.setTotalCandidatesForNovember(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,11));
+        candidatesPerMonthDto.setTotalCandidatesForDecember(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,12));
+        dashboardDto.setTotalCandidatesPerMonth(candidatesPerMonthDto);
         return dashboardDto;
     }
 
     @Override
     public DashboardDto dashboardStatisticByAllVenue() throws CandidateVenueJobNotFoundException {
+        Integer totalJobsByAllVenue = venueJobRepository.findCountOfJobsByAllVenue();
         Integer totalCandidatesByAllVenue = candidateVenueJobRepository.findCountOfCandidates();
         Integer totalProceedScreeningStatusByAllVenue = candidateVenueJobRepository.findCountOfScreeningStatusByAllVenue("proceed-to-next-interview");
         Integer totalRejectedScreeningStatusByAllVenue = candidateVenueJobRepository.findCountOfScreeningStatusByAllVenue("Rejected");
@@ -218,6 +219,7 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         Integer totalCandidatesPerArchitectByAllVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByAllVenue("architect");
 
         DashboardDto dashboardDto = new DashboardDto();
+        dashboardDto.setTotalJobsByAllVenue(totalJobsByAllVenue);
         dashboardDto.setTotalCandidatesByAllVenue(totalCandidatesByAllVenue);
         dashboardDto.setTotalProceedScreeningStatusByAllVenue(totalProceedScreeningStatusByAllVenue);
         dashboardDto.setTotalRejectedScreeningStatusByAllVenue(totalRejectedScreeningStatusByAllVenue);
@@ -229,6 +231,21 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         dashboardDto.setTotalCandidatesPerManagerByAllVenue(totalCandidatesPerManagerByAllVenue);
         dashboardDto.setTotalCandidatesPerHumanResourceByAllVenue(totalCandidatesPerHumanResourceByAllVenue);
         dashboardDto.setTotalCandidatesPerArchitectByAllVenue(totalCandidatesPerArchitectByAllVenue);
+
+        CandidatesPerMonthDto candidatesPerMonthDto = new CandidatesPerMonthDto();
+        candidatesPerMonthDto.setTotalCandidatesForJanuary(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(1));
+        candidatesPerMonthDto.setTotalCandidatesForFebruary(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(2));
+        candidatesPerMonthDto.setTotalCandidatesForMarch(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(3));
+        candidatesPerMonthDto.setTotalCandidatesForApril(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(4));
+        candidatesPerMonthDto.setTotalCandidatesForMay(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(5));
+        candidatesPerMonthDto.setTotalCandidatesForJune(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(6));
+        candidatesPerMonthDto.setTotalCandidatesForJuly(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(7));
+        candidatesPerMonthDto.setTotalCandidatesForAugust(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(8));
+        candidatesPerMonthDto.setTotalCandidatesForSeptember(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(9));
+        candidatesPerMonthDto.setTotalCandidatesForOctober(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(10));
+        candidatesPerMonthDto.setTotalCandidatesForNovember(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(11));
+        candidatesPerMonthDto.setTotalCandidatesForDecember(candidateVenueJobRepository.findCandidatesPerMonthByAllVenue(12));
+        dashboardDto.setTotalCandidatesPerMonth(candidatesPerMonthDto);
         return dashboardDto;
     }
 

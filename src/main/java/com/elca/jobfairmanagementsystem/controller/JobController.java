@@ -8,6 +8,7 @@ import com.elca.jobfairmanagementsystem.service.JobService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class JobController {
         this.jobService = jobService;
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') OR hasRole('ROLE_HR')")
     @GetMapping("/all")
     public ResponseEntity<JobPaginationDto> getAllJobs(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws JobNotFoundException {
         return new ResponseEntity<>(jobService.findAllJobs(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);

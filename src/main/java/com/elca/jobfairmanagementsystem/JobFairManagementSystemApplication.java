@@ -22,10 +22,16 @@ public class JobFairManagementSystemApplication {
 //	public CommandLineRunner init (UserRepository userRepository){
 //		return args -> {
 //			User user = new User();
-//			user.setVisa("ano");
+//			user.setVisa("mal");
 //			user.setActive(true);
-//			user.setPassword(passwordEncoder.encode("ano1234"));
+//			user.setPassword(passwordEncoder.encode("mal1234"));
 //			userRepository.save(user);
+//
+//			User user1 = new User();
+//			user1.setVisa("ano");
+//			user1.setActive(true);
+//			user1.setPassword(passwordEncoder.encode("ano1234"));
+//			userRepository.save(user1);
 //		};
 //	}
 

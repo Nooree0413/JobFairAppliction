@@ -7,6 +7,7 @@ import com.elca.jobfairmanagementsystem.service.CandidateService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,6 +45,7 @@ public class CandidateController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_HR')")
     @GetMapping("/{candidateId}")
     public ResponseEntity<CandidateDto> getOneCandidate(@PathVariable Long candidateId) throws CandidateNotFoundException {
         return new ResponseEntity<>(candidateService.findCandidateById(candidateId), HttpStatus.OK);

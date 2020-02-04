@@ -25,6 +25,7 @@ public class CandidateVenueJobController {
         this.candidateVenueJobService = candidateVenueJobService;
     }
 
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_MANAGER') OR hasRole('ROLE_HR')")
     @GetMapping("/all")
     public ResponseEntity<CandidateVenueJobPaginationDto> getAllCandidateVenueJobs(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException {
         return new ResponseEntity<>(candidateVenueJobService.findAllCandidateVenueJobs(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
@@ -47,57 +48,66 @@ public class CandidateVenueJobController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_MANAGER') OR hasRole('ROLE_HR')")
     @GetMapping("/candidates-by-venue/{venueId}")
     public ResponseEntity <CandidateVenueJobPaginationDto> getCandidateByVenueId(@PathVariable Long venueId, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findAllCandidateByVenueId(venueId,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_MANAGER') OR hasRole('ROLE_HR')")
     @GetMapping("/count-candidates/{venueId}")
     public ResponseEntity<CandidateVenueJobCountAllDto> getCountCandidateByVenueId(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.countCandidatesByVenue(venueId), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_HR')")
     @GetMapping("/candidates/lastname/{lastName}")
     public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByLastName(@PathVariable String lastName) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByLastName(lastName), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_HR')")
     @GetMapping("/candidates-desc/{venueId}")
     public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueIdDESC(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByDESC(venueId), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_HR')")
     @GetMapping("/candidates-asc/{venueId}")
     public ResponseEntity<List<CandidateVenueJobDto>> getCandidateByVenueIdASC(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByASC(venueId), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_HR')")
     @GetMapping("/all-candidates-desc")
     public ResponseEntity<CandidateVenueJobPaginationDto> getAllCandidateByDESC(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findAllCandidateVenueJobByDESC(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_HR')")
     @GetMapping("/all-candidates-asc")
     public ResponseEntity<CandidateVenueJobPaginationDto> getAllCandidateByASC(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findAllCandidateVenueJobByASC(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_HR')")
     @GetMapping("/candidates-level/{currentLevel}")
     public ResponseEntity<CandidateVenueJobPaginationDto> getCandidateByCurrentLevel(@PathVariable String currentLevel,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByCurrentLevel(currentLevel,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_HR')")
     @GetMapping("/candidates-screening-status/{screeningStatus}")
     public ResponseEntity<CandidateVenueJobPaginationDto> getCandidateByScreeningStatus(@PathVariable String screeningStatus,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.findCandidateVenueJobByScreeningStatus(screeningStatus,PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_HR') OR hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_INTERVIEWER') OR hasRole('ROLE_MANAGER') OR hasRole('ROLE_HR')")
     @GetMapping("/count-by-venue/{venueId}")
     public ResponseEntity<DashboardDto> getDashboardStatisticByVenue(@PathVariable Long venueId) throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.dashboardStatisticByVenue(venueId), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER') OR hasRole('ROLE_HR')")
     @GetMapping("/count-by-all-venue")
     public ResponseEntity<DashboardDto> getDashboardStatisticByAllVenue() throws CandidateVenueJobNotFoundException{
         return new ResponseEntity<>(candidateVenueJobService.dashboardStatisticByAllVenue(), HttpStatus.OK);

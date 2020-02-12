@@ -52,7 +52,7 @@ public class ExcelController {
         var file = ExcelReportView.buildExcelDocument(excelDtos);
         DownloadDto downloadDto = null;
         try {
-            downloadDto = DownloadDto.builder().file(Files.readAllBytes(file.toPath())).name("test.xlxs").build();
+            downloadDto = DownloadDto.builder().file(Files.readAllBytes(file.toPath())).name("test.xls").build();
         } catch (IOException e) {
             //log
         }

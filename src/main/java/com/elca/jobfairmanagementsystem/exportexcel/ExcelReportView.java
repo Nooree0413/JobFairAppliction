@@ -20,7 +20,7 @@ public class ExcelReportView {
             @Cleanup Workbook workbook = new HSSFWorkbook();
             Sheet sheet = workbook.createSheet("Candidate Data");
             Row header = sheet.createRow(0);
-            File file = File.createTempFile("test", ".xls");
+            File file = File.createTempFile("candidates", ".xls");
 
             header.createCell(0).setCellValue("Registration Date");
             header.createCell(1).setCellValue("First Name");

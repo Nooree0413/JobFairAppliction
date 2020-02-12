@@ -1,6 +1,5 @@
 package com.elca.jobfairmanagementsystem.dto;
 
-import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import lombok.Data;
 
 import java.util.List;

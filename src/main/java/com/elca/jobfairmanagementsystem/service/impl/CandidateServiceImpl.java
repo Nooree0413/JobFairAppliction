@@ -12,7 +12,9 @@ import com.elca.jobfairmanagementsystem.mapper.*;
 import com.elca.jobfairmanagementsystem.repository.*;
 import com.elca.jobfairmanagementsystem.service.*;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -174,6 +176,21 @@ public class CandidateServiceImpl implements CandidateService {
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public CandidatePaginationDto filterCandidates(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder, String venue, String screenStatus, String jobId) {
+
+        Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sort);
+
+
+        //Criteria builder - querydsl
+
+        var candidatesDto = candidateRepository.findAll(pageRequest).stream().map(candidateMapper::candidateEntityToCandidateDto).collect(Collectors.toList());
+        var candidatePaginationDto = new CandidatePaginationDto();
+        candidatePaginationDto.setCandidateDtoList(candidatesDto);
+        return candidatePaginationDto;
     }
 
     @Override

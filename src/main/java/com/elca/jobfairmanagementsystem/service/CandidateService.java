@@ -30,4 +30,5 @@ public interface CandidateService {
 
     void saveCandidateCv(CandidateDto candidateDto,MultipartFile[] files) throws IOException;
 
+    CandidatePaginationDto filterCandidates(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder, String venue, String screenStatus, String jobId);
 }

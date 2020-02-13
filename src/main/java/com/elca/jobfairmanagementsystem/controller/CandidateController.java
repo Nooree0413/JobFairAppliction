@@ -33,6 +33,18 @@ public class CandidateController {
         return new ResponseEntity<>(candidateService.findAllCandidate(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<CandidatePaginationDto> filterCandidates(@RequestParam Integer pageNumber, @RequestParam Integer pageSize,
+                                                                   @RequestParam String sortBy, @RequestParam String sortOrder,
+                                                                   @RequestParam String venue, @RequestParam String screenStatus,
+                                                                   @RequestParam String jobId){
+
+
+
+        return new ResponseEntity<>(candidateService.filterCandidates(pageNumber, pageSize, sortBy, sortOrder, venue, screenStatus, jobId), HttpStatus.OK);
+    }
+
+
     @PostMapping
     public ResponseEntity saveNewCandidate(@RequestBody CandidateDto candidateDto) {
         candidateService.saveCandidate(candidateDto);

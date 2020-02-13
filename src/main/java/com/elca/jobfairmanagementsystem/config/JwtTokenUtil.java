@@ -1,23 +1,16 @@
 package com.elca.jobfairmanagementsystem.config;
 
 import com.elca.jobfairmanagementsystem.dto.UserDto;
-import com.elca.jobfairmanagementsystem.entity.User;
 import com.elca.jobfairmanagementsystem.service.UserRoleService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.JwtMap;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import io.jsonwebtoken.Claims;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.function.Function;
 
 import static com.elca.jobfairmanagementsystem.util.Constants.ACCESS_TOKEN_VALIDITY_SECONDS;

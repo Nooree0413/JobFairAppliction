@@ -5,12 +5,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.support.QuerydslJpaPredicateExecutor;
+import org.springframework.data.jpa.repository.support.QuerydslJpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenueJob, Long> {
+public interface CandidateVenueJobRepository extends JpaRepository<CandidateVenueJob, Long>, QuerydslPredicateExecutor<CandidateVenueJob> {
     @Query("SELECT a FROM CandidateVenueJob a WHERE a.venueJob.venue.venueId =:venueId ORDER BY a.candidate.registrationDate DESC")
     Page<CandidateVenueJob> findCandidatesByVenueId(long venueId, Pageable pageable);
 

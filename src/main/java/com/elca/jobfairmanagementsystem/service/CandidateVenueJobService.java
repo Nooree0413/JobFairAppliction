@@ -1,14 +1,15 @@
 package com.elca.jobfairmanagementsystem.service;
 
-        import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
-        import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
-        import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobPaginationDto;
-        import com.elca.jobfairmanagementsystem.dto.DashboardDto;
-        import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
-        import org.springframework.data.domain.Pageable;
+import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobCountAllDto;
+import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.CandidateVenueJobPaginationDto;
+import com.elca.jobfairmanagementsystem.dto.DashboardDto;
+import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
+import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
+import org.springframework.data.domain.Pageable;
 
 
-        import java.util.List;
+import java.util.List;
 
 public interface CandidateVenueJobService {
     CandidateVenueJobPaginationDto findAllCandidateVenueJobs(Pageable pageable) throws CandidateVenueJobNotFoundException;
@@ -40,4 +41,6 @@ public interface CandidateVenueJobService {
     DashboardDto dashboardStatisticByVenue(Long venueId) throws CandidateVenueJobNotFoundException;
 
     DashboardDto dashboardStatisticByAllVenue() throws CandidateVenueJobNotFoundException;
+
+    CandidateVenueJobPaginationDto findListOfCandidatesByFilters (Long venueId,String screeningStatus,String sortOrder,String sortBy,Integer pageNumber, Integer pageSize) throws CandidateVenueJobNotFoundException;
 }

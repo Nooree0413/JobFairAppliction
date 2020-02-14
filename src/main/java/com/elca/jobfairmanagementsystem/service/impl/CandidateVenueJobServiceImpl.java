@@ -269,9 +269,12 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sort);
         BooleanBuilder predicate = buildCandidatePredicate(screeningStatus, venueId);
-        var candidateVenueJobDto = candidateVenueJobRepository.findAll(predicate, pageRequest).stream().map(candidateVenueJobMapper::candidateVenueJobEntityToDto).collect(Collectors.toList());
+        Page<CandidateVenueJob> candidateVenueJobDto = candidateVenueJobRepository.findAll(predicate, pageRequest);
+        List<CandidateVenueJobDto> candidateVenueJobDtos = candidateVenueJobDto.stream().map(candidateVenueJobMapper::candidateVenueJobEntityToDto).collect(Collectors.toList());
         var candidateVenueJobPaginationDto = new CandidateVenueJobPaginationDto();
-        candidateVenueJobPaginationDto.setCandidateVenueJobDtoList(candidateVenueJobDto);
+        candidateVenueJobPaginationDto.setCandidateVenueJobDtoList(candidateVenueJobDtos);
+        candidateVenueJobPaginationDto.setTotalElements(candidateVenueJobDto.getNumberOfElements());
+        candidateVenueJobPaginationDto.setTotalPages(candidateVenueJobDto.getTotalPages());
         return candidateVenueJobPaginationDto;
     }
 

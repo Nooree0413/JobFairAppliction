@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -41,6 +42,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException("Invalid username or password");
         }
         return userMapper.userEntityToDto(user);
+    }
+
+    @Override
+    public List<UserDto> listOfUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(userMapper::userEntityToDto).collect(Collectors.toList());
     }
 
     private List<SimpleGrantedAuthority> getAuthority() {

@@ -281,12 +281,13 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     private BooleanBuilder buildCandidatePredicate(String screeningStatus, Long venueId) {
         var qCandidateVenueJob = QCandidateVenueJob.candidateVenueJob1;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if (Strings.hasText(screeningStatus)) {
+        if (!screeningStatus.equals("All")) {
             booleanBuilder.and(qCandidateVenueJob.candidate.candidateScreenings.any().screeningStatus.eq(screeningStatus));
         }
-        if (venueId != null) {
+        if (venueId != 0) {
             booleanBuilder.and(qCandidateVenueJob.venueJob.venue.venueId.eq(venueId));
         }
+
         return booleanBuilder;
     }
 

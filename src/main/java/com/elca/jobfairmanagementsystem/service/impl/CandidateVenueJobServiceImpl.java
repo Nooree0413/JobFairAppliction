@@ -287,7 +287,7 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         if (venueId != 0) {
             booleanBuilder.and(qCandidateVenueJob.venueJob.venue.venueId.eq(venueId));
         }
-        if (Strings.hasText(lastName)){
+        if (!lastName.equals("")){
             booleanBuilder.and(qCandidateVenueJob.candidate.lastName.contains(lastName));
         }
         return booleanBuilder;

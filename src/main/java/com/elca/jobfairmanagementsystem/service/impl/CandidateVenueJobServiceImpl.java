@@ -265,10 +265,10 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public CandidateVenueJobPaginationDto findListOfCandidatesByFilters(Long venueId, String screeningStatus, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize) throws CandidateVenueJobNotFoundException {
+    public CandidateVenueJobPaginationDto findListOfCandidatesByFilters(Long venueId, String screeningStatus, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize,String lastName) throws CandidateVenueJobNotFoundException {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sort);
-        BooleanBuilder predicate = buildCandidatePredicate(screeningStatus, venueId);
+        BooleanBuilder predicate = buildCandidatePredicate(screeningStatus, venueId,lastName);
         Page<CandidateVenueJob> candidateVenueJobDto = candidateVenueJobRepository.findAll(predicate, pageRequest);
         List<CandidateVenueJobDto> candidateVenueJobDtos = candidateVenueJobDto.stream().map(candidateVenueJobMapper::candidateVenueJobEntityToDto).collect(Collectors.toList());
         var candidateVenueJobPaginationDto = new CandidateVenueJobPaginationDto();
@@ -278,7 +278,7 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         return candidateVenueJobPaginationDto;
     }
 
-    private BooleanBuilder buildCandidatePredicate(String screeningStatus, Long venueId) {
+    private BooleanBuilder buildCandidatePredicate(String screeningStatus, Long venueId,String lastName) {
         var qCandidateVenueJob = QCandidateVenueJob.candidateVenueJob1;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (!screeningStatus.equals("All")) {
@@ -287,7 +287,9 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         if (venueId != 0) {
             booleanBuilder.and(qCandidateVenueJob.venueJob.venue.venueId.eq(venueId));
         }
-
+        if (Strings.hasText(lastName)){
+            booleanBuilder.and(qCandidateVenueJob.candidate.lastName.contains(lastName));
+        }
         return booleanBuilder;
     }
 

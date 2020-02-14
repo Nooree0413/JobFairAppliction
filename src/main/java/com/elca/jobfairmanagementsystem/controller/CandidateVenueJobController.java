@@ -114,7 +114,7 @@ public class CandidateVenueJobController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<CandidateVenueJobPaginationDto> getFilter(@RequestParam(required = false) Long venueId,@RequestParam(required = false) String screeningStatus,@RequestParam String sortOrder,@RequestParam String sortBy,@RequestParam Integer pageNumber,@RequestParam Integer pageSize) throws CandidateVenueJobNotFoundException{
-        return new ResponseEntity<>(candidateVenueJobService.findListOfCandidatesByFilters(venueId,screeningStatus,sortOrder,sortBy,pageNumber,pageSize), HttpStatus.OK);
+    public ResponseEntity<CandidateVenueJobPaginationDto> getFilter(@RequestParam(required = false) Long venueId,@RequestParam(required = false) String screeningStatus,@RequestParam String sortOrder,@RequestParam String sortBy,@RequestParam Integer pageNumber,@RequestParam Integer pageSize,@RequestParam(required = false) String lastName) throws CandidateVenueJobNotFoundException{
+        return new ResponseEntity<>(candidateVenueJobService.findListOfCandidatesByFilters(venueId,screeningStatus,sortOrder,sortBy,pageNumber,pageSize,lastName), HttpStatus.OK);
     }
 }

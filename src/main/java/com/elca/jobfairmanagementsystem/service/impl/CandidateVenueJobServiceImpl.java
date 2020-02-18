@@ -2,7 +2,6 @@ package com.elca.jobfairmanagementsystem.service.impl;
 
 import com.elca.jobfairmanagementsystem.dto.*;
 import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
-import com.elca.jobfairmanagementsystem.entity.QCandidate;
 import com.elca.jobfairmanagementsystem.entity.QCandidateVenueJob;
 import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
@@ -13,12 +12,9 @@ import com.elca.jobfairmanagementsystem.repository.VenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
 
 
+import com.elca.jobfairmanagementsystem.service.JobService;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQuery;
-import io.jsonwebtoken.lang.Strings;
-import org.apache.commons.codec.binary.StringUtils;
-import org.apache.poi.util.StringUtil;
+import com.querydsl.core.types.dsl.StringPath;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +22,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,14 +33,12 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     private final CandidateVenueJobRepository candidateVenueJobRepository;
     private final VenueJobRepository venueJobRepository;
     private final JobRepository jobRepository;
-    private final EntityManager entityManager;
 
-    public CandidateVenueJobServiceImpl(CandidateVenueJobMapper candidateVenueJobMapper, CandidateVenueJobRepository candidateVenueJobRepository, VenueJobRepository venueJobRepository, JobRepository jobRepository, EntityManager entityManager) {
+    public CandidateVenueJobServiceImpl(CandidateVenueJobMapper candidateVenueJobMapper, CandidateVenueJobRepository candidateVenueJobRepository, VenueJobRepository venueJobRepository, JobRepository jobRepository) {
         this.candidateVenueJobMapper = candidateVenueJobMapper;
         this.candidateVenueJobRepository = candidateVenueJobRepository;
         this.venueJobRepository = venueJobRepository;
         this.jobRepository = jobRepository;
-        this.entityManager = entityManager;
     }
 
     @Override
@@ -265,10 +258,10 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public CandidateVenueJobPaginationDto findListOfCandidatesByFilters(Long venueId, String screeningStatus, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize,String lastName) throws CandidateVenueJobNotFoundException {
+    public CandidateVenueJobPaginationDto findListOfCandidatesByFilters(Long venueId, String screeningStatus, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize,String lastName,String level) throws CandidateVenueJobNotFoundException {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sort);
-        BooleanBuilder predicate = buildCandidatePredicate(screeningStatus, venueId,lastName);
+        BooleanBuilder predicate = buildCandidatePredicate(screeningStatus, venueId,lastName,level);
         Page<CandidateVenueJob> candidateVenueJobDto = candidateVenueJobRepository.findAll(predicate, pageRequest);
         List<CandidateVenueJobDto> candidateVenueJobDtos = candidateVenueJobDto.stream().map(candidateVenueJobMapper::candidateVenueJobEntityToDto).collect(Collectors.toList());
         var candidateVenueJobPaginationDto = new CandidateVenueJobPaginationDto();
@@ -278,7 +271,7 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         return candidateVenueJobPaginationDto;
     }
 
-    private BooleanBuilder buildCandidatePredicate(String screeningStatus, Long venueId,String lastName) {
+    private BooleanBuilder buildCandidatePredicate(String screeningStatus, Long venueId,String lastName,String level) {
         var qCandidateVenueJob = QCandidateVenueJob.candidateVenueJob1;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (!screeningStatus.equals("All")) {
@@ -289,6 +282,9 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         }
         if (!lastName.equals("")){
             booleanBuilder.and(qCandidateVenueJob.candidate.lastName.contains(lastName));
+        }
+        if (!level.equals("")){
+            booleanBuilder.and(qCandidateVenueJob.venueJob.job.level.eq(lastName));
         }
         return booleanBuilder;
     }

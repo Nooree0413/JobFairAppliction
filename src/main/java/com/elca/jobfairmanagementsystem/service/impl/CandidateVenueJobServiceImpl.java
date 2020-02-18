@@ -283,8 +283,8 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         if (!lastName.equals("")){
             booleanBuilder.and(qCandidateVenueJob.candidate.lastName.contains(lastName));
         }
-        if (!level.equals("")){
-            booleanBuilder.and(qCandidateVenueJob.venueJob.job.level.eq(lastName));
+        if (!level.equals("All")){
+            booleanBuilder.and(qCandidateVenueJob.candidate.currentLevel.eq(level));
         }
         return booleanBuilder;
     }

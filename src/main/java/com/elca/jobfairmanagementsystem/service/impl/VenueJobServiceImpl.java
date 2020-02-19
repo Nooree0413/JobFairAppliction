@@ -195,9 +195,9 @@ public class VenueJobServiceImpl implements VenueJobService {
     }
 
     @Override
-    public VenueJobPaginationDto findListOfJobs(String title, String position, String category, Integer pageNumber, Integer pageSize) throws VenueJobNotFoundException {
+    public VenueJobPaginationDto findListOfJobs(String title, String position, String category,long venueId,Integer pageNumber, Integer pageSize) throws VenueJobNotFoundException {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        BooleanBuilder predicate = buildCandidatePredicate(title, position,category);
+        BooleanBuilder predicate = buildCandidatePredicate(title, position,category,venueId);
         Page<VenueJob> venueJobs = venueJobRepository.findAll(predicate, pageRequest);
         List<VenueJobDto> venueJobDtos = venueJobs.stream().map(venueJobMapper::venueJobEntityToDto).collect(Collectors.toList());
         var venueJobPagination = new VenueJobPaginationDto();
@@ -207,7 +207,7 @@ public class VenueJobServiceImpl implements VenueJobService {
         return venueJobPagination;
     }
 
-    private BooleanBuilder buildCandidatePredicate(String title, String position, String category) {
+    private BooleanBuilder buildCandidatePredicate(String title, String position, String category,long venueId) {
         var qVenueJob = QVenueJob.venueJob;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if(!title.equals("")){
@@ -218,6 +218,9 @@ public class VenueJobServiceImpl implements VenueJobService {
         }
         if(!category.equals("All")){
             booleanBuilder.and(qVenueJob.job.category.eq(category));
+        }
+        if(venueId != 0){
+            booleanBuilder.and(qVenueJob.venue.venueId.eq(venueId));
         }
         return booleanBuilder;
     }

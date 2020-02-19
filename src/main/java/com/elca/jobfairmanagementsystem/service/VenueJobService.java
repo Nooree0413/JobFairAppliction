@@ -38,5 +38,5 @@ public interface VenueJobService {
 
     void deleteVenueJobByJobIdAndVenueId(long venueId,long jobId) throws VenueJobNotFoundException;
 
-    VenueJobPaginationDto findListOfJobs(String title,String position,String category,Integer pageNumber, Integer pageSize) throws  VenueJobNotFoundException;
+    VenueJobPaginationDto findListOfJobs(String title,String position,String category,long venueId,Integer pageNumber, Integer pageSize) throws  VenueJobNotFoundException;
 }

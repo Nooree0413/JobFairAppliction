@@ -102,7 +102,7 @@ public class VenueJobController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<VenueJobPaginationDto> getFilter(@RequestParam(required = false) String title, @RequestParam String position, @RequestParam String category, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws VenueJobNotFoundException {
-        return new ResponseEntity<>(venueJobService.findListOfJobs(title, position, category, pageNumber, pageSize), HttpStatus.OK);
+    public ResponseEntity<VenueJobPaginationDto> getFilter(@RequestParam(required = false) String title, @RequestParam String position, @RequestParam String category, @RequestParam(required = false) long venueId,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws VenueJobNotFoundException {
+        return new ResponseEntity<>(venueJobService.findListOfJobs(title, position, category, venueId,pageNumber, pageSize), HttpStatus.OK);
     }
 }

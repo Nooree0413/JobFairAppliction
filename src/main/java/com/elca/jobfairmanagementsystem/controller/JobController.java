@@ -76,4 +76,9 @@ public class JobController {
     public ResponseEntity<List<JobDto>> getAllJobsByLevel(@RequestParam String level) throws JobNotFoundException {
         return new ResponseEntity<>(jobService.findByLevel(level), HttpStatus.OK);
     }
+
+    @GetMapping("/filter")
+    public ResponseEntity<JobPaginationDto> getFilter(@RequestParam(required = false) String title, @RequestParam String position, @RequestParam String category, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws JobNotFoundException {
+        return new ResponseEntity<>(jobService.findListOfJobs(title, position, category,pageNumber, pageSize), HttpStatus.OK);
+    }
 }

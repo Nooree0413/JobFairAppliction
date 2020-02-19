@@ -3,12 +3,13 @@ package com.elca.jobfairmanagementsystem.repository;
 import com.elca.jobfairmanagementsystem.entity.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface JobRepository extends JpaRepository<Job, Long> {
+public interface JobRepository extends JpaRepository<Job, Long>, QuerydslPredicateExecutor<Job> {
     @Query("SELECT a FROM Job a WHERE a.title LIKE CONCAT('%',:title,'%')")
     List<Job> findByTitle (String title);
 

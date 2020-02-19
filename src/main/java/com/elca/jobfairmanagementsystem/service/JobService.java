@@ -3,6 +3,7 @@ package com.elca.jobfairmanagementsystem.service;
 import com.elca.jobfairmanagementsystem.dto.JobCategoryDto;
 import com.elca.jobfairmanagementsystem.dto.JobDto;
 import com.elca.jobfairmanagementsystem.dto.JobPaginationDto;
+import com.elca.jobfairmanagementsystem.dto.JobPaginationDto;
 import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
 import org.springframework.data.domain.Pageable;
 
@@ -28,4 +29,6 @@ public interface JobService {
     List<JobDto> findByTitle(String title) throws JobNotFoundException;
 
     List<JobDto> findByLevel(String level) throws JobNotFoundException;
+
+    JobPaginationDto findListOfJobs(String title,String position,String category, Integer pageNumber, Integer pageSize) throws  JobNotFoundException;
 }

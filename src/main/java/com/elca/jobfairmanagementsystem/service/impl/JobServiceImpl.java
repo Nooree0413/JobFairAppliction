@@ -4,12 +4,15 @@ import com.elca.jobfairmanagementsystem.dto.JobCategoryDto;
 import com.elca.jobfairmanagementsystem.dto.JobDto;
 import com.elca.jobfairmanagementsystem.dto.JobPaginationDto;
 import com.elca.jobfairmanagementsystem.entity.Job;
+import com.elca.jobfairmanagementsystem.entity.QJob;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.JobMapper;
 import com.elca.jobfairmanagementsystem.repository.JobRepository;
 import com.elca.jobfairmanagementsystem.service.JobService;
+import com.querydsl.core.BooleanBuilder;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -172,5 +175,33 @@ public class JobServiceImpl implements JobService {
         } else {
             throw new JobNotFoundException(ErrorMessages.JOB_NOT_FOUND.toString());
         }
+    }
+
+    @Override
+    public JobPaginationDto findListOfJobs(String title, String position, String category, Integer pageNumber, Integer pageSize) throws JobNotFoundException {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        BooleanBuilder predicate = buildJobJobPredicate(title, position, category);
+        Page<Job> jobs = jobRepository.findAll(predicate, pageRequest);
+        List<JobDto> jobsDto = jobs.stream().map(jobMapper::jobEntityToDto).collect(Collectors.toList());
+        var jobPagination = new JobPaginationDto();
+        jobPagination.setJobDtoList(jobsDto);
+        jobPagination.setTotalElements((int) jobs.getTotalElements());
+        jobPagination.setTotalPages(jobs.getTotalPages());
+        return jobPagination;
+    }
+
+    private BooleanBuilder buildJobJobPredicate(String title, String position, String category) {
+        var qJob = QJob.job;
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if(!title.equals("")){
+            booleanBuilder.and(qJob.job.title.contains(title));
+        }
+        if(!position.equals("All")){
+            booleanBuilder.and(QJob.job.level.eq(position));
+        }
+        if(!category.equals("All")){
+            booleanBuilder.and(qJob.job.category.eq(category));
+        }
+        return booleanBuilder;
     }
 }

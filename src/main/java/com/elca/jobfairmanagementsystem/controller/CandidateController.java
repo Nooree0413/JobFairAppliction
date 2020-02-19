@@ -38,9 +38,6 @@ public class CandidateController {
                                                                    @RequestParam String sortBy, @RequestParam String sortOrder,
                                                                    @RequestParam String venue, @RequestParam String screenStatus,
                                                                    @RequestParam String jobId){
-
-
-
         return new ResponseEntity<>(candidateService.filterCandidates(pageNumber, pageSize, sortBy, sortOrder, venue, screenStatus, jobId), HttpStatus.OK);
     }
 

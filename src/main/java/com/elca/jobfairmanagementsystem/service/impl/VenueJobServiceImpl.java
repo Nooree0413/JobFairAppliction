@@ -1,9 +1,8 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
-import com.elca.jobfairmanagementsystem.dto.JobDto;
-import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
-import com.elca.jobfairmanagementsystem.dto.VenueJobMultipleSaveDto;
-import com.elca.jobfairmanagementsystem.dto.VenueJobPaginationDto;
+import com.elca.jobfairmanagementsystem.dto.*;
+import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
+import com.elca.jobfairmanagementsystem.entity.QVenueJob;
 import com.elca.jobfairmanagementsystem.entity.Venue;
 import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
@@ -12,7 +11,9 @@ import com.elca.jobfairmanagementsystem.mapper.JobMapper;
 import com.elca.jobfairmanagementsystem.mapper.VenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.VenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
+import com.querydsl.core.BooleanBuilder;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -191,5 +192,33 @@ public class VenueJobServiceImpl implements VenueJobService {
     @Override
     public void deleteVenueJobByJobIdAndVenueId(long venueId, long jobId) {
         venueJobRepository.deleteVenueJobByVenueIdAndJobId(venueId,jobId);
+    }
+
+    @Override
+    public VenueJobPaginationDto findListOfJobs(String title, String position, String category, Integer pageNumber, Integer pageSize) throws VenueJobNotFoundException {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        BooleanBuilder predicate = buildCandidatePredicate(title, position,category);
+        Page<VenueJob> venueJobs = venueJobRepository.findAll(predicate, pageRequest);
+        List<VenueJobDto> venueJobDtos = venueJobs.stream().map(venueJobMapper::venueJobEntityToDto).collect(Collectors.toList());
+        var venueJobPagination = new VenueJobPaginationDto();
+        venueJobPagination.setVenueJobDtoList(venueJobDtos);
+        venueJobPagination.setTotalElements((int) venueJobs.getTotalElements());
+        venueJobPagination.setTotalPages(venueJobs.getTotalPages());
+        return venueJobPagination;
+    }
+
+    private BooleanBuilder buildCandidatePredicate(String title, String position, String category) {
+        var qVenueJob = QVenueJob.venueJob;
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if(!title.equals("")){
+            booleanBuilder.and(qVenueJob.job.title.contains(title));
+        }
+        if(!position.equals("All")){
+            booleanBuilder.and(qVenueJob.job.level.eq(position));
+        }
+        if(!category.equals("All")){
+            booleanBuilder.and(qVenueJob.job.category.eq(category));
+        }
+        return booleanBuilder;
     }
 }

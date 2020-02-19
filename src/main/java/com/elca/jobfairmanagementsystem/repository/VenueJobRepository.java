@@ -1,16 +1,18 @@
 package com.elca.jobfairmanagementsystem.repository;
 
+import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
 import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface VenueJobRepository extends JpaRepository<VenueJob,Long>{
+public interface VenueJobRepository extends JpaRepository<VenueJob,Long>, QuerydslPredicateExecutor<VenueJob> {
     @Query("SELECT a FROM VenueJob a WHERE a.venue.venueId =:venueId")
     Page<VenueJob> findByVenue (long venueId, Pageable pageable);
 

@@ -50,7 +50,7 @@ public class JobServiceImpl implements JobService {
     @Override
     public JobPaginationDto findAllJobs(Pageable pageable) throws JobNotFoundException {
         Page<Job> getJobList = jobRepository.findAll(pageable);
-        if(getJobList == null){
+        if (getJobList == null) {
             throw new JobNotFoundException(ErrorMessages.NO_JOB_AVAILABLE.toString());
         } else {
             List<JobDto> jobDtos = getJobList.stream().map(jobMapper::jobEntityToDto).collect(Collectors.toList());
@@ -99,9 +99,9 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<JobDto> findJobsAppliedById(String jobPriority) throws JobNotFoundException{
-        var removeFirstBracket = jobPriority.replace("[","");
-        var removeSecondBracket = removeFirstBracket.replace("]","");
+    public List<JobDto> findJobsAppliedById(String jobPriority) throws JobNotFoundException {
+        var removeFirstBracket = jobPriority.replace("[", "");
+        var removeSecondBracket = removeFirstBracket.replace("]", "");
         String[] arrSplit = removeSecondBracket.split(",");
         List<JobDto> listJob = new ArrayList<>();
         for (String eachJobId : arrSplit) {
@@ -113,7 +113,7 @@ public class JobServiceImpl implements JobService {
                 throw new JobNotFoundException(ErrorMessages.JOB_NOT_FOUND.toString());
             }
         }
-     return listJob;
+        return listJob;
     }
 
     @Override
@@ -193,13 +193,13 @@ public class JobServiceImpl implements JobService {
     private BooleanBuilder buildJobJobPredicate(String title, String position, String category) {
         var qJob = QJob.job;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if(!title.equals("")){
+        if (!title.equals("")) {
             booleanBuilder.and(qJob.job.title.contains(title));
         }
-        if(!position.equals("All")){
+        if (!position.equals("All")) {
             booleanBuilder.and(QJob.job.level.eq(position));
         }
-        if(!category.equals("All")){
+        if (!category.equals("All")) {
             booleanBuilder.and(qJob.job.category.eq(category));
         }
         return booleanBuilder;

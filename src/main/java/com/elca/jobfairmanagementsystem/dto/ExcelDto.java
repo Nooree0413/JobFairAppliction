@@ -12,7 +12,7 @@ public class ExcelDto {
     private String lastName;
     private String venueName;
 
-    public ExcelDto(LocalDateTime registrationDate,String firstName,String lastName,String venueName){
+    public ExcelDto(LocalDateTime registrationDate, String firstName, String lastName, String venueName) {
         this.registrationDate = registrationDate;
         this.firstName = firstName;
         this.lastName = lastName;

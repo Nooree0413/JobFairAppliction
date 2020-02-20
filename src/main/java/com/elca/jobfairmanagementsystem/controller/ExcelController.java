@@ -7,7 +7,6 @@ import com.elca.jobfairmanagementsystem.exportexcel.ExcelReportView;
 import com.elca.jobfairmanagementsystem.service.CandidateService;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +32,7 @@ public class ExcelController {
 
     @GetMapping("/export")
     public ResponseEntity<DownloadDto> getExcel() throws CandidateNotFoundException {
-        CandidatePaginationDto candidatePaginationDto = candidateService.findAllCandidate(PageRequest.of(0,1000));
+        CandidatePaginationDto candidatePaginationDto = candidateService.findAllCandidate(PageRequest.of(0, 1000));
         List<ExcelDto> excelDtos = new ArrayList<>();
         List<CandidateDto> candidateDtos = candidatePaginationDto.getCandidateDtoList();
         candidateDtos.forEach(candidateDto -> {
@@ -45,7 +44,7 @@ public class ExcelController {
                     e.printStackTrace();
                 }
                 String venueName = venueJobDto.getVenue().getVenueName();
-                    excelDtos.add(new ExcelDto(candidateDto.getRegistrationDate(),candidateDto.getFirstName(),candidateDto.getLastName(),venueName));
+                excelDtos.add(new ExcelDto(candidateDto.getRegistrationDate(), candidateDto.getFirstName(), candidateDto.getLastName(), venueName));
             });
         });
 

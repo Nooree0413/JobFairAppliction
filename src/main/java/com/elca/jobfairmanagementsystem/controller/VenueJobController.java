@@ -1,14 +1,14 @@
 package com.elca.jobfairmanagementsystem.controller;
 
-import com.elca.jobfairmanagementsystem.dto.*;
-import com.elca.jobfairmanagementsystem.exception.CandidateVenueJobNotFoundException;
+import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.VenueJobMultipleSaveDto;
+import com.elca.jobfairmanagementsystem.dto.VenueJobPaginationDto;
 import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.VenueJobMapper;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -102,7 +102,7 @@ public class VenueJobController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<VenueJobPaginationDto> getFilter(@RequestParam(required = false) String title, @RequestParam String position, @RequestParam String category, @RequestParam(required = false) long venueId,@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws VenueJobNotFoundException {
-        return new ResponseEntity<>(venueJobService.findListOfJobs(title, position, category, venueId,pageNumber, pageSize), HttpStatus.OK);
+    public ResponseEntity<VenueJobPaginationDto> getFilter(@RequestParam(required = false) String title, @RequestParam String position, @RequestParam String category, @RequestParam(required = false) long venueId, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws VenueJobNotFoundException {
+        return new ResponseEntity<>(venueJobService.findListOfJobs(title, position, category, venueId, pageNumber, pageSize), HttpStatus.OK);
     }
 }

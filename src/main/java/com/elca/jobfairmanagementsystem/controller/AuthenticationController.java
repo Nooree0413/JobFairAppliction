@@ -32,11 +32,11 @@ public class AuthenticationController {
 
     @RequestMapping(value = "/generate-token", method = RequestMethod.POST)
     public ApiTokenResponse<AuthToken> getToken(@RequestBody LoginDto loginDto) throws AuthenticationException {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getVisa(),loginDto.getPassword()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getVisa(), loginDto.getPassword()));
         SecurityContextHolder.getContext().getAuthentication();
         final UserDto user = userService.loadUserByVisa(loginDto.getVisa());
         final String token = jwtTokenUtil.generateToken(user);
         final UserRoleDto userRoleDto = userRoleService.getUserRoleByVisa(loginDto.getVisa());
-        return new ApiTokenResponse<>(200,"Success",new AuthToken(token,user.getVisa(),userRoleDto.getRole()));
+        return new ApiTokenResponse<>(200, "Success", new AuthToken(token, user.getVisa(), userRoleDto.getRole()));
     }
 }

@@ -12,13 +12,13 @@ import javax.persistence.*;
 public class CandidateSkill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="candidate_skill_id")
+    @Column(name = "candidate_skill_id")
     private Long candidateSkillId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "skill_id")
     private Skill skill;
 
-    @Column(name="is_checked")
+    @Column(name = "is_checked")
     private boolean isChecked;
 }

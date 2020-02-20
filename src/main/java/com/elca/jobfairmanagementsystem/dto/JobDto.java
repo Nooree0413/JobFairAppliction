@@ -15,7 +15,7 @@ public class JobDto {
 
     private String description;
 
-    private String  minimumExperience;
+    private String minimumExperience;
 
     private String qualificationNeeded;
 

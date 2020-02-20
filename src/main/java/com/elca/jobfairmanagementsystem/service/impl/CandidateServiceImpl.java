@@ -1,24 +1,29 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-
 import com.elca.jobfairmanagementsystem.dto.*;
 import com.elca.jobfairmanagementsystem.entity.*;
-import com.elca.jobfairmanagementsystem.exception.*;
+import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
+import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
+import com.elca.jobfairmanagementsystem.exception.JobNotFoundException;
+import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
 import com.elca.jobfairmanagementsystem.mapper.*;
-import com.elca.jobfairmanagementsystem.repository.*;
-import com.elca.jobfairmanagementsystem.service.*;
+import com.elca.jobfairmanagementsystem.repository.CandidateRepository;
+import com.elca.jobfairmanagementsystem.service.CandidateFileService;
+import com.elca.jobfairmanagementsystem.service.CandidateService;
+import com.elca.jobfairmanagementsystem.service.JobService;
+import com.elca.jobfairmanagementsystem.service.VenueJobService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * @author ghr
@@ -51,7 +56,7 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public CandidatePaginationDto findAllCandidate(Pageable pageable) throws CandidateNotFoundException {
         Page<Candidate> listOfCandidate = candidateRepository.findAll(pageable);
-        if(listOfCandidate == null){
+        if (listOfCandidate == null) {
             throw new CandidateNotFoundException(ErrorMessages.NO_CANDIDATE_AVAILABLE.toString());
         } else {
             List<CandidateDto> listOfCandidateDto = listOfCandidate.stream().map(candidateMapper::candidateEntityToCandidateDto).collect(Collectors.toList());
@@ -140,7 +145,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public void saveCandidateCv(CandidateDto candidateCvDto,MultipartFile[] files) throws IOException {
+    public void saveCandidateCv(CandidateDto candidateCvDto, MultipartFile[] files) throws IOException {
         Candidate candidate = candidateMapper.candidateDtoToCandidateEntity(candidateCvDto);
         List<CandidateVenueJobSaveDto> candidateVenueJobSaveList = candidateCvDto.getCandidateVenueJobSaveDto();
         List<CandidateVenueJob> candidateVenueJobs = new ArrayList<>();
@@ -160,16 +165,16 @@ public class CandidateServiceImpl implements CandidateService {
         candidateRepository.save(candidate);
 
         AtomicInteger incrementNumber = new AtomicInteger(1);
-        Arrays.asList(files).forEach(candidateCv->{
+        Arrays.asList(files).forEach(candidateCv -> {
             try {
-                if(files.length < 2){
+                if (files.length < 2) {
                     String extension = candidateCv.getOriginalFilename().split("\\.")[1];
                     String fullName = candidate.getFirstName().concat("-" + candidate.getLastName() + "." + extension);
-                    candidateFileService.saveCandidateCv(candidateCv,candidate.getCandidateId(),fullName);
+                    candidateFileService.saveCandidateCv(candidateCv, candidate.getCandidateId(), fullName);
                 } else {
                     String extension = candidateCv.getOriginalFilename().split("\\.")[1];
                     String fullName = candidate.getFirstName().concat("-" + candidate.getLastName()).concat("-" + incrementNumber + "." + extension);
-                    candidateFileService.saveCandidateCv(candidateCv,candidate.getCandidateId(),fullName);
+                    candidateFileService.saveCandidateCv(candidateCv, candidate.getCandidateId(), fullName);
                     incrementNumber.getAndIncrement();
                 }
             } catch (IOException e) {
@@ -182,7 +187,7 @@ public class CandidateServiceImpl implements CandidateService {
     public CandidatePaginationDto filterCandidates(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder, String venue, String screenStatus, String jobId) {
 
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sort);
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
 
 
         //Criteria builder - querydsl

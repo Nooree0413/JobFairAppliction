@@ -1,15 +1,15 @@
 package com.elca.jobfairmanagementsystem.entity;
 
-import javax.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
- *
  * @author ghr
  */
 
@@ -23,13 +23,13 @@ public class Candidate {
     @Column(name = "candidate_id")
     private Long candidateId;
 
-    @Column(name = "first_name",nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name",nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email",nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "tel_number")
@@ -47,20 +47,20 @@ public class Candidate {
     @Column(name = "nationality")
     private String nationality;
 
-    @Column(name = "registration_date",nullable = false)
+    @Column(name = "registration_date", nullable = false)
     private LocalDateTime registrationDate;
 
-    @Column(name = "availability_date",nullable = false)
+    @Column(name = "availability_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date availabilityDate;
 
-    @Column(name = "current_level",nullable = false)
+    @Column(name = "current_level", nullable = false)
     private String currentLevel;
 
-    @Column(name = "job_type",nullable = false)
+    @Column(name = "job_type", nullable = false)
     private String jobType;
 
-    @Column(name = "cv_upload",nullable = false)
+    @Column(name = "cv_upload", nullable = false)
     private Boolean cvUpload;
 
     @Column(name = "current_academic_year")

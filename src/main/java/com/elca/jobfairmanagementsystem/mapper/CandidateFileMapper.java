@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CandidateFileMapper {
-    CandidateFileDto candidateFileEntityToDto (CandidateFile candidateFile);
+    CandidateFileDto candidateFileEntityToDto(CandidateFile candidateFile);
 }

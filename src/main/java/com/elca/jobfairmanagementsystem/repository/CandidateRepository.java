@@ -1,15 +1,13 @@
 package com.elca.jobfairmanagementsystem.repository;
 
+import com.elca.jobfairmanagementsystem.entity.Candidate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.elca.jobfairmanagementsystem.entity.Candidate;
-
 import java.util.List;
 
 /**
- *
  * @author ghr
  */
 @Repository

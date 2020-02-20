@@ -4,7 +4,6 @@ import com.elca.jobfairmanagementsystem.dto.UserRoleDto;
 import com.elca.jobfairmanagementsystem.service.UserRoleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class UserRoleController {
     }
 
     @PostMapping
-    public ResponseEntity saveUserRole(@RequestBody UserRoleDto userRoleDto){
+    public ResponseEntity saveUserRole(@RequestBody UserRoleDto userRoleDto) {
         userRoleService.saveUserRole(userRoleDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }

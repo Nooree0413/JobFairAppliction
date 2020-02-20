@@ -13,4 +13,4 @@ public class ExperienceDto {
     private String duration;
 
     private Long candidateId;
- }
+}

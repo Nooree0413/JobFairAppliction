@@ -55,7 +55,7 @@ public class JwtTokenUtil {
 
         Claims claims = Jwts.claims().setSubject(subject);
         var role = userRoleService.getUserRoleByVisa(subject).getRole().getName();
-        claims.put("role", "ROLE_"+role);
+        claims.put("role", "ROLE_" + role);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -74,13 +74,13 @@ public class JwtTokenUtil {
     }
 
     public String getRoleFromToken(String token) {
-       var claims = getAllClaimsFromToken(token);
+        var claims = getAllClaimsFromToken(token);
         System.out.println(claims.get("role", String.class));
         return claims.get("role", String.class);
     }
 
     @Data
-    class Authority{
+    class Authority {
         String authority;
     }
 }

@@ -30,14 +30,14 @@ public class CandidateController {
     //get all candidate
     @GetMapping("/all")
     public ResponseEntity<CandidatePaginationDto> getAllCandidates(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws CandidateNotFoundException {
-        return new ResponseEntity<>(candidateService.findAllCandidate(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
+        return new ResponseEntity<>(candidateService.findAllCandidate(PageRequest.of(pageNumber, pageSize)), HttpStatus.OK);
     }
 
     @GetMapping("/filter")
     public ResponseEntity<CandidatePaginationDto> filterCandidates(@RequestParam Integer pageNumber, @RequestParam Integer pageSize,
                                                                    @RequestParam String sortBy, @RequestParam String sortOrder,
                                                                    @RequestParam String venue, @RequestParam String screenStatus,
-                                                                   @RequestParam String jobId){
+                                                                   @RequestParam String jobId) {
         return new ResponseEntity<>(candidateService.filterCandidates(pageNumber, pageSize, sortBy, sortOrder, venue, screenStatus, jobId), HttpStatus.OK);
     }
 
@@ -67,13 +67,13 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates/{venueId}")
-    public ResponseEntity<List<CandidateDto>> getCandidateByVenueId(@PathVariable Long venueId) throws CandidateNotFoundException{
+    public ResponseEntity<List<CandidateDto>> getCandidateByVenueId(@PathVariable Long venueId) throws CandidateNotFoundException {
         return new ResponseEntity<>(candidateService.findCandidateByVenueId(venueId), HttpStatus.OK);
     }
 
     @PostMapping("/candidate-cv")
-    public ResponseEntity saveNewCandidateCv(@RequestPart CandidateDto candidateDto, @RequestPart("file")MultipartFile[] files) throws IOException {
-        candidateService.saveCandidateCv(candidateDto,files);
+    public ResponseEntity saveNewCandidateCv(@RequestPart CandidateDto candidateDto, @RequestPart("file") MultipartFile[] files) throws IOException {
+        candidateService.saveCandidateCv(candidateDto, files);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

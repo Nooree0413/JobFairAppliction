@@ -13,7 +13,7 @@ public interface ExperienceService {
 
     void saveExperience(ExperienceDto experienceDto);
 
-    void deleteExperience(Long experienceId) throws  ExperienceNotFoundException;
+    void deleteExperience(Long experienceId) throws ExperienceNotFoundException;
 
     void updateExperience(ExperienceDto experienceDto) throws ExperienceNotFoundException;
 

@@ -5,7 +5,6 @@ import com.elca.jobfairmanagementsystem.exception.CandidateSkillNotFoundExceptio
 import com.elca.jobfairmanagementsystem.service.CandidateSkillService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class CandidateSkillController {
     }
 
     @GetMapping("/{candidateSkillId}")
-    public ResponseEntity<CandidateSkillDto> getCandidateSkillById(@PathVariable Long candidateSkillId) throws CandidateSkillNotFoundException{
+    public ResponseEntity<CandidateSkillDto> getCandidateSkillById(@PathVariable Long candidateSkillId) throws CandidateSkillNotFoundException {
         return new ResponseEntity<>(candidateSkillService.findCandidateSkillById(candidateSkillId), HttpStatus.OK);
     }
 
@@ -37,13 +36,13 @@ public class CandidateSkillController {
     }
 
     @PutMapping("/{candidateSkillId}")
-    public ResponseEntity updateCandidateSkill(@RequestBody CandidateSkillDto candidateSkillDto) throws CandidateSkillNotFoundException{
+    public ResponseEntity updateCandidateSkill(@RequestBody CandidateSkillDto candidateSkillDto) throws CandidateSkillNotFoundException {
         candidateSkillService.updateCandidateSkill(candidateSkillDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/{candidateSkillId}")
-    public ResponseEntity deleteCandidateSkill(@PathVariable Long candidateSkillId) throws CandidateSkillNotFoundException{
+    public ResponseEntity deleteCandidateSkill(@PathVariable Long candidateSkillId) throws CandidateSkillNotFoundException {
         candidateSkillService.deleteCandidateSkill(candidateSkillId);
         return new ResponseEntity(HttpStatus.OK);
     }

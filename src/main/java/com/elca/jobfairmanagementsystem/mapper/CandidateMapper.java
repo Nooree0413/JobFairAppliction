@@ -1,10 +1,9 @@
 package com.elca.jobfairmanagementsystem.mapper;
 
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-
 import com.elca.jobfairmanagementsystem.dto.CandidateDto;
 import com.elca.jobfairmanagementsystem.entity.Candidate;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**

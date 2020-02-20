@@ -1,6 +1,5 @@
 package com.elca.jobfairmanagementsystem.repository;
 
-import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
 import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,32 +11,32 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface VenueJobRepository extends JpaRepository<VenueJob,Long>, QuerydslPredicateExecutor<VenueJob> {
+public interface VenueJobRepository extends JpaRepository<VenueJob, Long>, QuerydslPredicateExecutor<VenueJob> {
     @Query("SELECT a FROM VenueJob a WHERE a.venue.venueId =:venueId")
-    Page<VenueJob> findByVenue (long venueId, Pageable pageable);
+    Page<VenueJob> findByVenue(long venueId, Pageable pageable);
 
     @Query("SELECT a FROM VenueJob a WHERE a.venue.venueId =:venueId AND a.job.category =:category")
-    List<VenueJob> findByVenueIdAndCategory (long venueId,String category);
+    List<VenueJob> findByVenueIdAndCategory(long venueId, String category);
 
     @Query("SELECT a FROM VenueJob a WHERE a.job.level =:level AND a.venue.venueId=:venueId")
-    List<VenueJob> findByLevel (long venueId,String level);
+    List<VenueJob> findByLevel(long venueId, String level);
 
     @Query("SELECT a FROM VenueJob a WHERE a.job.title LIKE CONCAT('%',:title,'%') AND a.venue.venueId=:venueId")
-    List<VenueJob> findByTitle (long venueId,String title);
+    List<VenueJob> findByTitle(long venueId, String title);
 
     @Query("SELECT a FROM VenueJob a WHERE a.job.title LIKE CONCAT('%',:title,'%') AND a.venue.venueId=:venueId AND a.job.category = :category")
-    List<VenueJob> findByTitleAndCategory (long venueId,String title,String category);
+    List<VenueJob> findByTitleAndCategory(long venueId, String title, String category);
 
     @Query("SELECT a FROM VenueJob a WHERE a.job.level =:level AND a.venue.venueId=:venueId AND a.job.category = :category")
-    List<VenueJob> findByLevelAndCategory (long venueId,String level,String category);
+    List<VenueJob> findByLevelAndCategory(long venueId, String level, String category);
 
     @Query("SELECT a FROM VenueJob a WHERE a.venue.venueId =:venueId AND a.job.jobId =:jobId")
-    VenueJob findByVenueIdAndJobId (long venueId,long jobId);
+    VenueJob findByVenueIdAndJobId(long venueId, long jobId);
 
     @Transactional
     @Modifying
     @Query("DELETE FROM VenueJob a WHERE a.venue.venueId =:venueId AND a.job.jobId =:jobId")
-    void deleteVenueJobByVenueIdAndJobId(long venueId,long jobId);
+    void deleteVenueJobByVenueIdAndJobId(long venueId, long jobId);
 
     @Query("SELECT count(a) FROM VenueJob a WHERE a.venue.venueId =:venueId")
     Integer findCountOfJobsByVenue(long venueId);

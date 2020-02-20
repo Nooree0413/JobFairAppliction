@@ -31,7 +31,7 @@ public class SkillServiceImpl implements SkillService {
     @Override
     public List<SkillDto> findAllSkills() throws SkillNotFoundException {
         List<Skill> skills = skillRepository.findAll();
-        if(skills.size() != 0){
+        if (skills.size() != 0) {
             return skills.stream().map(skillMapper::skillEntityToDto).collect(Collectors.toList());
         } else {
             throw new SkillNotFoundException(ErrorMessages.NO_SKILL_AVAILABLE.toString());

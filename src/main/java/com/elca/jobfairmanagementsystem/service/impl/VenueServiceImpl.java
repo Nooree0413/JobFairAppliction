@@ -45,9 +45,9 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public VenuePaginationDto findAllVenue(Pageable pageable) throws VenueNotFoundException {
         Page<Venue> getVenueList = venueRepository.findAll(pageable);
-        if(getVenueList == null){
+        if (getVenueList == null) {
             throw new VenueNotFoundException(ErrorMessages.NO_VENUE_AVAILABLE.toString());
-        }else{
+        } else {
             List<VenueDto> venueDtos = getVenueList.stream().map(venueMapper::venueEntityToDto).collect(Collectors.toList());
             VenuePaginationDto venuePaginationDto = new VenuePaginationDto();
             venuePaginationDto.setVenueDtoList(venueDtos);

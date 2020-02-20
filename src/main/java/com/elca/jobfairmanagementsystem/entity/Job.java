@@ -1,12 +1,11 @@
 package com.elca.jobfairmanagementsystem.entity;
 
-import javax.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 /**
- *
  * @author ghr
  */
 @Setter

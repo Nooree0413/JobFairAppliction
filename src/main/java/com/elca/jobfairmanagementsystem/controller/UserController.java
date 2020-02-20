@@ -1,11 +1,9 @@
 package com.elca.jobfairmanagementsystem.controller;
 
 import com.elca.jobfairmanagementsystem.dto.UserDto;
-import com.elca.jobfairmanagementsystem.dto.UserRoleDto;
 import com.elca.jobfairmanagementsystem.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +19,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity saveUser(@RequestBody UserDto userDto){
+    public ResponseEntity saveUser(@RequestBody UserDto userDto) {
         userService.saveUser(userDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }

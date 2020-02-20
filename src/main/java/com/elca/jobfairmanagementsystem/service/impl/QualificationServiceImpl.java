@@ -45,9 +45,9 @@ public class QualificationServiceImpl implements QualificationService {
     }
 
     @Override
-    public void deleteQualification(Long qualificationId) throws QualificationNotFoundException{
+    public void deleteQualification(Long qualificationId) throws QualificationNotFoundException {
         var qualification = findByQualificationId(qualificationId);
-        if(qualification != null){
+        if (qualification != null) {
             qualificationRepo.deleteById(qualificationId);
         } else {
             throw new QualificationNotFoundException(ErrorMessages.QUALIFICATION_NOT_FOUND.toString());
@@ -68,9 +68,9 @@ public class QualificationServiceImpl implements QualificationService {
     }
 
     @Override
-    public QualificationDto findByQualificationId(Long qualificationId) throws QualificationNotFoundException{
+    public QualificationDto findByQualificationId(Long qualificationId) throws QualificationNotFoundException {
         Optional<Qualification> optionalQualification = qualificationRepo.findById(qualificationId);
-        var qualification = optionalQualification.orElseThrow(()-> new QualificationNotFoundException(ErrorMessages.QUALIFICATION_NOT_FOUND.toString()));
+        var qualification = optionalQualification.orElseThrow(() -> new QualificationNotFoundException(ErrorMessages.QUALIFICATION_NOT_FOUND.toString()));
         return qualificationMapper.qualificationEntityToDto(qualification);
     }
 }

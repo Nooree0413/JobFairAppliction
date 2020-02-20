@@ -7,7 +7,6 @@ import com.elca.jobfairmanagementsystem.service.VenueService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,34 +18,34 @@ public class VenueController {
 
     private final VenueService venueService;
 
-    public VenueController(VenueService venueService){
+    public VenueController(VenueService venueService) {
         this.venueService = venueService;
     }
 
     @GetMapping("/all")
     public ResponseEntity<VenuePaginationDto> getAllVenues(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws VenueNotFoundException {
-        return new ResponseEntity<>(venueService.findAllVenue(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
+        return new ResponseEntity<>(venueService.findAllVenue(PageRequest.of(pageNumber, pageSize)), HttpStatus.OK);
     }
 
     @GetMapping("/{venueId}")
-    public ResponseEntity<VenueDto> getVenueById(@PathVariable Long venueId) throws VenueNotFoundException{
-        return new ResponseEntity<>(venueService.findVenueById(venueId),HttpStatus.OK);
+    public ResponseEntity<VenueDto> getVenueById(@PathVariable Long venueId) throws VenueNotFoundException {
+        return new ResponseEntity<>(venueService.findVenueById(venueId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity saveVenue(@RequestBody VenueDto venueDto){
+    public ResponseEntity saveVenue(@RequestBody VenueDto venueDto) {
         venueService.saveVenue(venueDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PutMapping("/{venueId}")
-    public ResponseEntity updateVenue(@RequestBody VenueDto venueDto) throws VenueNotFoundException{
+    public ResponseEntity updateVenue(@RequestBody VenueDto venueDto) throws VenueNotFoundException {
         venueService.updateVenue(venueDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/{venueId}")
-    public ResponseEntity deleteVenue(@PathVariable Long venueId) throws VenueNotFoundException{
+    public ResponseEntity deleteVenue(@PathVariable Long venueId) throws VenueNotFoundException {
         venueService.deleteVenue(venueId);
         return new ResponseEntity(HttpStatus.OK);
     }

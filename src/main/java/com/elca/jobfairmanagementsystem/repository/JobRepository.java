@@ -11,12 +11,12 @@ import java.util.List;
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long>, QuerydslPredicateExecutor<Job> {
     @Query("SELECT a FROM Job a WHERE a.title LIKE CONCAT('%',:title,'%')")
-    List<Job> findByTitle (String title);
+    List<Job> findByTitle(String title);
 
     @Query("SELECT j FROM Job j WHERE j.level =:level")
-    List<Job> findByLevel (String level);
+    List<Job> findByLevel(String level);
 
-    List<Job> findByCategory (String category);
+    List<Job> findByCategory(String category);
 
     @Query("SELECT count(a) FROM Job a")
     Integer findCountOfAllJobs();

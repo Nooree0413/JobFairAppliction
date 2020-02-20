@@ -19,52 +19,52 @@ import java.util.List;
 public class JobController {
     private final JobService jobService;
 
-    public JobController(JobService jobService){
+    public JobController(JobService jobService) {
         this.jobService = jobService;
     }
 
     @PreAuthorize("hasRole('ROLE_MANAGER') OR hasRole('ROLE_HR')")
     @GetMapping("/all")
     public ResponseEntity<JobPaginationDto> getAllJobs(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws JobNotFoundException {
-        return new ResponseEntity<>(jobService.findAllJobs(PageRequest.of(pageNumber,pageSize)), HttpStatus.OK);
+        return new ResponseEntity<>(jobService.findAllJobs(PageRequest.of(pageNumber, pageSize)), HttpStatus.OK);
     }
 
     @GetMapping("/{jobId}")
-    public ResponseEntity<JobDto> getJobById(@PathVariable Long jobId) throws JobNotFoundException{
-        return new ResponseEntity<>(jobService.findJobById(jobId),HttpStatus.OK);
+    public ResponseEntity<JobDto> getJobById(@PathVariable Long jobId) throws JobNotFoundException {
+        return new ResponseEntity<>(jobService.findJobById(jobId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity saveJob(@RequestBody JobDto jobDto){
+    public ResponseEntity saveJob(@RequestBody JobDto jobDto) {
         jobService.saveJob(jobDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PutMapping("/{jobId}")
-    public ResponseEntity updateJob(@RequestBody JobDto jobDto) throws JobNotFoundException{
+    public ResponseEntity updateJob(@RequestBody JobDto jobDto) throws JobNotFoundException {
         jobService.updateJob(jobDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("/{jobId}")
-    public ResponseEntity deleteJob(@PathVariable Long jobId) throws JobNotFoundException{
+    public ResponseEntity deleteJob(@PathVariable Long jobId) throws JobNotFoundException {
         jobService.deleteJob(jobId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<JobDto>> getJobByCategory(@PathVariable String category) throws JobNotFoundException{
-        return new ResponseEntity<>(jobService.findJobByCategory(category),HttpStatus.OK);
+    public ResponseEntity<List<JobDto>> getJobByCategory(@PathVariable String category) throws JobNotFoundException {
+        return new ResponseEntity<>(jobService.findJobByCategory(category), HttpStatus.OK);
     }
 
     @GetMapping("/priority")
-    public ResponseEntity <List<JobDto>> getJobByPriority(@PathVariable String jobId) throws JobNotFoundException{
-        return new ResponseEntity<>(jobService.findJobsAppliedById(jobId),HttpStatus.OK);
+    public ResponseEntity<List<JobDto>> getJobByPriority(@PathVariable String jobId) throws JobNotFoundException {
+        return new ResponseEntity<>(jobService.findJobsAppliedById(jobId), HttpStatus.OK);
     }
 
     @GetMapping("/category/count")
-    public ResponseEntity <JobCategoryDto> getJobCategoryCount() throws JobNotFoundException{
-        return new ResponseEntity<>(jobService.findCountJobCategory(),HttpStatus.OK);
+    public ResponseEntity<JobCategoryDto> getJobCategoryCount() throws JobNotFoundException {
+        return new ResponseEntity<>(jobService.findCountJobCategory(), HttpStatus.OK);
     }
 
     @GetMapping("/title")
@@ -79,6 +79,6 @@ public class JobController {
 
     @GetMapping("/filter")
     public ResponseEntity<JobPaginationDto> getFilter(@RequestParam(required = false) String title, @RequestParam String position, @RequestParam String category, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) throws JobNotFoundException {
-        return new ResponseEntity<>(jobService.findListOfJobs(title, position, category,pageNumber, pageSize), HttpStatus.OK);
+        return new ResponseEntity<>(jobService.findListOfJobs(title, position, category, pageNumber, pageSize), HttpStatus.OK);
     }
 }

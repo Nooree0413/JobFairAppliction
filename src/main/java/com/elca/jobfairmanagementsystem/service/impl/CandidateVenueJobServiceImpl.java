@@ -10,11 +10,7 @@ import com.elca.jobfairmanagementsystem.repository.CandidateVenueJobRepository;
 import com.elca.jobfairmanagementsystem.repository.JobRepository;
 import com.elca.jobfairmanagementsystem.repository.VenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.CandidateVenueJobService;
-
-
-import com.elca.jobfairmanagementsystem.service.JobService;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.StringPath;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -79,12 +75,12 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
 
     @Override
     public CandidateVenueJobPaginationDto findAllCandidateByVenueId(Long venueId, Pageable pageable) throws CandidateVenueJobNotFoundException {
-        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findCandidatesByVenueId(venueId,pageable);
+        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findCandidatesByVenueId(venueId, pageable);
         return getCandidateVenueJobPaginationDto(candidateVenueJobs);
     }
 
     @Override
-    public CandidateVenueJobCountAllDto countCandidatesByVenue(Long venueId) throws CandidateVenueJobNotFoundException{
+    public CandidateVenueJobCountAllDto countCandidatesByVenue(Long venueId) throws CandidateVenueJobNotFoundException {
         Integer counts = candidateVenueJobRepository.findCountOfCandidatesByVenueId(venueId);
         CandidateVenueJobCountAllDto candidateVenueJobCountAllDto = new CandidateVenueJobCountAllDto();
         candidateVenueJobCountAllDto.setCountCandidates(counts);
@@ -130,9 +126,9 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     @Override
     public CandidateVenueJobPaginationDto findAllCandidateVenueJobByDESC(Pageable pageable) throws CandidateVenueJobNotFoundException {
         Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findAllCandidatesByDESC(pageable);
-        if(candidateVenueJobs == null){
+        if (candidateVenueJobs == null) {
             throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
-        } else{
+        } else {
             return getCandidateVenueJobPaginationDto(candidateVenueJobs);
         }
     }
@@ -140,29 +136,29 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     @Override
     public CandidateVenueJobPaginationDto findAllCandidateVenueJobByASC(Pageable pageable) throws CandidateVenueJobNotFoundException {
         Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findAllCandidatesByASC(pageable);
-        if(candidateVenueJobs == null){
+        if (candidateVenueJobs == null) {
             throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
-        } else{
+        } else {
             return getCandidateVenueJobPaginationDto(candidateVenueJobs);
         }
     }
 
     @Override
     public CandidateVenueJobPaginationDto findCandidateVenueJobByCurrentLevel(String currentLevel, Pageable pageable) throws CandidateVenueJobNotFoundException {
-        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findByCurrentLevel(currentLevel,pageable);
-        if(candidateVenueJobs == null){
+        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findByCurrentLevel(currentLevel, pageable);
+        if (candidateVenueJobs == null) {
             throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
-        } else{
+        } else {
             return getCandidateVenueJobPaginationDto(candidateVenueJobs);
         }
     }
 
     @Override
     public CandidateVenueJobPaginationDto findCandidateVenueJobByScreeningStatus(String screeningStatus, Pageable pageable) throws CandidateVenueJobNotFoundException {
-        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findByScreeningStatus(screeningStatus,pageable);
-        if(candidateVenueJobs == null){
+        Page<CandidateVenueJob> candidateVenueJobs = candidateVenueJobRepository.findByScreeningStatus(screeningStatus, pageable);
+        if (candidateVenueJobs == null) {
             throw new CandidateVenueJobNotFoundException(ErrorMessages.NO_CANDIDATE_VENUE_JOB_AVAILABLE.toString());
-        } else{
+        } else {
             return getCandidateVenueJobPaginationDto(candidateVenueJobs);
         }
     }
@@ -171,16 +167,16 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     public DashboardDto dashboardStatisticByVenue(Long venueId) throws CandidateVenueJobNotFoundException {
 
         Integer totalJobsByVenue = venueJobRepository.findCountOfJobsByVenue(venueId);
-        Integer totalProceedScreeningStatusByVenue = candidateVenueJobRepository.findCountOfScreeningStatusByVenueId(venueId,"proceed-to-next-interview");
-        Integer totalRejectedScreeningStatusByVenue = candidateVenueJobRepository.findCountOfScreeningStatusByVenueId(venueId,"Rejected");
-        Integer totalAcceptedScreeningStatusByVenue = candidateVenueJobRepository.findCountOfScreeningStatusByVenueId(venueId,"Accepted");
+        Integer totalProceedScreeningStatusByVenue = candidateVenueJobRepository.findCountOfScreeningStatusByVenueId(venueId, "proceed-to-next-interview");
+        Integer totalRejectedScreeningStatusByVenue = candidateVenueJobRepository.findCountOfScreeningStatusByVenueId(venueId, "Rejected");
+        Integer totalAcceptedScreeningStatusByVenue = candidateVenueJobRepository.findCountOfScreeningStatusByVenueId(venueId, "Accepted");
 
-        Integer totalCandidatesPerSoftwareEngineerByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"software-engineer");
-        Integer totalCandidatesPerBusinessAnalystByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"business-analyst");
-        Integer totalCandidatesPerQualityAssuranceByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"quality-assurance");
-        Integer totalCandidatesPerManagerByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"manager");
-        Integer totalCandidatesPerHumanResourceByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"human-resource");
-        Integer totalCandidatesPerArchitectByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId,"architect");
+        Integer totalCandidatesPerSoftwareEngineerByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId, "software-engineer");
+        Integer totalCandidatesPerBusinessAnalystByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId, "business-analyst");
+        Integer totalCandidatesPerQualityAssuranceByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId, "quality-assurance");
+        Integer totalCandidatesPerManagerByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId, "manager");
+        Integer totalCandidatesPerHumanResourceByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId, "human-resource");
+        Integer totalCandidatesPerArchitectByVenue = candidateVenueJobRepository.findCountOfCandidatesPerJobCategoryByVenue(venueId, "architect");
 
         DashboardDto dashboardDto = new DashboardDto();
         dashboardDto.setTotalJobsByVenue(totalJobsByVenue);
@@ -195,18 +191,18 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         dashboardDto.setTotalCandidatesPerArchitectByVenue(totalCandidatesPerArchitectByVenue);
 
         CandidatesPerMonthDto candidatesPerMonthDto = new CandidatesPerMonthDto();
-        candidatesPerMonthDto.setTotalCandidatesForJanuary(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,1));
-        candidatesPerMonthDto.setTotalCandidatesForFebruary(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,2));
-        candidatesPerMonthDto.setTotalCandidatesForMarch(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,3));
-        candidatesPerMonthDto.setTotalCandidatesForApril(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,4));
-        candidatesPerMonthDto.setTotalCandidatesForMay(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,5));
-        candidatesPerMonthDto.setTotalCandidatesForJune(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,6));
-        candidatesPerMonthDto.setTotalCandidatesForJuly(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,7));
-        candidatesPerMonthDto.setTotalCandidatesForAugust(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,8));
-        candidatesPerMonthDto.setTotalCandidatesForSeptember(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,9));
-        candidatesPerMonthDto.setTotalCandidatesForOctober(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,10));
-        candidatesPerMonthDto.setTotalCandidatesForNovember(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,11));
-        candidatesPerMonthDto.setTotalCandidatesForDecember(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId,12));
+        candidatesPerMonthDto.setTotalCandidatesForJanuary(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 1));
+        candidatesPerMonthDto.setTotalCandidatesForFebruary(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 2));
+        candidatesPerMonthDto.setTotalCandidatesForMarch(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 3));
+        candidatesPerMonthDto.setTotalCandidatesForApril(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 4));
+        candidatesPerMonthDto.setTotalCandidatesForMay(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 5));
+        candidatesPerMonthDto.setTotalCandidatesForJune(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 6));
+        candidatesPerMonthDto.setTotalCandidatesForJuly(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 7));
+        candidatesPerMonthDto.setTotalCandidatesForAugust(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 8));
+        candidatesPerMonthDto.setTotalCandidatesForSeptember(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 9));
+        candidatesPerMonthDto.setTotalCandidatesForOctober(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 10));
+        candidatesPerMonthDto.setTotalCandidatesForNovember(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 11));
+        candidatesPerMonthDto.setTotalCandidatesForDecember(candidateVenueJobRepository.findCandidatesPerMonthByVenue(venueId, 12));
         dashboardDto.setTotalCandidatesPerMonth(candidatesPerMonthDto);
         return dashboardDto;
     }
@@ -258,10 +254,10 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public CandidateVenueJobPaginationDto findListOfCandidatesByFilters(Long venueId, String screeningStatus, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize,String lastName,String level) throws CandidateVenueJobNotFoundException {
+    public CandidateVenueJobPaginationDto findListOfCandidatesByFilters(Long venueId, String screeningStatus, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize, String lastName, String level) throws CandidateVenueJobNotFoundException {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sort);
-        BooleanBuilder predicate = buildCandidatePredicate(screeningStatus, venueId,lastName,level);
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
+        BooleanBuilder predicate = buildCandidatePredicate(screeningStatus, venueId, lastName, level);
         Page<CandidateVenueJob> candidateVenueJobDto = candidateVenueJobRepository.findAll(predicate, pageRequest);
         List<CandidateVenueJobDto> candidateVenueJobDtos = candidateVenueJobDto.stream().map(candidateVenueJobMapper::candidateVenueJobEntityToDto).collect(Collectors.toList());
         var candidateVenueJobPaginationDto = new CandidateVenueJobPaginationDto();
@@ -271,7 +267,7 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         return candidateVenueJobPaginationDto;
     }
 
-    private BooleanBuilder buildCandidatePredicate(String screeningStatus, Long venueId,String lastName,String level) {
+    private BooleanBuilder buildCandidatePredicate(String screeningStatus, Long venueId, String lastName, String level) {
         var qCandidateVenueJob = QCandidateVenueJob.candidateVenueJob1;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (!screeningStatus.equals("All")) {
@@ -280,10 +276,10 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         if (venueId != 0) {
             booleanBuilder.and(qCandidateVenueJob.venueJob.venue.venueId.eq(venueId));
         }
-        if (!lastName.equals("")){
+        if (!lastName.equals("")) {
             booleanBuilder.and(qCandidateVenueJob.candidate.lastName.contains(lastName));
         }
-        if (!level.equals("All")){
+        if (!level.equals("All")) {
             booleanBuilder.and(qCandidateVenueJob.candidate.currentLevel.eq(level));
         }
         return booleanBuilder;

@@ -59,11 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/venue/active/true","/venue-job/jobs/title","/venue-job/jobs","/venue-job/jobs/category/title","/venue-job/jobs/category","/venue-job/jobs/level","/skill/all","/candidate","/candidate/candidate-cv","/job/category/count","/venue-job/jobs/category/level","/venue-job/filter");
+        web.ignoring().antMatchers("/venue/active/true", "/venue-job/jobs/title", "/venue-job/jobs", "/venue-job/jobs/category/title", "/venue-job/jobs/category", "/venue-job/jobs/level", "/skill/all", "/candidate", "/candidate/candidate-cv", "/job/category/count", "/venue-job/jobs/category/level", "/venue-job/filter");
     }
 
     @Bean
-    public BCryptPasswordEncoder encoder(){
+    public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 

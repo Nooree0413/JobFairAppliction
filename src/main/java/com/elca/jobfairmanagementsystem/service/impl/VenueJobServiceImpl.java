@@ -1,13 +1,13 @@
 package com.elca.jobfairmanagementsystem.service.impl;
 
-import com.elca.jobfairmanagementsystem.dto.*;
-import com.elca.jobfairmanagementsystem.entity.CandidateVenueJob;
+import com.elca.jobfairmanagementsystem.dto.JobDto;
+import com.elca.jobfairmanagementsystem.dto.VenueJobDto;
+import com.elca.jobfairmanagementsystem.dto.VenueJobMultipleSaveDto;
+import com.elca.jobfairmanagementsystem.dto.VenueJobPaginationDto;
 import com.elca.jobfairmanagementsystem.entity.QVenueJob;
-import com.elca.jobfairmanagementsystem.entity.Venue;
 import com.elca.jobfairmanagementsystem.entity.VenueJob;
 import com.elca.jobfairmanagementsystem.exception.ErrorMessages;
 import com.elca.jobfairmanagementsystem.exception.VenueJobNotFoundException;
-import com.elca.jobfairmanagementsystem.mapper.JobMapper;
 import com.elca.jobfairmanagementsystem.mapper.VenueJobMapper;
 import com.elca.jobfairmanagementsystem.repository.VenueJobRepository;
 import com.elca.jobfairmanagementsystem.service.VenueJobService;
@@ -28,12 +28,10 @@ public class VenueJobServiceImpl implements VenueJobService {
 
     private final VenueJobRepository venueJobRepository;
     private final VenueJobMapper venueJobMapper;
-    private final JobMapper jobMapper;
 
-    public VenueJobServiceImpl(VenueJobRepository venueJobRepository, VenueJobMapper venueJobMapper, JobMapper jobMapper) {
+    public VenueJobServiceImpl(VenueJobRepository venueJobRepository, VenueJobMapper venueJobMapper) {
         this.venueJobMapper = venueJobMapper;
         this.venueJobRepository = venueJobRepository;
-        this.jobMapper = jobMapper;
     }
 
     @Override
@@ -86,7 +84,7 @@ public class VenueJobServiceImpl implements VenueJobService {
 
     @Override
     public VenueJobPaginationDto findByVenueId(long venueId, Pageable pageable) throws VenueJobNotFoundException {
-        Page<VenueJob> findJobsByVenue = venueJobRepository.findByVenue(venueId,pageable);
+        Page<VenueJob> findJobsByVenue = venueJobRepository.findByVenue(venueId, pageable);
         var jobsList = findJobsByVenue.stream().map(venueJobMapper::venueJobEntityToDto).collect(Collectors.toList());
         var paginationVenueJob = new VenueJobPaginationDto();
         paginationVenueJob.setVenueJobDtoList(jobsList);
@@ -97,7 +95,7 @@ public class VenueJobServiceImpl implements VenueJobService {
 
     @Override
     public List<VenueJobDto> findByVenueIdAndCategory(long venueId, String category) throws VenueJobNotFoundException {
-        List<VenueJob> findJobsByVenueAndCategory = venueJobRepository.findByVenueIdAndCategory(venueId,category);
+        List<VenueJob> findJobsByVenueAndCategory = venueJobRepository.findByVenueIdAndCategory(venueId, category);
         if (findJobsByVenueAndCategory.size() != 0) {
             return findJobsByVenueAndCategory.stream()
                     .map(venueJobMapper::venueJobEntityToDto)
@@ -108,8 +106,8 @@ public class VenueJobServiceImpl implements VenueJobService {
     }
 
     @Override
-    public List<VenueJobDto> findByLevel(long venueId,String level) throws VenueJobNotFoundException {
-        List<VenueJob> findJobslevel = venueJobRepository.findByLevel(venueId,level);
+    public List<VenueJobDto> findByLevel(long venueId, String level) throws VenueJobNotFoundException {
+        List<VenueJob> findJobslevel = venueJobRepository.findByLevel(venueId, level);
         if (findJobslevel.size() != 0) {
             return findJobslevel.stream()
                     .map(venueJobMapper::venueJobEntityToDto)
@@ -133,7 +131,7 @@ public class VenueJobServiceImpl implements VenueJobService {
 
     @Override
     public List<VenueJobDto> findByTitleAndCategory(long venueId, String title, String category) throws VenueJobNotFoundException {
-        List<VenueJob> findJobsByTitle = venueJobRepository.findByTitleAndCategory(venueId, title,category);
+        List<VenueJob> findJobsByTitle = venueJobRepository.findByTitleAndCategory(venueId, title, category);
         if (findJobsByTitle.size() != 0) {
             return findJobsByTitle.stream()
                     .map(venueJobMapper::venueJobEntityToDto)
@@ -145,7 +143,7 @@ public class VenueJobServiceImpl implements VenueJobService {
 
     @Override
     public List<VenueJobDto> findByLevelAndCategory(long venueId, String level, String category) throws VenueJobNotFoundException {
-        List<VenueJob> findJobsByLevel = venueJobRepository.findByLevelAndCategory(venueId,level,category);
+        List<VenueJob> findJobsByLevel = venueJobRepository.findByLevelAndCategory(venueId, level, category);
         if (findJobsByLevel.size() != 0) {
             return findJobsByLevel.stream()
                     .map(venueJobMapper::venueJobEntityToDto)
@@ -162,28 +160,29 @@ public class VenueJobServiceImpl implements VenueJobService {
     }
 
     @Override
-    public void saveMultipleVenueJobs(VenueJobMultipleSaveDto venueJobMultipleSaveDto) throws VenueJobNotFoundException{
+    public void saveMultipleVenueJobs(VenueJobMultipleSaveDto venueJobMultipleSaveDto) throws VenueJobNotFoundException {
         List<JobDto> jobDtos = venueJobMultipleSaveDto.getJob();
         VenueJobDto venueJobDto = new VenueJobDto();
-        if(jobDtos == null){
+        if (jobDtos == null) {
             throw new VenueJobNotFoundException(ErrorMessages.NO_VENUE_JOB_AVAILABLE.toString());
-        }else {
-            jobDtos.forEach(saveVenueJob ->{
+        } else {
+            jobDtos.forEach(saveVenueJob -> {
 
                 Long jobId = saveVenueJob.getJobId();
                 Long venueId = venueJobMultipleSaveDto.getVenue().getVenueId();
 
-                if(saveVenueJob.getChecked()){
-                    VenueJob checkVenueJob = venueJobRepository.findByVenueIdAndJobId(venueId,jobId);
-                    if(checkVenueJob == null){
+                if (saveVenueJob.getChecked()) {
+                    VenueJob checkVenueJob = venueJobRepository.findByVenueIdAndJobId(venueId, jobId);
+                    if (checkVenueJob == null) {
                         venueJobDto.setJob(saveVenueJob);
                         venueJobDto.setVenue(venueJobMultipleSaveDto.getVenue());
                         venueJobDto.setVenueJobDate(venueJobMultipleSaveDto.getVenueJobDate());
                         VenueJob venueJob = venueJobMapper.venueJobDtoToEntity(venueJobDto);
                         venueJobRepository.save(venueJob);
                     }
-                } if(!saveVenueJob.getChecked()){
-                    deleteVenueJobByJobIdAndVenueId(venueId,jobId);
+                }
+                if (!saveVenueJob.getChecked()) {
+                    deleteVenueJobByJobIdAndVenueId(venueId, jobId);
                 }
             });
         }
@@ -191,13 +190,13 @@ public class VenueJobServiceImpl implements VenueJobService {
 
     @Override
     public void deleteVenueJobByJobIdAndVenueId(long venueId, long jobId) {
-        venueJobRepository.deleteVenueJobByVenueIdAndJobId(venueId,jobId);
+        venueJobRepository.deleteVenueJobByVenueIdAndJobId(venueId, jobId);
     }
 
     @Override
-    public VenueJobPaginationDto findListOfJobs(String title, String position, String category,long venueId,Integer pageNumber, Integer pageSize) throws VenueJobNotFoundException {
+    public VenueJobPaginationDto findListOfJobs(String title, String position, String category, long venueId, Integer pageNumber, Integer pageSize) throws VenueJobNotFoundException {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
-        BooleanBuilder predicate = buildVenueJobPredicate(title, position,category,venueId);
+        BooleanBuilder predicate = buildVenueJobPredicate(title, position, category, venueId);
         Page<VenueJob> venueJobs = venueJobRepository.findAll(predicate, pageRequest);
         List<VenueJobDto> venueJobDtos = venueJobs.stream().map(venueJobMapper::venueJobEntityToDto).collect(Collectors.toList());
         var venueJobPagination = new VenueJobPaginationDto();
@@ -207,19 +206,19 @@ public class VenueJobServiceImpl implements VenueJobService {
         return venueJobPagination;
     }
 
-    private BooleanBuilder buildVenueJobPredicate(String title, String position, String category,long venueId) {
+    private BooleanBuilder buildVenueJobPredicate(String title, String position, String category, long venueId) {
         var qVenueJob = QVenueJob.venueJob;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if(!title.equals("")){
+        if (!title.equals("")) {
             booleanBuilder.and(qVenueJob.job.title.contains(title));
         }
-        if(!position.equals("All")){
+        if (!position.equals("All")) {
             booleanBuilder.and(qVenueJob.job.level.eq(position));
         }
-        if(!category.equals("All")){
+        if (!category.equals("All")) {
             booleanBuilder.and(qVenueJob.job.category.eq(category));
         }
-        if(venueId != 0){
+        if (venueId != 0) {
             booleanBuilder.and(qVenueJob.venue.venueId.eq(venueId));
         }
         return booleanBuilder;

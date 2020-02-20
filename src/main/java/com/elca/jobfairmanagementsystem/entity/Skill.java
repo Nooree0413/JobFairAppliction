@@ -6,7 +6,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- *
  * @author bfk
  */
 
@@ -21,5 +20,5 @@ public class Skill {
     private Long skillId;
 
     @Column(name = "skill_name")
-    private  String skillName;
+    private String skillName;
 }

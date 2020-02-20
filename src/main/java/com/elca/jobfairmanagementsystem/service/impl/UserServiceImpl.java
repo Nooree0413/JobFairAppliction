@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDto loadUserByVisa(String visa) throws UsernameNotFoundException {
         User user = userRepository.findByVisa(visa);
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password");
         }
         return userMapper.userEntityToDto(user);
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User employee = userRepository.findByVisa(username);
-        if(employee == null){
+        if (employee == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
         return new org.springframework.security.core.userdetails.User(employee.getVisa(), employee.getPassword(), getAuthority());

@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface VenueMapper {
-    Venue venueDtoToEntity (VenueDto venueDto);
-    VenueDto venueEntityToDto (Venue venue);
+    Venue venueDtoToEntity(VenueDto venueDto);
+
+    VenueDto venueEntityToDto(Venue venue);
 }

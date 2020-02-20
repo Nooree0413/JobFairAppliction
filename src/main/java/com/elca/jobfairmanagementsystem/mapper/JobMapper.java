@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface JobMapper {
-    Job jobDtoToEntity (JobDto jobDto);
-    JobDto jobEntityToDto (Job job);
+    Job jobDtoToEntity(JobDto jobDto);
+
+    JobDto jobEntityToDto(Job job);
 }

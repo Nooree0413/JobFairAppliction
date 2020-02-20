@@ -7,5 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface QualificationMapper {
     Qualification qualificationDtoToEntity(QualificationDto qualificationDto);
+
     QualificationDto qualificationEntityToDto(Qualification qualification);
 }

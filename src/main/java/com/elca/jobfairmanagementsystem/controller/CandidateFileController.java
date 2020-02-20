@@ -5,15 +5,8 @@ import com.elca.jobfairmanagementsystem.dto.DownloadDto;
 import com.elca.jobfairmanagementsystem.exception.CandidateNotFoundException;
 import com.elca.jobfairmanagementsystem.exception.FileNotFoundException;
 import com.elca.jobfairmanagementsystem.service.CandidateFileService;
-import lombok.Builder;
-import lombok.Data;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,8 +23,8 @@ public class CandidateFileController {
     }
 
     @PostMapping()
-    public ResponseEntity saveNewCandidateCv(@RequestPart("candidateId") Long candidateId, @RequestPart("file") MultipartFile file,@RequestPart("fileName") String fileName) throws FileNotFoundException, IOException {
-        candidateFileService.saveCandidateCv(file,candidateId,fileName);
+    public ResponseEntity saveNewCandidateCv(@RequestPart("candidateId") Long candidateId, @RequestPart("file") MultipartFile file, @RequestPart("fileName") String fileName) throws FileNotFoundException, IOException {
+        candidateFileService.saveCandidateCv(file, candidateId, fileName);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

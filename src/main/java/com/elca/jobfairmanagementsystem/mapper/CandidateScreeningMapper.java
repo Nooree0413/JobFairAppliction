@@ -6,14 +6,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
- *
  * @author ghr
  */
 @Mapper(componentModel = "spring")
 public interface CandidateScreeningMapper {
     @Mapping(target = "candidate.candidateId", source = "candidateScreeningDto.candidateId")
-    CandidateScreening candidateScreeningDtoToEntity (CandidateScreeningDto candidateScreeningDto);
+    CandidateScreening candidateScreeningDtoToEntity(CandidateScreeningDto candidateScreeningDto);
 
     @Mapping(target = "candidateId", source = "candidateScreening.candidate.candidateId")
-    CandidateScreeningDto candidateScreeningEntityToDto (CandidateScreening candidateScreening);
+    CandidateScreeningDto candidateScreeningEntityToDto(CandidateScreening candidateScreening);
 }

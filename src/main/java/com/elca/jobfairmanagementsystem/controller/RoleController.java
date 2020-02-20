@@ -4,7 +4,6 @@ import com.elca.jobfairmanagementsystem.dto.RoleDto;
 import com.elca.jobfairmanagementsystem.service.RoleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,13 +17,13 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity saveRole(@RequestBody RoleDto roleDto){
+    public ResponseEntity saveRole(@RequestBody RoleDto roleDto) {
         roleService.saveRole(roleDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping("/{roleName}")
-    public ResponseEntity<RoleDto> getRoleByName(@PathVariable String roleName){
-        return new ResponseEntity<>(roleService.getRoleDetailsByRoleName(roleName),HttpStatus.OK);
+    public ResponseEntity<RoleDto> getRoleByName(@PathVariable String roleName) {
+        return new ResponseEntity<>(roleService.getRoleDetailsByRoleName(roleName), HttpStatus.OK);
     }
 }

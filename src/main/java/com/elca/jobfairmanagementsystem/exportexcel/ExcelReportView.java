@@ -15,7 +15,7 @@ import java.util.List;
 
 @UtilityClass
 public class ExcelReportView {
-    public File buildExcelDocument(List<ExcelDto> excelDtos){
+    public File buildExcelDocument(List<ExcelDto> excelDtos) {
         try {
             @Cleanup Workbook workbook = new HSSFWorkbook();
             Sheet sheet = workbook.createSheet("Candidate Data");

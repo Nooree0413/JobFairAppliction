@@ -22,9 +22,9 @@ public interface VenueJobService {
 
     VenueJobPaginationDto findByVenueId(long venueId, Pageable pageable) throws VenueJobNotFoundException;
 
-    List<VenueJobDto> findByVenueIdAndCategory(long venueId,String category) throws VenueJobNotFoundException;
+    List<VenueJobDto> findByVenueIdAndCategory(long venueId, String category) throws VenueJobNotFoundException;
 
-    List<VenueJobDto> findByLevel(long venueId,String level) throws VenueJobNotFoundException;
+    List<VenueJobDto> findByLevel(long venueId, String level) throws VenueJobNotFoundException;
 
     List<VenueJobDto> findByTitle(long venueId, String title) throws VenueJobNotFoundException;
 
@@ -32,11 +32,11 @@ public interface VenueJobService {
 
     List<VenueJobDto> findByLevelAndCategory(long venueId, String level, String category) throws VenueJobNotFoundException;
 
-    VenueJob findByVenueIdAndJobId (long venueId,long jobId) throws VenueJobNotFoundException;
+    VenueJob findByVenueIdAndJobId(long venueId, long jobId) throws VenueJobNotFoundException;
 
-    void saveMultipleVenueJobs (VenueJobMultipleSaveDto venueJobMultipleSaveDto) throws VenueJobNotFoundException;
+    void saveMultipleVenueJobs(VenueJobMultipleSaveDto venueJobMultipleSaveDto) throws VenueJobNotFoundException;
 
-    void deleteVenueJobByJobIdAndVenueId(long venueId,long jobId) throws VenueJobNotFoundException;
+    void deleteVenueJobByJobIdAndVenueId(long venueId, long jobId) throws VenueJobNotFoundException;
 
-    VenueJobPaginationDto findListOfJobs(String title,String position,String category,long venueId,Integer pageNumber, Integer pageSize) throws  VenueJobNotFoundException;
+    VenueJobPaginationDto findListOfJobs(String title, String position, String category, long venueId, Integer pageNumber, Integer pageSize) throws VenueJobNotFoundException;
 }

@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/role")
@@ -25,5 +27,10 @@ public class RoleController {
     @GetMapping("/{roleName}")
     public ResponseEntity<RoleDto> getRoleByName(@PathVariable String roleName) {
         return new ResponseEntity<>(roleService.getRoleDetailsByRoleName(roleName), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<RoleDto>> getAllRoles(){
+        return new ResponseEntity<>(roleService.getAllRoles(), HttpStatus.OK);
     }
 }

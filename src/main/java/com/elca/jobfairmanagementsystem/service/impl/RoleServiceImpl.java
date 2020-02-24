@@ -7,6 +7,9 @@ import com.elca.jobfairmanagementsystem.repository.RoleRepository;
 import com.elca.jobfairmanagementsystem.service.RoleService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class RoleServiceImpl implements RoleService {
     private final RoleMapper roleMapper;
@@ -28,5 +31,11 @@ public class RoleServiceImpl implements RoleService {
         Role role = roleRepository.findByName(roleName);
         RoleDto roleDto = roleMapper.roleEntityToDto(role);
         return roleDto;
+    }
+
+    @Override
+    public List<RoleDto> getAllRoles() {
+        List<Role> roles = roleRepository.findAll();
+        return roles.stream().map(roleMapper::roleEntityToDto).collect(Collectors.toList());
     }
 }

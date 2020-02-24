@@ -1,11 +1,17 @@
 package com.elca.jobfairmanagementsystem;
 
+import com.elca.jobfairmanagementsystem.entity.User;
+import com.elca.jobfairmanagementsystem.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class JobFairManagementSystemApplication {
-
+//
 //	@Autowired
 //	private BCryptPasswordEncoder passwordEncoder;
 
@@ -16,11 +22,11 @@ public class JobFairManagementSystemApplication {
 //	public CommandLineRunner init (UserRepository userRepository){
 //		return args -> {
 //			User user = new User();
-//			user.setVisa("abh");
+//			user.setVisa("hans");
 //			user.setActive(true);
-//			user.setPassword(passwordEncoder.encode("abh1234"));
+//			user.setPassword(passwordEncoder.encode("hans1234"));
 //			userRepository.save(user);
-//
+
 //			User user1 = new User();
 //			user1.setVisa("ano");
 //			user1.setActive(true);

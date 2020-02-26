@@ -40,5 +40,5 @@ public interface CandidateVenueJobService {
 
     DashboardDto dashboardStatisticByAllVenue() throws CandidateVenueJobNotFoundException;
 
-    CandidateVenueJobPaginationDto findListOfCandidatesByFilters(Long venueId, String screeningStatus, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize, String lastName, String level) throws CandidateVenueJobNotFoundException;
+    CandidateVenueJobPaginationDto findListOfCandidatesByFilters(Long venueId, String screeningStatus, String sortOrder, String jobType, String sortBy, Integer pageNumber, Integer pageSize, String lastName, String level) throws CandidateVenueJobNotFoundException;
 }

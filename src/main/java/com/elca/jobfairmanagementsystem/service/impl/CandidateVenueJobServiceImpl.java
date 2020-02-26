@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Transactional
 @Service
 public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     private final CandidateVenueJobMapper candidateVenueJobMapper;
@@ -254,10 +253,10 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
     }
 
     @Override
-    public CandidateVenueJobPaginationDto findListOfCandidatesByFilters(Long venueId, String screeningStatus, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize, String lastName, String level) throws CandidateVenueJobNotFoundException {
+    public CandidateVenueJobPaginationDto findListOfCandidatesByFilters(Long venueId, String screeningStatus, String jobType, String sortOrder, String sortBy, Integer pageNumber, Integer pageSize, String lastName, String level) throws CandidateVenueJobNotFoundException {
         Sort sort = Sort.by("ASC".equals(sortOrder) ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sort);
-        BooleanBuilder predicate = buildCandidatePredicate(screeningStatus, venueId, lastName, level);
+        BooleanBuilder predicate = buildCandidatePredicate(screeningStatus, venueId, lastName, level, jobType);
         Page<CandidateVenueJob> candidateVenueJobDto = candidateVenueJobRepository.findAll(predicate, pageRequest);
         List<CandidateVenueJobDto> candidateVenueJobDtos = candidateVenueJobDto.stream().map(candidateVenueJobMapper::candidateVenueJobEntityToDto).collect(Collectors.toList());
         var candidateVenueJobPaginationDto = new CandidateVenueJobPaginationDto();
@@ -267,7 +266,7 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         return candidateVenueJobPaginationDto;
     }
 
-    private BooleanBuilder buildCandidatePredicate(String screeningStatus, Long venueId, String lastName, String level) {
+    private BooleanBuilder buildCandidatePredicate(String screeningStatus, Long venueId, String lastName, String level, String jobType) {
         var qCandidateVenueJob = QCandidateVenueJob.candidateVenueJob1;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (!screeningStatus.equals("All")) {
@@ -281,6 +280,9 @@ public class CandidateVenueJobServiceImpl implements CandidateVenueJobService {
         }
         if (!level.equals("All")) {
             booleanBuilder.and(qCandidateVenueJob.candidate.currentLevel.eq(level));
+        }
+        if (!jobType.equals("All")) {
+            booleanBuilder.and(qCandidateVenueJob.candidate.jobType.eq(jobType));
         }
         return booleanBuilder;
     }

@@ -17,7 +17,7 @@ public class QualificationDto {
 
     private Date graduationDate;
 
-    private String courseName;
+    private String course;
 
     private Long candidateId;
 

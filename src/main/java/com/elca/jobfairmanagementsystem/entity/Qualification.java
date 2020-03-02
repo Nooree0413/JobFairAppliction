@@ -30,4 +30,7 @@ public class Qualification {
     @Temporal(TemporalType.DATE)
     private Date graduationDate;
 
+    @Column(name = "course_name")
+    private String courseName;
+
 }

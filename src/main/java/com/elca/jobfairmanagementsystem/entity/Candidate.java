@@ -66,6 +66,9 @@ public class Candidate {
     @Column(name = "current_academic_year")
     private String currentAcademicYear;
 
+    @Column(name = "agreement", nullable = false)
+    private Boolean agreement;
+
     @OneToMany(
             cascade = {CascadeType.ALL},
             orphanRemoval = true,

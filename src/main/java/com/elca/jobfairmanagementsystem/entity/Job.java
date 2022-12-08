@@ -27,7 +27,7 @@ public class Job {
     @Column
     private String category;
 
-    @Column
+    @Column(length = 10000)
     private String description;
 
     @Column(name = "minimum_experience")
